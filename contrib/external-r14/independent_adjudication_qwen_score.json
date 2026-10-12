@@ -1,0 +1,314 @@
+{
+ "sites_total": 331,
+ "sites_run": 135,
+ "missing": [],
+ "unsure": 3,
+ "unsure_ids": [
+  "py-000",
+  "py-001",
+  "py-002"
+ ],
+ "served_models": [
+  "qwen/qwen3.8-27b"
+ ],
+ "tokens_in": 186807,
+ "tokens_out": 10673,
+ "O1": {
+  "all": {
+   "n": 132,
+   "agree": 113,
+   "agreement_pct": 85.6,
+   "kappa": 0.24,
+   "confusion": {
+    "PASS->PASS": 4,
+    "PASS->WITHDRAWN": 4,
+    "WITHDRAWN->PASS": 10,
+    "WITHDRAWN->UPHELD": 5,
+    "WITHDRAWN->WITHDRAWN": 109
+   }
+  },
+  "python": {
+   "n": 118,
+   "agree": 102,
+   "agreement_pct": 86.4,
+   "kappa": 0.278,
+   "confusion": {
+    "PASS->PASS": 4,
+    "PASS->WITHDRAWN": 4,
+    "WITHDRAWN->PASS": 7,
+    "WITHDRAWN->UPHELD": 5,
+    "WITHDRAWN->WITHDRAWN": 98
+   }
+  },
+  "typescript": {
+   "n": 14,
+   "agree": 11,
+   "agreement_pct": 78.6,
+   "kappa": 0.0,
+   "confusion": {
+    "WITHDRAWN->PASS": 3,
+    "WITHDRAWN->WITHDRAWN": 11
+   }
+  },
+  "first_non_withdrawn": {
+   "n": 8,
+   "agree": 4,
+   "agreement_pct": 50.0,
+   "kappa": 0.0,
+   "confusion": {
+    "PASS->PASS": 4,
+    "PASS->WITHDRAWN": 4
+   }
+  }
+ },
+ "O2": [
+  {
+   "id": "py-000",
+   "subject": "nemo-guardrails",
+   "module": "library/injection_detection/actions.py",
+   "line": 240,
+   "first": "UPHELD",
+   "finding": "omit-mode-detection-discarded",
+   "second": "UNSURE",
+   "second_class": "D",
+   "second_reason": "The site is a structural fact returning 'no modification' when the heuristic found no matches, but it is unclear if the caller treats this false negative as a bypass of the safety decision or merely a clean pass.",
+   "survives": false
+  },
+  {
+   "id": "py-001",
+   "subject": "nemo-guardrails",
+   "module": "library/jailbreak_detection/heuristics/checks.py",
+   "line": 89,
+   "first": "UPHELD",
+   "finding": "short-input-exemption-unaudited",
+   "second": "UNSURE",
+   "second_class": "C",
+   "second_reason": "The site is a fail-open/permissive default for short inputs, but the context does not show if the system audited this skip or if it is treated as a valid 'clean' verdict in the downstream safety decision.",
+   "survives": false
+  },
+  {
+   "id": "py-002",
+   "subject": "llm-guard",
+   "module": "input_scanners/anonymize_helpers/transformers_recognizer.py",
+   "line": 308,
+   "first": "UPHELD",
+   "finding": "silent-ignore-label",
+   "second": "UNSURE",
+   "second_class": "B",
+   "second_reason": "The site implements an operator-configured ignore list (principal waiver) for entity labels, but the provided context does not show if this waiver is audited or if it can reach hard-block categories, which are the remaining R14 obligations for Class B.",
+   "survives": false
+  },
+  {
+   "id": "py-003",
+   "subject": "bandit",
+   "module": "core/tester.py",
+   "line": 94,
+   "first": "PASS",
+   "finding": "nosec-waiver-is-counted",
+   "second": "PASS",
+   "second_class": "B",
+   "second_reason": "The site implements a 'nosec' waiver (Class B) which exempts it from R14-a, and it satisfies R14-b by logging the skip via LOG.debug and R14-c as it does not reach hard-block categories.",
+   "survives": true
+  },
+  {
+   "id": "py-004",
+   "subject": "detect-secrets",
+   "module": "filters/allowlist.py",
+   "line": 20,
+   "first": "PASS",
+   "finding": "allowlist-is-enumerable",
+   "second": "PASS",
+   "second_class": "B",
+   "second_reason": "The function determines if a line is on an operator-configured allowlist (Class B), so R14-a is not engaged, and it correctly returns false for non-matching lines, acting as a structural filter rather than a relaxable safety verdict.",
+   "survives": true
+  },
+  {
+   "id": "py-005",
+   "subject": "detect-secrets",
+   "module": "transformers/config.py",
+   "line": 241,
+   "first": "PASS",
+   "finding": "allowlist-is-enumerable",
+   "second": "PASS",
+   "second_class": "B",
+   "second_reason": "The function validates 'allowlist nextline secret' pragmas (Class B), so R14-a is not engaged, and the logic only operates on config file comments to preserve waiver markers, not to override detection evidence.",
+   "survives": true
+  },
+  {
+   "id": "py-006",
+   "subject": "detect-secrets",
+   "module": "filters/common.py",
+   "line": 56,
+   "first": "PASS",
+   "finding": "verification-suppression-is-bounded",
+   "second": "PASS",
+   "second_class": "B",
+   "second_reason": "The site is a Class B principal waiver (operator-configured verification policy) that correctly defers to the policy strength (bounding the relaxation via comparison) and does not fail R14-b/c as the policy itself is the audit and the mechanism respects the distinct check result.",
+   "survives": true
+  },
+  {
+   "id": "py-052",
+   "subject": "pylint",
+   "module": "lint/message_state_handler.py",
+   "line": 380,
+   "first": "PASS",
+   "finding": "suppression-reported-in-band",
+   "second": "WITHDRAWN",
+   "second_class": "B",
+   "second_reason": "The write sets a flag based on an explicit 'disable-all' pragma, which is a principal waiver (operator-configured allow list) where R14-a is not engaged, and the action is audited via the 'file-ignored' message emitted immediately before.",
+   "survives": false
+  },
+  {
+   "id": "py-053",
+   "subject": "pylint",
+   "module": "lint/message_state_handler.py",
+   "line": 407,
+   "first": "PASS",
+   "finding": "suppression-reported-in-band",
+   "second": "WITHDRAWN",
+   "second_class": "B",
+   "second_reason": "The write sets a flag based on an explicit 'disable=all' pragma, which is a principal waiver where R14-a is not engaged, and the action is audited via the 'file-ignored' message emitted immediately before.",
+   "survives": false
+  },
+  {
+   "id": "py-106",
+   "subject": "semgrep",
+   "module": "rule_match.py",
+   "line": 478,
+   "first": "PASS",
+   "finding": "downgraded-not-discarded",
+   "second": "WITHDRAWN",
+   "second_class": "D",
+   "second_reason": "The relaxed verdict is conditioned on structural properties of the dependency graph (transitive/reachability status) rather than a heuristic over content or a principal waiver, fitting Class D as a structural fact where no verdict is produced for non-matching categories.",
+   "survives": false
+  },
+  {
+   "id": "py-109",
+   "subject": "checkov",
+   "module": "common/bridgecrew/integration_features/features/suppressions_integration.py",
+   "line": 304,
+   "first": "PASS",
+   "finding": "suppression-enumerated-in-report",
+   "second": "WITHDRAWN",
+   "second_class": "B",
+   "second_reason": "The return value `True` validates a user-submitted suppression (principal waiver), and while R14-a is not engaged, the scope and visibility of the audit mechanism are not fully visible in the provided context to determine if R14-b is upheld or failed.",
+   "survives": false
+  },
+  {
+   "id": "ts-051",
+   "subject": "langfuse",
+   "module": "packages/shared/src/in-app-agent/server/mcpPolicy.ts",
+   "line": 557,
+   "first": "UPHELD",
+   "finding": "auto-approval-unrecorded",
+   "second": "NOT RUN",
+   "second_class": null,
+   "second_reason": null,
+   "survives": false
+  },
+  {
+   "id": "ts-052",
+   "subject": "langfuse",
+   "module": "packages/shared/src/server/deletionGuard.ts",
+   "line": 23,
+   "first": "PASS",
+   "finding": "waiver-logged-with-its-rule",
+   "second": "NOT RUN",
+   "second_class": null,
+   "second_reason": null,
+   "survives": false
+  },
+  {
+   "id": "ts-144",
+   "subject": "retire.js",
+   "module": "repo.ts",
+   "line": 161,
+   "first": "UPHELD",
+   "finding": "insecure-mode-unrecorded",
+   "second": "NOT RUN",
+   "second_class": null,
+   "second_reason": null,
+   "survives": false
+  },
+  {
+   "id": "ts-157",
+   "subject": "stylelint",
+   "module": "utils/suppressionsService.mjs",
+   "line": 183,
+   "first": "PASS",
+   "finding": "suppression-bounded-by-baseline",
+   "second": "NOT RUN",
+   "second_class": null,
+   "second_reason": null,
+   "survives": false
+  }
+ ],
+ "O3": {
+  "upheld_by_both": 0,
+  "upheld_first": 5,
+  "pass_by_both": 4,
+  "pass_first": 10
+ },
+ "O4_withdrawn_to_upheld": [
+  {
+   "id": "py-014",
+   "subject": "inspect_ai",
+   "module": "util/_checkpoint/_host_egress.py",
+   "line": 120,
+   "first_class": "B",
+   "first_reason": "A frozenset of two names, one of which is the manifest filename, excludes top-level entries from a new-file egress scan. It is an author-declared exclusion with no record, which is the R14-b shape, and it is withdrawn anyway because we could not establish from the surrounding module that the excluded entries carry any content the scan exists to catch, rather than being the mechanism's own bookkeeping. Reported rather than claimed: under-claiming is the correct direction when the safety consequence cannot be stated concretely.",
+   "second_class": "B",
+   "second_reason": "The code skips scanning for files in excluded top-level directories based on a static allow-list (_EXCLUDED_TOP_LEVEL) without auditing the skip or consulting the strength of any evidence, acting as an unaudited principal waiver on a security check path."
+  },
+  {
+   "id": "py-028",
+   "subject": "bandit",
+   "module": "plugins/tarfile_unsafe_members.py",
+   "line": 114,
+   "first_class": "D",
+   "first_reason": "No issue is raised when extractall is called with a data filter, which genuinely makes the call safe on supported Python versions. A correct determination, not a suppression.",
+   "second_class": "A",
+   "second_reason": "The scanner flags this as returning 'None' (no issue) if `is_filter_data` returns True without verifying the filter's strength (e.g., ensuring 'data' vs 'tar'), which is a heuristic relaxation (Class A) that fails R14-a by not consulting the evidence strength, and while R14-b is less critical for a static analyzer's suppression, the primary violation is the unbounded heuristic."
+  },
+  {
+   "id": "py-036",
+   "subject": "pylint",
+   "module": "checkers/imports.py",
+   "line": 149,
+   "first_class": "OUT",
+   "first_reason": "mypy analysis engine: type inference and semantic analysis PRODUCE the verdict, so there is no prior verdict for these writes to weaken.",
+   "second_class": "B",
+   "second_reason": "The site implements a principal waiver (operator-configured ignore list) that bypasses detection without an audit trace, engaging R14-b while correctly ignoring R14-a."
+  },
+  {
+   "id": "py-037",
+   "subject": "pylint",
+   "module": "checkers/imports.py",
+   "line": 154,
+   "first_class": "OUT",
+   "first_reason": "mypy analysis engine: type inference and semantic analysis PRODUCE the verdict, so there is no prior verdict for these writes to weaken.",
+   "second_class": "C",
+   "second_reason": "The site is a fail-open on a semantic structural fact (type-checking block) that bypasses detection without an audit trace, engaging R14-b while R14-a is not applicable due to the non-evidentiary nature of the trigger."
+  },
+  {
+   "id": "py-038",
+   "subject": "pylint",
+   "module": "checkers/imports.py",
+   "line": 156,
+   "first_class": "OUT",
+   "first_reason": "mypy analysis engine: type inference and semantic analysis PRODUCE the verdict, so there is no prior verdict for these writes to weaken.",
+   "second_class": "C",
+   "second_reason": "The site is a fail-open on a semantic structural fact (sys version guard) that bypasses detection without an audit trace, engaging R14-b while R14-a is not applicable due to the non-evidentiary nature of the trigger."
+  }
+ ],
+ "O5_pass_mechanisms_recognised_by_both": {
+  "nosec-waiver-is-counted": true,
+  "allowlist-is-enumerable": true,
+  "verification-suppression-is-bounded": true,
+  "suppression-reported-in-band": false,
+  "downgraded-not-discarded": false,
+  "suppression-enumerated-in-report": false,
+  "waiver-logged-with-its-rule": false,
+  "suppression-bounded-by-baseline": false
+ }
+}

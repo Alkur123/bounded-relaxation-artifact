@@ -170,3 +170,28 @@ pairwise model-to-model agreement wherever two models both ran. The adverse
 prior thresholds apply to the Qwen adjudication. The Gemini run may be
 completed after its quota resets; if it is, it is reported in the same way and
 nothing above changes.
+
+## Deviation 3, recorded 2026-10-12 BEFORE any Qwen verdict was read (see commit time)
+
+The OpenAI account was topped up. The `gpt-5` run is therefore **resumed** for
+the 81 sites it had not reached, with the unchanged script, prompt, batching
+and model; the 250 verdicts already returned are kept as they are.
+
+**Headline changes back to the pre-registered adjudicator.** If `gpt-5`
+completes all 331 sites, it is the headline second adjudicator, as this
+document originally specified, and the adverse-prior thresholds apply to it.
+Qwen (`qwen/qwen3.8-27b`, all 331) becomes the cross-family check, and Gemini
+(120, Python only) is reported as partial. Pairwise agreement among the three
+models is reported in full. This choice is fixed now, while the Qwen run is
+about 10% complete and none of its verdicts has been inspected or scored, so
+that the headline cannot be chosen by its result. If `gpt-5` does not complete,
+Deviation 2b stands and Qwen is the headline.
+
+### Note on coverage (recorded 2026-10-12, after Deviation 3; changes no outcome)
+
+The Qwen run stopped at 135 of 331 sites on Groq's free-tier limit of 200,000
+tokens per day for this model (HTTP 429, "tokens per day (TPD): Limit 200000").
+Under Deviation 3 the headline is the complete `gpt-5` adjudication, so Qwen is
+reported as a partial third rater with its coverage stated, exactly as Gemini
+(120 sites) is. Interim Qwen agreement figures were seen while writing the
+paper section, after Deviation 3 had fixed the headline.

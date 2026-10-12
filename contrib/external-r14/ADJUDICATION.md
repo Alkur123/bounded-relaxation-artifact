@@ -266,3 +266,40 @@ front ends share, not of the translation, and it is left alone.
 the first cross-language write-up and fixed afterwards, which is the order the
 registration required: the front end was frozen while the corpus was being
 scanned, and the fix and its effect are dated here.
+
+---
+
+## A4. Corrections after the second adjudication (2026-10-12)
+
+**What happened.** The pre-registered second adjudication
+(`PREREGISTRATION_independent_adjudication.md`) returned 73 sites that `gpt-5`
+upheld and this rubric's first application withdrew. Outcome O4 required the
+first adjudicator to read each against the source. All 73 were read; 21 are
+reversed to UPHELD and 52 stand. Every ruling, with both adjudicators' reasons,
+is in `O4_author_reading.json`.
+
+**The error the 21 expose is ours.** For four large stratum B subjects, step 0
+was applied at module granularity (`_step0_note`): "in an analysis engine the
+analysis produces the verdict ... only the reporting and suppression layer can
+discard one." That note is right, and the shortcut contradicted it: 19 of the 21
+are configured lists that name specific subjects to exempt (modules, words,
+namespaces, function and method names, types, numbers, call specifiers,
+patterns), which is the suppression layer the note describes and this rubric's
+own Class B "operator-configured allow list". None writes a per-outcome trace.
+The other two are a class A heuristic in Checkov's secret scanner (a secret is
+dropped if any earlier line in the file opens a `data` block) and one relaxation in a
+TypeScript gateway, described here unnamed while its disclosure is open.
+
+**The line drawn, so it can be checked.** A condition that is part of what a
+rule means (a built-in exemption, a constant, a special case, an option that
+changes the rule for a whole kind of code such as `allow: ["constructors"]`) is
+the analysis producing its verdict, and stays out of scope. A list that names
+specific subjects to exempt is a waiver. A check switched off entirely is not a
+relaxation of any verdict.
+
+**What does not change.** `adjudication.json` and `adjudication_ts.json` are
+left exactly as the pre-registered first-round record, so every number the
+paper reports for that round still reproduces. The corrected figures are
+computed from this amendment by `score_corrected.py` and are reported beside the
+originals, never in place of them. The pre-registered agreement statistics are
+computed against the original verdicts.

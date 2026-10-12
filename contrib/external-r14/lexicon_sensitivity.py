@@ -46,6 +46,7 @@ REGEX_LEXICONS = ["EVIDENCE_LEXICON", "BOUND_CALL_LEXICON", "AUDIT_CALL_LEXICON"
                   "AUDIT_KEY_LEXICON", "FAILURE_TEST_LEXICON",
                   "ERROR_SENTINEL_LEXICON", "EMPTINESS_CALL_LEXICON"]
 SET_LEXICONS = ["BENIGN_STRINGS"]
+_PRISTINE = None
 
 
 def _setup():
@@ -138,6 +139,15 @@ def worker(job):
     import warnings
     warnings.filterwarnings("ignore")
     md, rx = _setup()
+    # Pool workers are reused and the module stays cached, so a term removed
+    # by a previous job would otherwise stay removed. Restore every lexicon to
+    # its pristine object before applying this job's single perturbation.
+    # (The first run omitted this and its output is kept, marked DISCARDED.)
+    global _PRISTINE
+    if _PRISTINE is None:
+        _PRISTINE = {n: getattr(md, n) for n in REGEX_LEXICONS + SET_LEXICONS}
+    for n, v in _PRISTINE.items():
+        setattr(md, n, v)
     apply(md, name, term)
     t = time.time()
     return name, term, scan(md, rx), round(time.time() - t, 1)

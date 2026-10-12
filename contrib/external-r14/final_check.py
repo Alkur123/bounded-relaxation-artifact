@@ -26,12 +26,19 @@ HERE = pathlib.Path(__file__).resolve().parent
 REPO = HERE.parents[1]
 TEX = pathlib.Path(os.environ["R14_PAPER_TEX"]) if os.environ.get("R14_PAPER_TEX") else REPO / "backend" / "paper" / "bounded_relaxation.tex"
 BUNDLE = REPO / "backend" / "paper" / "bounded_relaxation_extracted" / "bounded_relaxation.tex"
+#: True when R14_PAPER_TEX points at a venue copy (e.g. the ASE journal version).
+#: The preprint's bundle checks do not apply to it and are reported N/A, never PASS.
+VARIANT = TEX.resolve() != (REPO / "backend" / "paper" / "bounded_relaxation.tex").resolve()
 
 results: list[tuple[str, bool, str]] = []
 
 
 def check(label: str, ok: bool, detail: str = "") -> None:
     results.append((label, ok, detail))
+
+
+def not_applicable(label: str, why: str) -> None:
+    results.append((label, None, why))
 
 
 def run(label: str, argv: list[str], must_contain: str | None = None,
@@ -141,7 +148,8 @@ def main() -> int:
     # A green light from a different gate standing in for the one that could
     # not see the claim is the exact failure this paper is about.
     run("repo-wide paper checker (verify_paper.py)",
-        [sys.executable, "verify_paper.py", "bounded_relaxation.tex"],
+        [sys.executable, "verify_paper.py",
+         TEX.resolve().relative_to((REPO / "backend" / "paper").resolve()).as_posix()],
         must_contain="PASS", cwd=REPO / "backend" / "paper")
 
     # ── structure nothing else checks ───────────────────────────────────────
@@ -157,7 +165,8 @@ def main() -> int:
     # failure mode this project keeps finding in other people's tools and has
     # no business shipping in its own. Recorded rather than quietly corrected.
     bib_keys = set(re.findall(r"\\bibitem(?:\[[^\]]*\])?\{([^}]+)\}", tex))
-    for bib in (REPO / "backend" / "paper").glob("*.bib"):
+    for bib in list((REPO / "backend" / "paper").glob("*.bib")) + (
+            list(TEX.parent.glob("*.bib")) if VARIANT else []):
         bib_keys |= set(re.findall(r"@\w+\{([^,]+),", bib.read_text(
             encoding="utf-8", errors="replace")))
     cited = set()
@@ -171,7 +180,11 @@ def main() -> int:
     check("every table is labelled", len(tables) == len(tab_labels),
           f"{len(tables)} tables, {len(tab_labels)} labels")
 
-    check("the shipped bundle is identical to the source",
+    if VARIANT:
+        not_applicable("the shipped bundle is identical to the source",
+                       f"preprint bundle; {TEX.name} is a venue copy with its own build")
+    else:
+      check("the shipped bundle is identical to the source",
           BUNDLE.read_text(encoding="utf-8").replace("\r\n", "\n")
           == tex.replace("\r\n", "\n"),
           "byte-identical modulo line endings")
@@ -210,7 +223,10 @@ def main() -> int:
     # produces the archive, which is where the drift happened -- the bundle was
     # two generations behind its source and nothing noticed.
     zip_path = REPO / "backend" / "paper" / "bounded_relaxation_overleaf.zip"
-    if not zip_path.exists():
+    if VARIANT:
+        not_applicable("the Overleaf bundle carries the current source",
+                       "preprint Overleaf bundle; not used for the venue copy")
+    elif not zip_path.exists():
         check("the Overleaf bundle carries the current source", True,
               "NOT BUILT HERE (gitignored build output) -- run "
               "`python make_bundle.py bounded_relaxation` before uploading")
@@ -273,19 +289,21 @@ def main() -> int:
     quiet = "--quiet" in sys.argv
     width = max(len(label) for label, _ok, _d in results)
     failed = 0
+    na = sum(1 for _l, ok, _d in results if ok is None)
     print()
     for label, ok, detail in results:
-        if not ok:
+        if ok is False:
             failed += 1
         if quiet and ok:
             continue
-        mark = "PASS" if ok else "FAIL"
+        mark = "N/A " if ok is None else "PASS" if ok else "FAIL"
         print(f"  [{mark}] {label:{width}s}  {detail}")
     print()
     if failed:
         print(f"{failed} of {len(results)} checks FAILED")
         return 1
-    print(f"all {len(results)} checks pass")
+    print(f"all {len(results) - na} applicable checks pass"
+          + (f" ({na} not applicable to {TEX.name})" if na else ""))
     return 0
 
 

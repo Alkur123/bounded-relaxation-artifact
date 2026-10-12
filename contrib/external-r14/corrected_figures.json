@@ -1,0 +1,96 @@
+{
+ "_about": "Corrected first-adjudication figures after amendment A4 (ADJUDICATION.md).",
+ "flipped": [
+  "py-036",
+  "py-041",
+  "py-042",
+  "py-046",
+  "py-047",
+  "py-121",
+  "py-122",
+  "py-123",
+  "py-128",
+  "ts-003",
+  "ts-012",
+  "ts-013",
+  "ts-136",
+  "ts-149",
+  "ts-160",
+  "ts-163",
+  "ts-164",
+  "ts-165",
+  "ts-166",
+  "ts-171",
+  "ts-174"
+ ],
+ "original": {
+  "python": {
+   "surface_sites": 136,
+   "upheld_sites": 3,
+   "pass_sites": 8,
+   "subjects_with_upheld": 2,
+   "violation_precision_pct": 2.2
+  },
+  "typescript": {
+   "surface_sites": 195,
+   "upheld_sites": 2,
+   "pass_sites": 2,
+   "subjects_with_upheld": 2,
+   "violation_precision_pct": 1.0
+  }
+ },
+ "corrected": {
+  "python": {
+   "surface_sites": 136,
+   "upheld_sites": 12,
+   "pass_sites": 8,
+   "subjects_with_upheld": 4,
+   "violation_precision_pct": 8.8
+  },
+  "typescript": {
+   "surface_sites": 195,
+   "upheld_sites": 14,
+   "pass_sites": 2,
+   "subjects_with_upheld": 6,
+   "violation_precision_pct": 7.2
+  }
+ },
+ "agreement": {
+  "gpt-5": {
+   "sites_run": 331,
+   "scored": 295,
+   "vs_original": {
+    "agreement_pct": 72.2,
+    "kappa": 0.114
+   },
+   "vs_corrected": {
+    "agreement_pct": 79.3,
+    "kappa": 0.402
+   }
+  },
+  "gemini-3-flash-preview": {
+   "sites_run": 120,
+   "scored": 120,
+   "vs_original": {
+    "agreement_pct": 78.3,
+    "kappa": 0.335
+   },
+   "vs_corrected": {
+    "agreement_pct": 85.8,
+    "kappa": 0.61
+   }
+  },
+  "qwen3.8-27b": {
+   "sites_run": 135,
+   "scored": 132,
+   "vs_original": {
+    "agreement_pct": 85.6,
+    "kappa": 0.24
+   },
+   "vs_corrected": {
+    "agreement_pct": 78.8,
+    "kappa": 0.196
+   }
+  }
+ }
+}

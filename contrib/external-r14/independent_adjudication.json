@@ -215,7 +215,7 @@
    "lang": "py",
    "verdict": "WITHDRAWN",
    "class": "OUT",
-   "reason": "Skipping multi\u2011turn scenario generation for singleturn targets affects test generation only and not any safety decision."
+   "reason": "Skipping multi‑turn scenario generation for singleturn targets affects test generation only and not any safety decision."
   },
   "py-024": {
    "subject": "giskard",
@@ -251,7 +251,7 @@
    "lang": "py",
    "verdict": "UNSURE",
    "class": "B",
-   "reason": "URL allow\u2011list matching appears to gate acceptance of a server URL, but the snippet shows no auditing or unreleasable\u2011category handling to judge R14\u2011b/c."
+   "reason": "URL allow‑list matching appears to gate acceptance of a server URL, but the snippet shows no auditing or unreleasable‑category handling to judge R14‑b/c."
   },
   "py-028": {
    "subject": "bandit",
@@ -368,7 +368,7 @@
    "lang": "py",
    "verdict": "WITHDRAWN",
    "class": "FP",
-   "reason": "This predicate gates a refactoring check\u2019s applicability rather than relaxing a prior safety verdict."
+   "reason": "This predicate gates a refactoring check’s applicability rather than relaxing a prior safety verdict."
   },
   "py-041": {
    "subject": "pylint",
@@ -557,7 +557,7 @@
    "lang": "py",
    "verdict": "WITHDRAWN",
    "class": "OUT",
-   "reason": "Setting an AST node\u2019s 'valid' flag during semantic prep is an internal annotation with no shown path to a permit/flag/escalation decision."
+   "reason": "Setting an AST node’s 'valid' flag during semantic prep is an internal annotation with no shown path to a permit/flag/escalation decision."
   },
   "py-092": {
    "subject": "mypy",
@@ -1088,7 +1088,7 @@
    "lang": "py",
    "verdict": "WITHDRAWN",
    "class": "FP",
-   "reason": "The trailing return False is the detector\u2019s default non-violation outcome rather than a relaxation, so the scanner misattributed this as a demotion."
+   "reason": "The trailing return False is the detector’s default non-violation outcome rather than a relaxation, so the scanner misattributed this as a demotion."
   },
   "py-131": {
    "subject": "checkov",
@@ -1124,7 +1124,7 @@
    "lang": "py",
    "verdict": "WITHDRAWN",
    "class": "FP",
-   "reason": "This is the function\u2019s default non-violation return, not a relaxation of an earlier safety verdict."
+   "reason": "This is the function’s default non-violation return, not a relaxation of an earlier safety verdict."
   },
   "py-135": {
    "subject": "checkov",
@@ -1151,7 +1151,7 @@
    "lang": "ts",
    "verdict": "WITHDRAWN",
    "class": "OUT",
-   "reason": "getLabel\u2019s null return is an internal analysis helper and does not reach a permit/flag decision."
+   "reason": "getLabel’s null return is an internal analysis helper and does not reach a permit/flag decision."
   },
   "ts-002": {
    "subject": "eslint",
@@ -1268,7 +1268,7 @@
    "lang": "py",
    "verdict": "UPHELD",
    "class": "D",
-   "reason": "When no allowlist env var is set the function returns an allow\u2011all [] with no trace on the granted path, a structural default that influences a flagging decision and violates R14-b."
+   "reason": "When no allowlist env var is set the function returns an allow‑all [] with no trace on the granted path, a structural default that influences a flagging decision and violates R14-b."
   },
   "py-121": {
    "subject": "checkov",
@@ -1304,7 +1304,7 @@
    "lang": "py",
    "verdict": "UPHELD",
    "class": "D",
-   "reason": "Absent allowlist configuration returns an allow\u2011all [] with no audit of the permissive outcome, a structural default that affects flagging and fails R14-b."
+   "reason": "Absent allowlist configuration returns an allow‑all [] with no audit of the permissive outcome, a structural default that affects flagging and fails R14-b."
   },
   "py-125": {
    "subject": "checkov",
@@ -1520,7 +1520,7 @@
    "lang": "ts",
    "verdict": "WITHDRAWN",
    "class": "FP",
-   "reason": "Treating const bindings as safe is the rule\u2019s core predicate based on exact AST properties, not a relaxation of a stronger prior verdict."
+   "reason": "Treating const bindings as safe is the rule’s core predicate based on exact AST properties, not a relaxation of a stronger prior verdict."
   },
   "ts-023": {
    "subject": "eslint",
@@ -1574,7 +1574,7 @@
    "lang": "ts",
    "verdict": "WITHDRAWN",
    "class": "OUT",
-   "reason": "validateQuery\u2019s early return for non-v2 queries is analytics config validation, not a decision permitting/flagging/escalating content or agent actions."
+   "reason": "validateQuery’s early return for non-v2 queries is analytics config validation, not a decision permitting/flagging/escalating content or agent actions."
   },
   "ts-049": {
    "subject": "langfuse",
@@ -1592,7 +1592,7 @@
    "lang": "ts",
    "verdict": "WITHDRAWN",
    "class": "OUT",
-   "reason": "validateQuery\u2019s final success return is part of analytics query validation, not gating of content, tool calls, or agent actions."
+   "reason": "validateQuery’s final success return is part of analytics query validation, not gating of content, tool calls, or agent actions."
   },
   "ts-051": {
    "subject": "langfuse",
@@ -1637,7 +1637,7 @@
    "lang": "ts",
    "verdict": "UNSURE",
    "class": "A",
-   "reason": "The helper\u2019s false return is used under negation elsewhere, so from the shown context it is unclear whether it relaxes or tightens the final reporting decision."
+   "reason": "The helper’s false return is used under negation elsewhere, so from the shown context it is unclear whether it relaxes or tightens the final reporting decision."
   },
   "ts-026": {
    "subject": "eslint",
@@ -1682,7 +1682,7 @@
    "lang": "ts",
    "verdict": "UNSURE",
    "class": "A",
-   "reason": "While content-derived, the surrounding function\u2019s return false semantics are not shown, so the permissive effect on a report decision cannot be determined."
+   "reason": "While content-derived, the surrounding function’s return false semantics are not shown, so the permissive effect on a report decision cannot be determined."
   },
   "ts-031": {
    "subject": "eslint",
@@ -1781,7 +1781,7 @@
    "lang": "ts",
    "verdict": "WITHDRAWN",
    "class": "OUT",
-   "reason": "hasBlockingOverlay\u2019s SSR guard (document undefined -> false) is an environment check for keyboard handling, not a safety decision."
+   "reason": "hasBlockingOverlay’s SSR guard (document undefined -> false) is an environment check for keyboard handling, not a safety decision."
   },
   "ts-082": {
    "subject": "langfuse",
@@ -2177,7 +2177,7 @@
    "lang": "ts",
    "verdict": "UNSURE",
    "class": "B",
-   "reason": "The default branch returns null with no audit, but without the caller\u2019s semantics it is unclear whether this permits content or filters it."
+   "reason": "The default branch returns null with no audit, but without the caller’s semantics it is unclear whether this permits content or filters it."
   },
   "ts-096": {
    "subject": "mastra",
@@ -2250,6 +2250,735 @@
    "verdict": "WITHDRAWN",
    "class": "OUT",
    "reason": "Filtering by projectId in a storage list is not on a safety-decision path."
+  },
+  "ts-114": {
+   "subject": "mastra",
+   "module": "evals/src/scorers/llm/answer-similarity/index.ts",
+   "line": 176,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "This code computes an evaluation score and not a permit/flag/escalate decision, so it is not on a safety-decision path."
+  },
+  "ts-115": {
+   "subject": "mastra",
+   "module": "evals/src/scorers/llm/noise-sensitivity/index.ts",
+   "line": 155,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "The clamp adjusts an evaluator score only and does not feed a permission or escalation decision."
+  },
+  "ts-116": {
+   "subject": "mastra",
+   "module": "playground-ui/src/domains/metrics/hooks/use-scores-metrics.tsx",
+   "line": 34,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "Returns default metrics for a UI hook when no scorers are present, unrelated to any safety decision."
+  },
+  "ts-117": {
+   "subject": "mastra",
+   "module": "playground-ui/src/domains/metrics/hooks/use-scores-metrics.tsx",
+   "line": 60,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "Returns default metrics when no summary data exists, which is display logic not a safety gate."
+  },
+  "ts-118": {
+   "subject": "mastra",
+   "module": "playground-ui/src/ds/components/ThreadRail/thread-rail-turns.ts",
+   "line": 51,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "getPathLabel derives a display label and does not influence any permit/flag/escalate decision."
+  },
+  "ts-119": {
+   "subject": "mastra",
+   "module": "playground-ui/src/ds/components/ThreadRail/thread-rail-turns.ts",
+   "line": 73,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "getFileLabelFromPart is UI labeling logic and not part of a safety-decision path."
+  },
+  "ts-120": {
+   "subject": "mastra",
+   "module": "playground-ui/src/ds/components/ThreadRail/thread-rail-turns.ts",
+   "line": 76,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "This return short-circuits label generation for non-file/image parts and is unrelated to safety enforcement."
+  },
+  "ts-121": {
+   "subject": "mastra",
+   "module": "playground/src/domains/scores/hooks/use-score-metrics.ts",
+   "line": 32,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "The function returns empty metrics datasets for the UI when no scorers exist, not a safety decision."
+  },
+  "ts-122": {
+   "subject": "mastra",
+   "module": "playground/src/domains/scores/hooks/use-score-metrics.ts",
+   "line": 32,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "Identical UI metrics early return that does not determine permission, flagging, or escalation."
+  },
+  "ts-123": {
+   "subject": "mastra",
+   "module": "playground/src/domains/scores/hooks/use-score-metrics.ts",
+   "line": 60,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "UI metrics code returning defaults on no scores, not on a safety-decision path."
+  },
+  "ts-124": {
+   "subject": "mastra",
+   "module": "playground/src/domains/scores/hooks/use-score-metrics.ts",
+   "line": 60,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "Returns analytics/metrics to the UI, not a value that gates permission or enforcement."
+  },
+  "ts-125": {
+   "subject": "mastra",
+   "module": "playground/src/domains/scores/hooks/use-score-metrics.ts",
+   "line": 98,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "Rounding a metrics value (prevAvgScore) in a dashboard hook is not on a safety-decision path."
+  },
+  "ts-126": {
+   "subject": "portkey-gateway",
+   "module": "plugins/acuvity/scan.ts",
+   "line": 180,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "FP",
+   "reason": "The assignment sets verdict=false (block) when detections remain, which is stricter, not a permissive relaxation (polarity misread)."
+  },
+  "ts-127": {
+   "subject": "portkey-gateway",
+   "module": "plugins/aporia/validateProject.ts",
+   "line": 111,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "FP",
+   "reason": "The write sets verdict=false when action is not 'passthrough', i.e., it blocks rather than relaxes (polarity misread)."
+  },
+  "ts-128": {
+   "subject": "portkey-gateway",
+   "module": "plugins/default/validUrls.ts",
+   "line": 43,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "FP",
+   "reason": "Early return with verdict=false on no URLs is a deny, not a weakening of a safety verdict (polarity misread)."
+  },
+  "ts-129": {
+   "subject": "portkey-gateway",
+   "module": "plugins/f5-guardrails/scan.ts",
+   "line": 130,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "FP",
+   "reason": "Sets verdict=false when the request is flagged and not redacted, which is enforcement not relaxation (polarity misread)."
+  },
+  "ts-130": {
+   "subject": "portkey-gateway",
+   "module": "plugins/javelin/guardrails.ts",
+   "line": 233,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "FP",
+   "reason": "Sets verdict=false when Javelin signals rejection, i.e., it blocks rather than weakens a verdict (polarity misread)."
+  },
+  "ts-131": {
+   "subject": "portkey-gateway",
+   "module": "plugins/javelin/guardrails.ts",
+   "line": 248,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "Writes a data field (all_passed) in the response payload; it does not determine permit/deny."
+  },
+  "ts-132": {
+   "subject": "portkey-gateway",
+   "module": "plugins/promptfoo/guard.ts",
+   "line": 33,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "FP",
+   "reason": "Sets verdict=false on jailbreak detection, which is a strict block not a relaxation (polarity misread)."
+  },
+  "ts-133": {
+   "subject": "portkey-gateway",
+   "module": "plugins/qualifire/promptInjections.ts",
+   "line": 25,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "FP",
+   "reason": "Returns verdict=false for an unsupported event type, which is a deny and not a permissive relaxation (polarity misread)."
+  },
+  "ts-144": {
+   "subject": "retire.js",
+   "module": "repo.ts",
+   "line": 161,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "Setting https requestOptions.rejectUnauthorized affects TLS for fetching data, not any permit/flag/escalate safety decision (out of scope at Step 0)."
+  },
+  "ts-145": {
+   "subject": "stylelint",
+   "module": "rules/custom-property-no-missing-var-function/index.mjs",
+   "line": 70,
+   "lang": "ts",
+   "verdict": "UPHELD",
+   "class": "A",
+   "reason": "A keyword-list skip (IGNORED_PROPERTIES) heuristically suppresses the rule without consulting any evidence strength or emitting an audit trace, violating R14-a."
+  },
+  "ts-146": {
+   "subject": "stylelint",
+   "module": "rules/font-family-no-missing-generic-family-keyword/index.mjs",
+   "line": 63,
+   "lang": "ts",
+   "verdict": "UPHELD",
+   "class": "A",
+   "reason": "The early return on an ignored at-rule name is a content-based keyword heuristic that skips the check without any confidence bound or audit, failing R14-a."
+  },
+  "ts-147": {
+   "subject": "stylelint",
+   "module": "rules/number-max-precision/index.mjs",
+   "line": 119,
+   "lang": "ts",
+   "verdict": "UPHELD",
+   "class": "A",
+   "reason": "Marking state.ignored for url() is a heuristic content trigger that suppresses reporting with no confidence term or audit, violating R14-a."
+  },
+  "ts-148": {
+   "subject": "stylelint",
+   "module": "rules/selector-no-qualifying-type/index.mjs",
+   "line": 94,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "Splicing a local result array in a helper to build a selector compound is parser-state shaping, not a direct safety decision (out of scope at Step 0)."
+  },
+  "ts-149": {
+   "subject": "stylelint",
+   "module": "rules/unit-no-unknown/index.mjs",
+   "line": 110,
+   "lang": "ts",
+   "verdict": "UPHELD",
+   "class": "B",
+   "reason": "The skip can be triggered by an operator-configured allowlist (optionsMatches), a principal waiver with no audit trail shown, violating R14-b."
+  },
+  "ts-150": {
+   "subject": "stylelint",
+   "module": "rules/unit-no-unknown/index.mjs",
+   "line": 116,
+   "lang": "ts",
+   "verdict": "UPHELD",
+   "class": "A",
+   "reason": "Allowing 'x' units inside image-set() is a content-pattern heuristic relaxation with no confidence measure or audit, breaching R14-a."
+  },
+  "ts-151": {
+   "subject": "stylelint",
+   "module": "utils/emitWarning.mjs",
+   "line": 83,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "Clearing a test-only emitted-warnings set does not decide whether content is permitted or flagged, so it is out of scope at Step 0."
+  },
+  "ts-152": {
+   "subject": "stylelint",
+   "module": "utils/findAnimationName.mjs",
+   "line": 48,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "Setting a local shouldBeIgnored flag and clearing a names list inside a utility function is internal parsing state, not a direct safety decision."
+  },
+  "ts-153": {
+   "subject": "stylelint",
+   "module": "utils/isAfterBlock.mjs",
+   "line": 11,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "Returning false from an isAfterBlock predicate is a helper result, not a direct permit/flag/escalate decision (out of scope at Step 0)."
+  },
+  "ts-154": {
+   "subject": "stylelint",
+   "module": "utils/isBlocklessAtRuleAfterBlocklessAtRule.mjs",
+   "line": 11,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "This helper’s false return is just an AST-shape check and, in the shown module, does not reach any permit/flag decision, so it is out of scope per Step 0."
+  },
+  "ts-155": {
+   "subject": "stylelint",
+   "module": "utils/isBlocklessAtRuleAfterSameNameBlocklessAtRule.mjs",
+   "line": 11,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "The function simply returns a boolean about node context and, as shown, is not on a path that decides whether anything is flagged or permitted."
+  },
+  "ts-156": {
+   "subject": "stylelint",
+   "module": "utils/isBlocklessAtRuleAfterSameNameBlocklessAtRule.mjs",
+   "line": 20,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "This is another helper false return that does not, in the shown code, feed into a permit/flag decision, so it is out of scope per Step 0."
+  },
+  "ts-157": {
+   "subject": "stylelint",
+   "module": "utils/suppressionsService.mjs",
+   "line": 183,
+   "lang": "ts",
+   "verdict": "UPHELD",
+   "class": "B",
+   "reason": "Operator-configured suppressions (principal waiver) remove warnings but only record unused/leftover entries, leaving granted equal-use suppressions without an audit trace, violating R14-b."
+  },
+  "ts-158": {
+   "subject": "stylelint",
+   "module": "utils/validateOptions.mjs",
+   "line": 154,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "isValid is an options-validation helper; its true return does not, as shown, decide whether content is flagged or permitted."
+  },
+  "ts-159": {
+   "subject": "stylelint",
+   "module": "utils/validateOptions.mjs",
+   "line": 158,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "This true return is part of option checking and, in the provided context, does not reach a safety/flagging decision."
+  },
+  "ts-160": {
+   "subject": "typescript-eslint",
+   "module": "eslint-plugin/src/rules/class-literal-property-style.ts",
+   "line": 107,
+   "lang": "ts",
+   "verdict": "UPHELD",
+   "class": "B",
+   "reason": "The rule skips reporting for names in an operator-provided exclude set (principal waiver) without emitting any audit/trace, failing R14-b."
+  },
+  "ts-161": {
+   "subject": "typescript-eslint",
+   "module": "eslint-plugin/src/rules/explicit-function-return-type.ts",
+   "line": 132,
+   "lang": "ts",
+   "verdict": "UPHELD",
+   "class": "B",
+   "reason": "Returning true based on allowFunctionsWithoutTypeParameters is a principal waiver on the reporting path with no audit trace, violating R14-b."
+  },
+  "ts-162": {
+   "subject": "typescript-eslint",
+   "module": "eslint-plugin/src/rules/explicit-function-return-type.ts",
+   "line": 136,
+   "lang": "ts",
+   "verdict": "UPHELD",
+   "class": "B",
+   "reason": "Allowing IIFEs via options (principal waiver) returns true to skip enforcement without any audit/trace, failing R14-b."
+  },
+  "ts-163": {
+   "subject": "typescript-eslint",
+   "module": "eslint-plugin/src/rules/explicit-function-return-type.ts",
+   "line": 173,
+   "lang": "ts",
+   "verdict": "UPHELD",
+   "class": "B",
+   "reason": "Permitting functions by allowed name returns true (skips enforcement) with no audit of the granted waiver, violating R14-b."
+  },
+  "ts-134": {
+   "subject": "portkey-gateway",
+   "module": "plugins/sydelabs/sydeguard.ts",
+   "line": 89,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "FP",
+   "reason": "The write sets verdict=false when risk exceeds thresholds (a deny), so the scanner misread the polarity and this is not a relaxation."
+  },
+  "ts-135": {
+   "subject": "portkey-gateway",
+   "module": "plugins/walledai/walledprotect.ts",
+   "line": 78,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "FP",
+   "reason": "Setting verdict=false when the external service reports isSafe==false is a strict decision, not a relaxation, so the scanner misread the polarity."
+  },
+  "ts-136": {
+   "subject": "portkey-gateway",
+   "module": "src/middlewares/requestValidator/index.ts",
+   "line": 320,
+   "lang": "ts",
+   "verdict": "UPHELD",
+   "class": "B",
+   "reason": "WITHHELD pending coordinated disclosure to the vendor; restored after a response or a reasonable interval"
+  },
+  "ts-137": {
+   "subject": "portkey-gateway",
+   "module": "src/middlewares/requestValidator/index.ts",
+   "line": 364,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "FP",
+   "reason": "This is a normal allow after comprehensive validation (bounded by many checks), not a relaxation of a prior safety verdict."
+  },
+  "ts-138": {
+   "subject": "promptfoo",
+   "module": "src/assertions/guardrails.ts",
+   "line": 49,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "This code produces a grading result in a test assertion path and does not decide whether content or actions are permitted."
+  },
+  "ts-139": {
+   "subject": "promptfoo",
+   "module": "src/commands/validate.ts",
+   "line": 265,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "The write updates a CLI test summary (sessionSkipped) and is not on any safety-decision path."
+  },
+  "ts-140": {
+   "subject": "promptfoo",
+   "module": "src/providers/openai/moderation.ts",
+   "line": 126,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "Parsing moderation results to return an empty flags array is reporting logic, not an enforcement decision about permitting or blocking content."
+  },
+  "ts-141": {
+   "subject": "promptfoo",
+   "module": "src/server/middleware/csrfProtection.ts",
+   "line": 44,
+   "lang": "ts",
+   "verdict": "UPHELD",
+   "class": "A",
+   "reason": "It relaxes CSRF protection by allowing cross-site requests for localhost based on a pattern and does so without any audit trace, failing R14-b."
+  },
+  "ts-142": {
+   "subject": "promptfoo",
+   "module": "src/util/calculateFilteredMetrics.ts",
+   "line": 181,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "This initializes metrics fields in analytics code and does not influence any safety decision."
+  },
+  "ts-143": {
+   "subject": "retire.js",
+   "module": "depsdev.ts",
+   "line": 75,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "Mapping a vulnerability score to a severity label is reporting logic and not a decision about permitting, flagging, or escalating content or actions."
+  },
+  "ts-194": {
+   "subject": "typescript-eslint",
+   "module": "typescript-estree/src/node-utils.ts",
+   "line": 780,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "isValidAssignmentTarget returns a syntactic boolean for AST analysis, not a value that permits/flags/escalates content or actions, so it is not on a safety-decision path."
+  },
+  "ts-164": {
+   "subject": "typescript-eslint",
+   "module": "eslint-plugin/src/rules/explicit-function-return-type.ts",
+   "line": 181,
+   "lang": "ts",
+   "verdict": "UPHELD",
+   "class": "B",
+   "reason": "The helper returns true based on operator-configured allowances (e.g., allowedNames/IIFE options), skipping enforcement without any audit trail."
+  },
+  "ts-165": {
+   "subject": "typescript-eslint",
+   "module": "eslint-plugin/src/rules/explicit-member-accessibility.ts",
+   "line": 179,
+   "lang": "ts",
+   "verdict": "UPHELD",
+   "class": "B",
+   "reason": "It early-returns when the rule is turned off or the method name is in an ignore list, a principal waiver with no auditing of the skip."
+  },
+  "ts-166": {
+   "subject": "typescript-eslint",
+   "module": "eslint-plugin/src/rules/no-floating-promises.ts",
+   "line": 258,
+   "lang": "ts",
+   "verdict": "UPHELD",
+   "class": "B",
+   "reason": "Calls matching a configured allowlist (allowForKnownSafeCalls) are treated as safe and the check is skipped without an audit record."
+  },
+  "ts-167": {
+   "subject": "typescript-eslint",
+   "module": "eslint-plugin/src/rules/no-loop-func.ts",
+   "line": 98,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "FP",
+   "reason": "The break on SKIPPED_IIFE_NODES continues traversal to enable checking rather than skipping it, so the scanner misread the polarity."
+  },
+  "ts-168": {
+   "subject": "typescript-eslint",
+   "module": "eslint-plugin/src/rules/no-loop-func.ts",
+   "line": 155,
+   "lang": "ts",
+   "verdict": "UNSURE",
+   "class": "A",
+   "reason": "The return marks type references as safe, but no call site is shown to confirm it reaches a permit/skip decision."
+  },
+  "ts-169": {
+   "subject": "typescript-eslint",
+   "module": "eslint-plugin/src/rules/no-loop-func.ts",
+   "line": 161,
+   "lang": "ts",
+   "verdict": "UNSURE",
+   "class": "A",
+   "reason": "The early return for const/using bindings may relax the rule, but without a shown use it is unclear if it drives a permit/skip decision."
+  },
+  "ts-170": {
+   "subject": "typescript-eslint",
+   "module": "eslint-plugin/src/rules/no-loop-func.ts",
+   "line": 174,
+   "lang": "ts",
+   "verdict": "UNSURE",
+   "class": "A",
+   "reason": "The early return for let declared within the loop may relax enforcement, but no usage is shown to prove it reaches a decision."
+  },
+  "ts-171": {
+   "subject": "typescript-eslint",
+   "module": "eslint-plugin/src/rules/no-magic-numbers.ts",
+   "line": 95,
+   "lang": "ts",
+   "verdict": "UPHELD",
+   "class": "B",
+   "reason": "Numbers in an operator-configured ignore set are allowed via isAllowed=true and the check returns with no audit of the waiver."
+  },
+  "ts-172": {
+   "subject": "typescript-eslint",
+   "module": "eslint-plugin/src/rules/no-type-alias.ts",
+   "line": 226,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "FP",
+   "reason": "Returning true here only classifies a tuple type and dispatches to checkAndReport, which may still report, so it is not a permissive write."
+  },
+  "ts-173": {
+   "subject": "typescript-eslint",
+   "module": "eslint-plugin/src/rules/no-type-alias.ts",
+   "line": 233,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "FP",
+   "reason": "This return only identifies tuple types before calling checkAndReport, which can still flag, so the scanner misread the permissive polarity."
+  },
+  "ts-174": {
+   "subject": "typescript-eslint",
+   "module": "eslint-plugin/src/rules/no-unnecessary-type-assertion.ts",
+   "line": 901,
+   "lang": "ts",
+   "verdict": "UPHELD",
+   "class": "B",
+   "reason": "An operator-configured allowlist (typesToIgnore) skips the rule with an early return and no audit trail is shown, violating R14-b for a principal waiver."
+  },
+  "ts-175": {
+   "subject": "typescript-eslint",
+   "module": "eslint-plugin/src/rules/prefer-literal-enum-member.ts",
+   "line": 97,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "FP",
+   "reason": "This return is core rule logic determining allowed enum initializers, not a post-decision relaxation overriding prior evidence."
+  },
+  "ts-176": {
+   "subject": "typescript-eslint",
+   "module": "eslint-plugin/src/rules/prefer-literal-enum-member.ts",
+   "line": 103,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "FP",
+   "reason": "This return simply classifies a literal as allowed within the rule’s main decision logic, not a relaxation of an existing safety verdict."
+  },
+  "ts-177": {
+   "subject": "typescript-eslint",
+   "module": "eslint-plugin/src/rules/prefer-readonly.ts",
+   "line": 202,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "The null return only affects autofix type annotation generation and does not decide whether a finding is flagged or permitted."
+  },
+  "ts-178": {
+   "subject": "typescript-eslint",
+   "module": "eslint-plugin/src/rules/prefer-regexp-exec.ts",
+   "line": 106,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "FP",
+   "reason": "The function returns false (strict/risk direction), so the scanner misread polarity and this is not a permissive relaxation."
+  },
+  "ts-179": {
+   "subject": "typescript-eslint",
+   "module": "eslint-plugin/src/rules/unbound-method.ts",
+   "line": 351,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "D",
+   "reason": "Absence of a valueDeclaration is a structural fact leading to no verdict being produced, not a relaxation."
+  },
+  "ts-180": {
+   "subject": "typescript-eslint",
+   "module": "eslint-plugin/src/rules/unbound-method.ts",
+   "line": 365,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "D",
+   "reason": "A non-function initializer for a property assignment is a structural condition yielding dangerous: false, not a relaxation."
+  },
+  "ts-181": {
+   "subject": "typescript-eslint",
+   "module": "eslint-plugin/src/rules/unbound-method.ts",
+   "line": 379,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "D",
+   "reason": "The default fall-through to dangerous: false reflects structural classification rather than weakening a prior verdict."
+  },
+  "ts-182": {
+   "subject": "typescript-eslint",
+   "module": "eslint-plugin/src/rules/unbound-method.ts",
+   "line": 419,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "FP",
+   "reason": "isSafeUse’s true return marks statically safe AST contexts as part of the rule’s primary logic, not a post-hoc relaxation."
+  },
+  "ts-183": {
+   "subject": "typescript-eslint",
+   "module": "eslint-plugin/src/rules/unbound-method.ts",
+   "line": 458,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "FP",
+   "reason": "This return marks a specific safe logical-expression pattern within core rule semantics, not a relaxation of an existing decision."
+  },
+  "ts-184": {
+   "subject": "typescript-eslint",
+   "module": "eslint-plugin/src/util/explicitReturnTypeUtils.ts",
+   "line": 228,
+   "lang": "ts",
+   "verdict": "UPHELD",
+   "class": "A",
+   "reason": "It unconditionally returns true on the AST pattern isTypedFunctionExpression(node, options) with no confidence bound or audit, relaxing whether the case is flagged."
+  },
+  "ts-185": {
+   "subject": "typescript-eslint",
+   "module": "eslint-plugin/src/util/explicitReturnTypeUtils.ts",
+   "line": 238,
+   "lang": "ts",
+   "verdict": "UPHELD",
+   "class": "B",
+   "reason": "A configuration waiver (options.allowExpressions) combined with simple parent-type checks returns true without any audit trail."
+  },
+  "ts-186": {
+   "subject": "typescript-eslint",
+   "module": "eslint-plugin/src/util/explicitReturnTypeUtils.ts",
+   "line": 268,
+   "lang": "ts",
+   "verdict": "UPHELD",
+   "class": "B",
+   "reason": "A configuration waiver (options.allowHigherOrderFunctions) returns true when a helper matches, with no audit of the granted waiver."
+  },
+  "ts-187": {
+   "subject": "typescript-eslint",
+   "module": "rule-tester/src/utils/severity.ts",
+   "line": 40,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "This only normalizes a configured severity value and does not decide whether content is permitted or flagged."
+  },
+  "ts-188": {
+   "subject": "typescript-eslint",
+   "module": "scope-manager/src/scope/FunctionScope.ts",
+   "line": 56,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "D",
+   "reason": "Returning true when the block is a Program reflects a structural scoping condition, not a relaxation of a safety verdict."
+  },
+  "ts-189": {
+   "subject": "typescript-eslint",
+   "module": "type-utils/src/isUnsafeAssignment.ts",
+   "line": 44,
+   "lang": "ts",
+   "verdict": "UPHELD",
+   "class": "A",
+   "reason": "It declares any→unknown assignments safe by returning false based on a content-derived type check with no confidence bound or audit."
+  },
+  "ts-190": {
+   "subject": "typescript-eslint",
+   "module": "type-utils/src/isUnsafeAssignment.ts",
+   "line": 56,
+   "lang": "ts",
+   "verdict": "UPHELD",
+   "class": "A",
+   "reason": "It returns false when a (type,receiver) pair was already visited, a heuristic fail-open on analysis state with no confidence bound or audit."
+  },
+  "ts-191": {
+   "subject": "typescript-eslint",
+   "module": "type-utils/src/isUnsafeAssignment.ts",
+   "line": 80,
+   "lang": "ts",
+   "verdict": "UPHELD",
+   "class": "A",
+   "reason": "It assumes safety and returns false when type-reference targets differ, a heuristic with no confidence bound or audit."
+  },
+  "ts-192": {
+   "subject": "typescript-eslint",
+   "module": "type-utils/src/isUnsafeAssignment.ts",
+   "line": 118,
+   "lang": "ts",
+   "verdict": "UPHELD",
+   "class": "A",
+   "reason": "It defaults to returning false (safe) when no specific case matches, without consulting evidence strength or emitting a trace."
+  },
+  "ts-193": {
+   "subject": "typescript-eslint",
+   "module": "typescript-estree/src/node-utils.ts",
+   "line": 774,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "This parser utility declares valid assignment targets and does not itself decide to permit, flag, or escalate content."
   }
  },
  "usage": [
@@ -2626,6 +3355,141 @@
      "reasoning_tokens": 3776
     },
     "total_tokens": 12854
+   }
+  },
+  {
+   "served": "gpt-5-2025-08-07",
+   "usage": {
+    "input_tokens": 13462,
+    "input_tokens_details": {
+     "cache_write_tokens": 0,
+     "cached_tokens": 1536
+    },
+    "output_tokens": 1628,
+    "output_tokens_details": {
+     "reasoning_tokens": 1088
+    },
+    "total_tokens": 15090
+   }
+  },
+  {
+   "served": "gpt-5-2025-08-07",
+   "usage": {
+    "input_tokens": 13741,
+    "input_tokens_details": {
+     "cache_write_tokens": 0,
+     "cached_tokens": 0
+    },
+    "output_tokens": 2850,
+    "output_tokens_details": {
+     "reasoning_tokens": 2240
+    },
+    "total_tokens": 16591
+   }
+  },
+  {
+   "served": "gpt-5-2025-08-07",
+   "usage": {
+    "input_tokens": 8030,
+    "input_tokens_details": {
+     "cache_write_tokens": 0,
+     "cached_tokens": 0
+    },
+    "output_tokens": 5137,
+    "output_tokens_details": {
+     "reasoning_tokens": 4416
+    },
+    "total_tokens": 13167
+   }
+  },
+  {
+   "served": "gpt-5-2025-08-07",
+   "usage": {
+    "input_tokens": 7149,
+    "input_tokens_details": {
+     "cache_write_tokens": 0,
+     "cached_tokens": 1536
+    },
+    "output_tokens": 3906,
+    "output_tokens_details": {
+     "reasoning_tokens": 3200
+    },
+    "total_tokens": 11055
+   }
+  },
+  {
+   "served": "gpt-5-2025-08-07",
+   "usage": {
+    "input_tokens": 10822,
+    "input_tokens_details": {
+     "cache_write_tokens": 0,
+     "cached_tokens": 0
+    },
+    "output_tokens": 6584,
+    "output_tokens_details": {
+     "reasoning_tokens": 5952
+    },
+    "total_tokens": 17406
+   }
+  },
+  {
+   "served": "gpt-5-2025-08-07",
+   "usage": {
+    "input_tokens": 2086,
+    "input_tokens_details": {
+     "cache_write_tokens": 0,
+     "cached_tokens": 0
+    },
+    "output_tokens": 497,
+    "output_tokens_details": {
+     "reasoning_tokens": 384
+    },
+    "total_tokens": 2583
+   }
+  },
+  {
+   "served": "gpt-5-2025-08-07",
+   "usage": {
+    "input_tokens": 8834,
+    "input_tokens_details": {
+     "cache_write_tokens": 0,
+     "cached_tokens": 1536
+    },
+    "output_tokens": 7147,
+    "output_tokens_details": {
+     "reasoning_tokens": 6464
+    },
+    "total_tokens": 15981
+   }
+  },
+  {
+   "served": "gpt-5-2025-08-07",
+   "usage": {
+    "input_tokens": 8094,
+    "input_tokens_details": {
+     "cache_write_tokens": 0,
+     "cached_tokens": 1536
+    },
+    "output_tokens": 6942,
+    "output_tokens_details": {
+     "reasoning_tokens": 6336
+    },
+    "total_tokens": 15036
+   }
+  },
+  {
+   "served": "gpt-5-2025-08-07",
+   "usage": {
+    "input_tokens": 7538,
+    "input_tokens_details": {
+     "cache_write_tokens": 0,
+     "cached_tokens": 1536
+    },
+    "output_tokens": 6315,
+    "output_tokens_details": {
+     "reasoning_tokens": 5760
+    },
+    "total_tokens": 13853
    }
   }
  ],

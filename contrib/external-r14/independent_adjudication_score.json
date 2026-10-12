@@ -1,8 +1,8 @@
 {
  "sites_total": 331,
- "sites_run": 250,
+ "sites_run": 331,
  "missing": [],
- "unsure": 33,
+ "unsure": 36,
  "unsure_ids": [
   "py-001",
   "py-022",
@@ -36,27 +36,31 @@
   "ts-107",
   "ts-108",
   "ts-109",
-  "ts-110"
+  "ts-110",
+  "ts-168",
+  "ts-169",
+  "ts-170"
  ],
  "served_models": [
   "gpt-5-2025-08-07"
  ],
- "tokens_in": 240267,
- "tokens_out": 121963,
+ "tokens_in": 320023,
+ "tokens_out": 162969,
  "O1": {
   "all": {
-   "n": 217,
-   "agree": 160,
-   "agreement_pct": 73.7,
-   "kappa": 0.155,
+   "n": 295,
+   "agree": 213,
+   "agreement_pct": 72.2,
+   "kappa": 0.114,
    "confusion": {
     "PASS->PASS": 4,
-    "PASS->UPHELD": 2,
+    "PASS->UPHELD": 3,
     "PASS->WITHDRAWN": 2,
     "UPHELD->UPHELD": 2,
+    "UPHELD->WITHDRAWN": 1,
     "WITHDRAWN->PASS": 3,
-    "WITHDRAWN->UPHELD": 50,
-    "WITHDRAWN->WITHDRAWN": 154
+    "WITHDRAWN->UPHELD": 73,
+    "WITHDRAWN->WITHDRAWN": 207
    }
   },
   "python": {
@@ -75,26 +79,29 @@
    }
   },
   "typescript": {
-   "n": 96,
-   "agree": 79,
-   "agreement_pct": 82.3,
-   "kappa": -0.01,
+   "n": 174,
+   "agree": 132,
+   "agreement_pct": 75.9,
+   "kappa": 0.002,
    "confusion": {
+    "PASS->UPHELD": 1,
     "PASS->WITHDRAWN": 1,
-    "WITHDRAWN->UPHELD": 16,
-    "WITHDRAWN->WITHDRAWN": 79
+    "UPHELD->WITHDRAWN": 1,
+    "WITHDRAWN->UPHELD": 39,
+    "WITHDRAWN->WITHDRAWN": 132
    }
   },
   "first_non_withdrawn": {
-   "n": 10,
+   "n": 12,
    "agree": 6,
-   "agreement_pct": 60.0,
-   "kappa": 0.333,
+   "agreement_pct": 50.0,
+   "kappa": 0.226,
    "confusion": {
     "PASS->PASS": 4,
-    "PASS->UPHELD": 2,
+    "PASS->UPHELD": 3,
     "PASS->WITHDRAWN": 2,
-    "UPHELD->UPHELD": 2
+    "UPHELD->UPHELD": 2,
+    "UPHELD->WITHDRAWN": 1
    }
   }
  },
@@ -262,9 +269,9 @@
    "line": 161,
    "first": "UPHELD",
    "finding": "insecure-mode-unrecorded",
-   "second": "NOT RUN",
-   "second_class": null,
-   "second_reason": null,
+   "second": "WITHDRAWN",
+   "second_class": "OUT",
+   "second_reason": "Setting https requestOptions.rejectUnauthorized affects TLS for fetching data, not any permit/flag/escalate safety decision (out of scope at Step 0).",
    "survives": false
   },
   {
@@ -274,9 +281,9 @@
    "line": 183,
    "first": "PASS",
    "finding": "suppression-bounded-by-baseline",
-   "second": "NOT RUN",
-   "second_class": null,
-   "second_reason": null,
+   "second": "UPHELD",
+   "second_class": "B",
+   "second_reason": "Operator-configured suppressions (principal waiver) remove warnings but only record unused/leftover entries, leaving granted equal-use suppressions without an audit trace, violating R14-b.",
    "survives": false
   }
  ],
@@ -555,7 +562,7 @@
    "first_class": "OUT",
    "first_reason": "checkov parsing, platform plumbing, file filtering and output rendering. Scan scope or serialisation, not a verdict weakened.",
    "second_class": "D",
-   "second_reason": "When no allowlist env var is set the function returns an allow\u2011all [] with no trace on the granted path, a structural default that influences a flagging decision and violates R14-b."
+   "second_reason": "When no allowlist env var is set the function returns an allow‑all [] with no trace on the granted path, a structural default that influences a flagging decision and violates R14-b."
   },
   {
    "id": "py-121",
@@ -595,7 +602,7 @@
    "first_class": "OUT",
    "first_reason": "checkov parsing, platform plumbing, file filtering and output rendering. Scan scope or serialisation, not a verdict weakened.",
    "second_class": "D",
-   "second_reason": "Absent allowlist configuration returns an allow\u2011all [] with no audit of the permissive outcome, a structural default that affects flagging and fails R14-b."
+   "second_reason": "Absent allowlist configuration returns an allow‑all [] with no audit of the permissive outcome, a structural default that affects flagging and fails R14-b."
   },
   {
    "id": "py-128",
@@ -786,6 +793,236 @@
    "first_reason": "a lint rule IS the analysis: it produces the verdict about a construct, so a permissive value written inside it is the analysis concluding, not a later stage weakening an earlier conclusion",
    "second_class": "A",
    "second_reason": "A content-based predicate must be true to report and returning false suppresses the flag without any confidence measure or audit, breaching R14-a."
+  },
+  {
+   "id": "ts-136",
+   "subject": "portkey-gateway",
+   "module": "src/middlewares/requestValidator/index.ts",
+   "line": 320,
+   "first_class": "OUT",
+   "first_reason": "WITHHELD pending coordinated disclosure to the vendor; restored after a response or a reasonable interval",
+   "second_class": "B",
+   "second_reason": "WITHHELD pending coordinated disclosure to the vendor; restored after a response or a reasonable interval"
+  },
+  {
+   "id": "ts-141",
+   "subject": "promptfoo",
+   "module": "src/server/middleware/csrfProtection.ts",
+   "line": 44,
+   "first_class": "D",
+   "first_reason": "`isAllowedCrossSite` returns true when origin and target are both loopback. This is the closest this corpus came to a second finding and we declined it: the condition is a structural fact about the two hostnames rather than a verdict being weakened, and a local development server treating localhost-to-localhost as same-site is the documented intent. Recorded as declined rather than omitted, because a reader may weigh it differently.",
+   "second_class": "A",
+   "second_reason": "It relaxes CSRF protection by allowing cross-site requests for localhost based on a pattern and does so without any audit trace, failing R14-b."
+  },
+  {
+   "id": "ts-145",
+   "subject": "stylelint",
+   "module": "rules/custom-property-no-missing-var-function/index.mjs",
+   "line": 70,
+   "first_class": "OUT",
+   "first_reason": "same as eslint/rules: the rule produces the verdict",
+   "second_class": "A",
+   "second_reason": "A keyword-list skip (IGNORED_PROPERTIES) heuristically suppresses the rule without consulting any evidence strength or emitting an audit trace, violating R14-a."
+  },
+  {
+   "id": "ts-146",
+   "subject": "stylelint",
+   "module": "rules/font-family-no-missing-generic-family-keyword/index.mjs",
+   "line": 63,
+   "first_class": "OUT",
+   "first_reason": "same as eslint/rules: the rule produces the verdict",
+   "second_class": "A",
+   "second_reason": "The early return on an ignored at-rule name is a content-based keyword heuristic that skips the check without any confidence bound or audit, failing R14-a."
+  },
+  {
+   "id": "ts-147",
+   "subject": "stylelint",
+   "module": "rules/number-max-precision/index.mjs",
+   "line": 119,
+   "first_class": "OUT",
+   "first_reason": "same as eslint/rules: the rule produces the verdict",
+   "second_class": "A",
+   "second_reason": "Marking state.ignored for url() is a heuristic content trigger that suppresses reporting with no confidence term or audit, violating R14-a."
+  },
+  {
+   "id": "ts-149",
+   "subject": "stylelint",
+   "module": "rules/unit-no-unknown/index.mjs",
+   "line": 110,
+   "first_class": "OUT",
+   "first_reason": "same as eslint/rules: the rule produces the verdict",
+   "second_class": "B",
+   "second_reason": "The skip can be triggered by an operator-configured allowlist (optionsMatches), a principal waiver with no audit trail shown, violating R14-b."
+  },
+  {
+   "id": "ts-150",
+   "subject": "stylelint",
+   "module": "rules/unit-no-unknown/index.mjs",
+   "line": 116,
+   "first_class": "OUT",
+   "first_reason": "same as eslint/rules: the rule produces the verdict",
+   "second_class": "A",
+   "second_reason": "Allowing 'x' units inside image-set() is a content-pattern heuristic relaxation with no confidence measure or audit, breaching R14-a."
+  },
+  {
+   "id": "ts-160",
+   "subject": "typescript-eslint",
+   "module": "eslint-plugin/src/rules/class-literal-property-style.ts",
+   "line": 107,
+   "first_class": "OUT",
+   "first_reason": "same as eslint/rules: the rule produces the verdict",
+   "second_class": "B",
+   "second_reason": "The rule skips reporting for names in an operator-provided exclude set (principal waiver) without emitting any audit/trace, failing R14-b."
+  },
+  {
+   "id": "ts-161",
+   "subject": "typescript-eslint",
+   "module": "eslint-plugin/src/rules/explicit-function-return-type.ts",
+   "line": 132,
+   "first_class": "OUT",
+   "first_reason": "same as eslint/rules: the rule produces the verdict",
+   "second_class": "B",
+   "second_reason": "Returning true based on allowFunctionsWithoutTypeParameters is a principal waiver on the reporting path with no audit trace, violating R14-b."
+  },
+  {
+   "id": "ts-162",
+   "subject": "typescript-eslint",
+   "module": "eslint-plugin/src/rules/explicit-function-return-type.ts",
+   "line": 136,
+   "first_class": "OUT",
+   "first_reason": "same as eslint/rules: the rule produces the verdict",
+   "second_class": "B",
+   "second_reason": "Allowing IIFEs via options (principal waiver) returns true to skip enforcement without any audit/trace, failing R14-b."
+  },
+  {
+   "id": "ts-163",
+   "subject": "typescript-eslint",
+   "module": "eslint-plugin/src/rules/explicit-function-return-type.ts",
+   "line": 173,
+   "first_class": "OUT",
+   "first_reason": "same as eslint/rules: the rule produces the verdict",
+   "second_class": "B",
+   "second_reason": "Permitting functions by allowed name returns true (skips enforcement) with no audit of the granted waiver, violating R14-b."
+  },
+  {
+   "id": "ts-164",
+   "subject": "typescript-eslint",
+   "module": "eslint-plugin/src/rules/explicit-function-return-type.ts",
+   "line": 181,
+   "first_class": "OUT",
+   "first_reason": "same as eslint/rules: the rule produces the verdict",
+   "second_class": "B",
+   "second_reason": "The helper returns true based on operator-configured allowances (e.g., allowedNames/IIFE options), skipping enforcement without any audit trail."
+  },
+  {
+   "id": "ts-165",
+   "subject": "typescript-eslint",
+   "module": "eslint-plugin/src/rules/explicit-member-accessibility.ts",
+   "line": 179,
+   "first_class": "OUT",
+   "first_reason": "same as eslint/rules: the rule produces the verdict",
+   "second_class": "B",
+   "second_reason": "It early-returns when the rule is turned off or the method name is in an ignore list, a principal waiver with no auditing of the skip."
+  },
+  {
+   "id": "ts-166",
+   "subject": "typescript-eslint",
+   "module": "eslint-plugin/src/rules/no-floating-promises.ts",
+   "line": 258,
+   "first_class": "OUT",
+   "first_reason": "same as eslint/rules: the rule produces the verdict",
+   "second_class": "B",
+   "second_reason": "Calls matching a configured allowlist (allowForKnownSafeCalls) are treated as safe and the check is skipped without an audit record."
+  },
+  {
+   "id": "ts-171",
+   "subject": "typescript-eslint",
+   "module": "eslint-plugin/src/rules/no-magic-numbers.ts",
+   "line": 95,
+   "first_class": "OUT",
+   "first_reason": "same as eslint/rules: the rule produces the verdict",
+   "second_class": "B",
+   "second_reason": "Numbers in an operator-configured ignore set are allowed via isAllowed=true and the check returns with no audit of the waiver."
+  },
+  {
+   "id": "ts-174",
+   "subject": "typescript-eslint",
+   "module": "eslint-plugin/src/rules/no-unnecessary-type-assertion.ts",
+   "line": 901,
+   "first_class": "OUT",
+   "first_reason": "same as eslint/rules: the rule produces the verdict",
+   "second_class": "B",
+   "second_reason": "An operator-configured allowlist (typesToIgnore) skips the rule with an early return and no audit trail is shown, violating R14-b for a principal waiver."
+  },
+  {
+   "id": "ts-184",
+   "subject": "typescript-eslint",
+   "module": "eslint-plugin/src/util/explicitReturnTypeUtils.ts",
+   "line": 228,
+   "first_class": "OUT",
+   "first_reason": "helpers the rules call while producing their verdict",
+   "second_class": "A",
+   "second_reason": "It unconditionally returns true on the AST pattern isTypedFunctionExpression(node, options) with no confidence bound or audit, relaxing whether the case is flagged."
+  },
+  {
+   "id": "ts-185",
+   "subject": "typescript-eslint",
+   "module": "eslint-plugin/src/util/explicitReturnTypeUtils.ts",
+   "line": 238,
+   "first_class": "OUT",
+   "first_reason": "helpers the rules call while producing their verdict",
+   "second_class": "B",
+   "second_reason": "A configuration waiver (options.allowExpressions) combined with simple parent-type checks returns true without any audit trail."
+  },
+  {
+   "id": "ts-186",
+   "subject": "typescript-eslint",
+   "module": "eslint-plugin/src/util/explicitReturnTypeUtils.ts",
+   "line": 268,
+   "first_class": "OUT",
+   "first_reason": "helpers the rules call while producing their verdict",
+   "second_class": "B",
+   "second_reason": "A configuration waiver (options.allowHigherOrderFunctions) returns true when a helper matches, with no audit of the granted waiver."
+  },
+  {
+   "id": "ts-189",
+   "subject": "typescript-eslint",
+   "module": "type-utils/src/isUnsafeAssignment.ts",
+   "line": 44,
+   "first_class": "OUT",
+   "first_reason": "type-level analysis: concluding two types are compatible is the analysis producing a result, not a stage weakening one",
+   "second_class": "A",
+   "second_reason": "It declares any→unknown assignments safe by returning false based on a content-derived type check with no confidence bound or audit."
+  },
+  {
+   "id": "ts-190",
+   "subject": "typescript-eslint",
+   "module": "type-utils/src/isUnsafeAssignment.ts",
+   "line": 56,
+   "first_class": "OUT",
+   "first_reason": "type-level analysis: concluding two types are compatible is the analysis producing a result, not a stage weakening one",
+   "second_class": "A",
+   "second_reason": "It returns false when a (type,receiver) pair was already visited, a heuristic fail-open on analysis state with no confidence bound or audit."
+  },
+  {
+   "id": "ts-191",
+   "subject": "typescript-eslint",
+   "module": "type-utils/src/isUnsafeAssignment.ts",
+   "line": 80,
+   "first_class": "OUT",
+   "first_reason": "type-level analysis: concluding two types are compatible is the analysis producing a result, not a stage weakening one",
+   "second_class": "A",
+   "second_reason": "It assumes safety and returns false when type-reference targets differ, a heuristic with no confidence bound or audit."
+  },
+  {
+   "id": "ts-192",
+   "subject": "typescript-eslint",
+   "module": "type-utils/src/isUnsafeAssignment.ts",
+   "line": 118,
+   "first_class": "OUT",
+   "first_reason": "type-level analysis: concluding two types are compatible is the analysis producing a result, not a stage weakening one",
+   "second_class": "A",
+   "second_reason": "It defaults to returning false (safe) when no specific case matches, without consulting evidence strength or emitting a trace."
   }
  ],
  "O5_pass_mechanisms_recognised_by_both": {
@@ -797,5 +1034,13 @@
   "suppression-enumerated-in-report": false,
   "waiver-logged-with-its-rule": false,
   "suppression-bounded-by-baseline": false
+ },
+ "model_vs_model": {
+  "other_run": "independent_adjudication_gemini.json",
+  "n": 106,
+  "agree": 84,
+  "agreement_pct": 79.2,
+  "kappa": 0.568,
+  "both_disagree_with_first_same_way": 18
  }
 }
