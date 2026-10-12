@@ -1,0 +1,81 @@
+{
+ "note": "Every percentage bounded_relaxation.tex states that is a RATIO of stored counts rather than a stored value. Reduced from the committed scan and adjudication artifacts; no measurement is re-run here.",
+ "sources": [
+  "external_r14_results.json",
+  "adjudication.json",
+  "external_r14_ts_results.json",
+  "adjudication_ts.json",
+  "audit_rate.json"
+ ],
+ "python_corpus": {
+  "files": 7050,
+  "proposed": 470,
+  "r3": 72,
+  "structural": 161,
+  "r14": 237,
+  "surface": 136,
+  "withdrawn": 125,
+  "out_of_scope": 110,
+  "upheld": 3,
+  "passes": 8,
+  "out_of_scope_stratum_b": 103,
+  "site_precision_pct": 8.1,
+  "violation_precision_pct": 2.2,
+  "violation_precision_all_proposals_pct": 0.6,
+  "surface_excluding_analysis_internals": 33,
+  "site_precision_excluding_internals_pct": 33.3,
+  "violation_precision_excluding_internals_pct": 9.1,
+  "violation_precision_uniform_surface_filter_pct": 4.0,
+  "uniform_surface_filter_sites": 75,
+  "shape_mix_pct": {
+   "benign-write": 77.4,
+   "discount": 1.1,
+   "narrowing": 10.9,
+   "waiver-skip": 10.6
+  }
+ },
+ "typescript_corpus": {
+  "files": 11717,
+  "proposed": 811,
+  "r3": 91,
+  "r14": 509,
+  "structural": 211,
+  "surface": 195,
+  "withdrawn": 191,
+  "out_of_scope": 166,
+  "upheld": 2,
+  "passes": 2,
+  "out_of_scope_stratum_b": 91,
+  "site_precision_pct": 2.1,
+  "violation_precision_pct": 1.0,
+  "violation_precision_all_proposals_pct": 0.2,
+  "shape_mix_pct": {
+   "benign-write": 86.3,
+   "discount": 1.1,
+   "narrowing": 7.5,
+   "waiver-skip": 5.1
+  },
+  "shape_mix_first_registration_pct": {
+   "benign-write": 79.9,
+   "discount": 1.6,
+   "narrowing": 10.9,
+   "waiver-skip": 7.7
+  },
+  "shape_mix_extension_pct": {
+   "benign-write": 94.0,
+   "discount": 0.5,
+   "narrowing": 3.5,
+   "waiver-skip": 1.9
+  }
+ },
+ "audit_rate": {
+  "stratum_A_pct": 16.0,
+  "stratum_B_pct": 5.4,
+  "difference_points": 10.6,
+  "fisher_p_two_sided": 0.011548852856552015,
+  "stratum_B_corrected_for_in_band_pct": 7.1,
+  "stratum_A_corrected_for_in_band_pct": 16.0,
+  "in_band_sites_stratum_B": 2,
+  "in_band_sites_stratum_A": 0
+ }
+}

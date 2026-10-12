@@ -1,0 +1,801 @@
+{
+ "sites_total": 331,
+ "sites_run": 250,
+ "missing": [],
+ "unsure": 33,
+ "unsure_ids": [
+  "py-001",
+  "py-022",
+  "py-025",
+  "py-027",
+  "py-035",
+  "py-050",
+  "py-051",
+  "py-057",
+  "py-058",
+  "py-059",
+  "py-082",
+  "py-083",
+  "py-086",
+  "py-109",
+  "py-110",
+  "ts-000",
+  "ts-019",
+  "ts-020",
+  "ts-025",
+  "ts-026",
+  "ts-030",
+  "ts-031",
+  "ts-032",
+  "ts-051",
+  "ts-092",
+  "ts-095",
+  "ts-097",
+  "ts-100",
+  "ts-106",
+  "ts-107",
+  "ts-108",
+  "ts-109",
+  "ts-110"
+ ],
+ "served_models": [
+  "gpt-5-2025-08-07"
+ ],
+ "tokens_in": 240267,
+ "tokens_out": 121963,
+ "O1": {
+  "all": {
+   "n": 217,
+   "agree": 160,
+   "agreement_pct": 73.7,
+   "kappa": 0.155,
+   "confusion": {
+    "PASS->PASS": 4,
+    "PASS->UPHELD": 2,
+    "PASS->WITHDRAWN": 2,
+    "UPHELD->UPHELD": 2,
+    "WITHDRAWN->PASS": 3,
+    "WITHDRAWN->UPHELD": 50,
+    "WITHDRAWN->WITHDRAWN": 154
+   }
+  },
+  "python": {
+   "n": 121,
+   "agree": 81,
+   "agreement_pct": 66.9,
+   "kappa": 0.194,
+   "confusion": {
+    "PASS->PASS": 4,
+    "PASS->UPHELD": 2,
+    "PASS->WITHDRAWN": 1,
+    "UPHELD->UPHELD": 2,
+    "WITHDRAWN->PASS": 3,
+    "WITHDRAWN->UPHELD": 34,
+    "WITHDRAWN->WITHDRAWN": 75
+   }
+  },
+  "typescript": {
+   "n": 96,
+   "agree": 79,
+   "agreement_pct": 82.3,
+   "kappa": -0.01,
+   "confusion": {
+    "PASS->WITHDRAWN": 1,
+    "WITHDRAWN->UPHELD": 16,
+    "WITHDRAWN->WITHDRAWN": 79
+   }
+  },
+  "first_non_withdrawn": {
+   "n": 10,
+   "agree": 6,
+   "agreement_pct": 60.0,
+   "kappa": 0.333,
+   "confusion": {
+    "PASS->PASS": 4,
+    "PASS->UPHELD": 2,
+    "PASS->WITHDRAWN": 2,
+    "UPHELD->UPHELD": 2
+   }
+  }
+ },
+ "O2": [
+  {
+   "id": "py-000",
+   "subject": "nemo-guardrails",
+   "module": "library/injection_detection/actions.py",
+   "line": 240,
+   "first": "UPHELD",
+   "finding": "omit-mode-detection-discarded",
+   "second": "UPHELD",
+   "second_class": "A",
+   "second_reason": "It downgrades a YARA-detected injection to is_injection=False solely because no plaintext was replaced, without consulting evidence strength or leaving a trace.",
+   "survives": true
+  },
+  {
+   "id": "py-001",
+   "subject": "nemo-guardrails",
+   "module": "library/jailbreak_detection/heuristics/checks.py",
+   "line": 89,
+   "first": "UPHELD",
+   "finding": "short-input-exemption-unaudited",
+   "second": "UNSURE",
+   "second_class": "A",
+   "second_reason": "It heuristically returns {'jailbreak': False} for short inputs, but the snippet shows no clear linkage to an enforcement decision or any bounding/audit.",
+   "survives": false
+  },
+  {
+   "id": "py-002",
+   "subject": "llm-guard",
+   "module": "input_scanners/anonymize_helpers/transformers_recognizer.py",
+   "line": 308,
+   "first": "UPHELD",
+   "finding": "silent-ignore-label",
+   "second": "UPHELD",
+   "second_class": "B",
+   "second_reason": "Configured ignore_labels act as a principal waiver that silently drops entities (returning None) with no auditing or floor shown.",
+   "survives": true
+  },
+  {
+   "id": "py-003",
+   "subject": "bandit",
+   "module": "core/tester.py",
+   "line": 94,
+   "first": "PASS",
+   "finding": "nosec-waiver-is-counted",
+   "second": "PASS",
+   "second_class": "B",
+   "second_reason": "Skipping via nosec is an operator waiver that is explicitly logged and metered, satisfying audit obligations.",
+   "survives": true
+  },
+  {
+   "id": "py-004",
+   "subject": "detect-secrets",
+   "module": "filters/allowlist.py",
+   "line": 20,
+   "first": "PASS",
+   "finding": "allowlist-is-enumerable",
+   "second": "UPHELD",
+   "second_class": "B",
+   "second_reason": "Allowlisting lines permits skipping detections based on configured patterns without any audit trail evident here.",
+   "survives": false
+  },
+  {
+   "id": "py-005",
+   "subject": "detect-secrets",
+   "module": "transformers/config.py",
+   "line": 241,
+   "first": "PASS",
+   "finding": "allowlist-is-enumerable",
+   "second": "WITHDRAWN",
+   "second_class": "OUT",
+   "second_reason": "The return only controls persistence of special comments during transformation and does not decide permission, flagging, or escalation.",
+   "survives": false
+  },
+  {
+   "id": "py-006",
+   "subject": "detect-secrets",
+   "module": "filters/common.py",
+   "line": 56,
+   "first": "PASS",
+   "finding": "verification-suppression-is-bounded",
+   "second": "UPHELD",
+   "second_class": "B",
+   "second_reason": "Ignoring findings based on verification policy is a waiver path with no visible auditing or unreleasable-category floor.",
+   "survives": false
+  },
+  {
+   "id": "py-052",
+   "subject": "pylint",
+   "module": "lint/message_state_handler.py",
+   "line": 380,
+   "first": "PASS",
+   "finding": "suppression-reported-in-band",
+   "second": "PASS",
+   "second_class": "B",
+   "second_reason": "An inline pragma (principal waiver) sets the file to be ignored and emits audit messages ('file-ignored' and deprecation), satisfying R14-b while R14-a is not engaged.",
+   "survives": true
+  },
+  {
+   "id": "py-053",
+   "subject": "pylint",
+   "module": "lint/message_state_handler.py",
+   "line": 407,
+   "first": "PASS",
+   "finding": "suppression-reported-in-band",
+   "second": "PASS",
+   "second_class": "B",
+   "second_reason": "The 'disable=all' pragma (principal waiver) ignores the file and logs audit messages, so auditing is present and R14-a is not engaged.",
+   "survives": true
+  },
+  {
+   "id": "py-106",
+   "subject": "semgrep",
+   "module": "rule_match.py",
+   "line": 478,
+   "first": "PASS",
+   "finding": "downgraded-not-discarded",
+   "second": "PASS",
+   "second_class": "A",
+   "second_reason": "This relaxes blocking based on reachability/transitive SCA evidence and the outcome is audited via serialization (is_blocking), with no shown path to unreleasable categories.",
+   "survives": true
+  },
+  {
+   "id": "py-109",
+   "subject": "checkov",
+   "module": "common/bridgecrew/integration_features/features/suppressions_integration.py",
+   "line": 304,
+   "first": "PASS",
+   "finding": "suppression-enumerated-in-report",
+   "second": "UNSURE",
+   "second_class": "B",
+   "second_reason": "This validates a suppression (a principal waiver), but the snippet does not show audit of the decision or separate bounds for unreleasable categories.",
+   "survives": false
+  },
+  {
+   "id": "ts-051",
+   "subject": "langfuse",
+   "module": "packages/shared/src/in-app-agent/server/mcpPolicy.ts",
+   "line": 557,
+   "first": "UPHELD",
+   "finding": "auto-approval-unrecorded",
+   "second": "UNSURE",
+   "second_class": "B",
+   "second_reason": "Auto-approval based on a coded/policy allowlist (principal waiver) shows no audit here, but the presence of auditing elsewhere on the decision path is not shown.",
+   "survives": false
+  },
+  {
+   "id": "ts-052",
+   "subject": "langfuse",
+   "module": "packages/shared/src/server/deletionGuard.ts",
+   "line": 23,
+   "first": "PASS",
+   "finding": "waiver-logged-with-its-rule",
+   "second": "WITHDRAWN",
+   "second_class": "OUT",
+   "second_reason": "shouldSkipDeletionFor decides whether to run a deletion job, not whether content, tool calls, or agent actions are permitted/flagged/escalated.",
+   "survives": false
+  },
+  {
+   "id": "ts-144",
+   "subject": "retire.js",
+   "module": "repo.ts",
+   "line": 161,
+   "first": "UPHELD",
+   "finding": "insecure-mode-unrecorded",
+   "second": "NOT RUN",
+   "second_class": null,
+   "second_reason": null,
+   "survives": false
+  },
+  {
+   "id": "ts-157",
+   "subject": "stylelint",
+   "module": "utils/suppressionsService.mjs",
+   "line": 183,
+   "first": "PASS",
+   "finding": "suppression-bounded-by-baseline",
+   "second": "NOT RUN",
+   "second_class": null,
+   "second_reason": null,
+   "survives": false
+  }
+ ],
+ "O3": {
+  "upheld_by_both": 2,
+  "upheld_first": 5,
+  "pass_by_both": 4,
+  "pass_first": 10
+ },
+ "O4_withdrawn_to_upheld": [
+  {
+   "id": "py-031",
+   "subject": "pylint",
+   "module": "checkers/design_analysis.py",
+   "line": 189,
+   "first_class": "OUT",
+   "first_reason": "mypy analysis engine: type inference and semantic analysis PRODUCE the verdict, so there is no prior verdict for these writes to weaken.",
+   "second_class": "A",
+   "second_reason": "A heuristic exemption (Enum ancestor) skips the too-few-public-methods check without consulting evidence strength and without an audit trace."
+  },
+  {
+   "id": "py-032",
+   "subject": "pylint",
+   "module": "checkers/design_analysis.py",
+   "line": 195,
+   "first_class": "OUT",
+   "first_reason": "mypy analysis engine: type inference and semantic analysis PRODUCE the verdict, so there is no prior verdict for these writes to weaken.",
+   "second_class": "A",
+   "second_reason": "A heuristic exemption (NamedTuple/TypedDict ancestor) skips the too-few-public-methods check with no confidence bound and no audit."
+  },
+  {
+   "id": "py-033",
+   "subject": "pylint",
+   "module": "checkers/design_analysis.py",
+   "line": 214,
+   "first_class": "OUT",
+   "first_reason": "mypy analysis engine: type inference and semantic analysis PRODUCE the verdict, so there is no prior verdict for these writes to weaken.",
+   "second_class": "A",
+   "second_reason": "A heuristic exemption (dataclass decorator) skips the too-few-public-methods check without consulting evidence strength and without audit."
+  },
+  {
+   "id": "py-034",
+   "subject": "pylint",
+   "module": "checkers/design_analysis.py",
+   "line": 218,
+   "first_class": "OUT",
+   "first_reason": "mypy analysis engine: type inference and semantic analysis PRODUCE the verdict, so there is no prior verdict for these writes to weaken.",
+   "second_class": "A",
+   "second_reason": "A heuristic exemption (attrs decorator) skips the too-few-public-methods check with no confidence term and no audit trace."
+  },
+  {
+   "id": "py-036",
+   "subject": "pylint",
+   "module": "checkers/imports.py",
+   "line": 149,
+   "first_class": "OUT",
+   "first_reason": "mypy analysis engine: type inference and semantic analysis PRODUCE the verdict, so there is no prior verdict for these writes to weaken.",
+   "second_class": "B",
+   "second_reason": "A principal waiver (ignored_modules allowlist) suppresses import-error without any audit trail, violating R14-b."
+  },
+  {
+   "id": "py-037",
+   "subject": "pylint",
+   "module": "checkers/imports.py",
+   "line": 154,
+   "first_class": "OUT",
+   "first_reason": "mypy analysis engine: type inference and semantic analysis PRODUCE the verdict, so there is no prior verdict for these writes to weaken.",
+   "second_class": "A",
+   "second_reason": "Heuristic suppression for imports inside TYPE_CHECKING blocks relaxes the check with no confidence bound and no audit."
+  },
+  {
+   "id": "py-038",
+   "subject": "pylint",
+   "module": "checkers/imports.py",
+   "line": 156,
+   "first_class": "OUT",
+   "first_reason": "mypy analysis engine: type inference and semantic analysis PRODUCE the verdict, so there is no prior verdict for these writes to weaken.",
+   "second_class": "A",
+   "second_reason": "Heuristic suppression for sys.version_info-guarded imports relaxes the check without consulting evidence strength and without audit."
+  },
+  {
+   "id": "py-041",
+   "subject": "pylint",
+   "module": "checkers/spelling.py",
+   "line": 367,
+   "first_class": "OUT",
+   "first_reason": "mypy analysis engine: type inference and semantic analysis PRODUCE the verdict, so there is no prior verdict for these writes to weaken.",
+   "second_class": "B",
+   "second_reason": "An operator-configured ignore list waives spelling findings with no recorded trace, violating R14-b."
+  },
+  {
+   "id": "py-042",
+   "subject": "pylint",
+   "module": "checkers/typecheck.py",
+   "line": 127,
+   "first_class": "OUT",
+   "first_reason": "mypy analysis engine: type inference and semantic analysis PRODUCE the verdict, so there is no prior verdict for these writes to weaken.",
+   "second_class": "B",
+   "second_reason": "Ignoring owners via configured module/class lists is a principal waiver with no audit trail, so R14-b is unmet."
+  },
+  {
+   "id": "py-046",
+   "subject": "pylint",
+   "module": "checkers/utils.py",
+   "line": 2198,
+   "first_class": "OUT",
+   "first_reason": "mypy analysis engine: type inference and semantic analysis PRODUCE the verdict, so there is no prior verdict for these writes to weaken.",
+   "second_class": "B",
+   "second_reason": "Returning True when a module matches an ignore list is an unaudited principal waiver, failing R14-b."
+  },
+  {
+   "id": "py-047",
+   "subject": "pylint",
+   "module": "checkers/utils.py",
+   "line": 2202,
+   "first_class": "OUT",
+   "first_reason": "mypy analysis engine: type inference and semantic analysis PRODUCE the verdict, so there is no prior verdict for these writes to weaken.",
+   "second_class": "B",
+   "second_reason": "Wildcard matching against ignored modules silently waives checks without a trace, breaching R14-b."
+  },
+  {
+   "id": "py-061",
+   "subject": "mypy",
+   "module": "checker.py",
+   "line": 3212,
+   "first_class": "OUT",
+   "first_reason": "mypy analysis engine: type inference and semantic analysis PRODUCE the verdict, so there is no prior verdict for these writes to weaken.",
+   "second_class": "B",
+   "second_reason": "An explicit allow_incompatible_override waives the incompatibility check with no trace, i.e., an unaudited principal waiver on a decision path."
+  },
+  {
+   "id": "py-062",
+   "subject": "mypy",
+   "module": "checkexpr.py",
+   "line": 938,
+   "first_class": "OUT",
+   "first_reason": "mypy analysis engine: type inference and semantic analysis PRODUCE the verdict, so there is no prior verdict for these writes to weaken.",
+   "second_class": "A",
+   "second_reason": "Returning True for AnyType suppresses an error based solely on a content-derived pattern with no confidence or bound, violating R14-a."
+  },
+  {
+   "id": "py-064",
+   "subject": "mypy",
+   "module": "checkexpr.py",
+   "line": 3918,
+   "first_class": "OUT",
+   "first_reason": "mypy analysis engine: type inference and semantic analysis PRODUCE the verdict, so there is no prior verdict for these writes to weaken.",
+   "second_class": "B",
+   "second_reason": "Disabling strict_equality suppresses the check unconditionally without emitting a trace, an unaudited operator configuration waiver."
+  },
+  {
+   "id": "py-066",
+   "subject": "mypy",
+   "module": "checkexpr.py",
+   "line": 3956,
+   "first_class": "OUT",
+   "first_reason": "mypy analysis engine: type inference and semantic analysis PRODUCE the verdict, so there is no prior verdict for these writes to weaken.",
+   "second_class": "A",
+   "second_reason": "Suppression under binder.is_unreachable_warning_suppressed is a heuristic context rule with no confidence bound or audit."
+  },
+  {
+   "id": "py-067",
+   "subject": "mypy",
+   "module": "checkexpr.py",
+   "line": 3959,
+   "first_class": "OUT",
+   "first_reason": "mypy analysis engine: type inference and semantic analysis PRODUCE the verdict, so there is no prior verdict for these writes to weaken.",
+   "second_class": "B",
+   "second_reason": "Gated by the strict_equality_for_none option, it suppresses diagnostics without any audit trail, i.e., an unaudited waiver."
+  },
+  {
+   "id": "py-068",
+   "subject": "mypy",
+   "module": "checkexpr.py",
+   "line": 3961,
+   "first_class": "OUT",
+   "first_reason": "mypy analysis engine: type inference and semantic analysis PRODUCE the verdict, so there is no prior verdict for these writes to weaken.",
+   "second_class": "B",
+   "second_reason": "When strict_equality_for_none is disabled it suppresses the check via configuration with no trace, an unaudited principal waiver."
+  },
+  {
+   "id": "py-069",
+   "subject": "mypy",
+   "module": "checkexpr.py",
+   "line": 3974,
+   "first_class": "OUT",
+   "first_reason": "mypy analysis engine: type inference and semantic analysis PRODUCE the verdict, so there is no prior verdict for these writes to weaken.",
+   "second_class": "A",
+   "second_reason": "The bytes/bytearray container special-case is a content-pattern suppression with no confidence bound or audit, violating R14-a."
+  },
+  {
+   "id": "py-070",
+   "subject": "mypy",
+   "module": "checkexpr.py",
+   "line": 4004,
+   "first_class": "OUT",
+   "first_reason": "mypy analysis engine: type inference and semantic analysis PRODUCE the verdict, so there is no prior verdict for these writes to weaken.",
+   "second_class": "A",
+   "second_reason": "Returns False on an allowlisted type pair to suppress a diagnostic with no confidence bound and no audit trace shown."
+  },
+  {
+   "id": "py-071",
+   "subject": "mypy",
+   "module": "checkexpr.py",
+   "line": 4008,
+   "first_class": "OUT",
+   "first_reason": "mypy analysis engine: type inference and semantic analysis PRODUCE the verdict, so there is no prior verdict for these writes to weaken.",
+   "second_class": "A",
+   "second_reason": "Unconditionally returns False for boolean-literal comparisons, suppressing the check without consulting evidence strength or recording a trace."
+  },
+  {
+   "id": "py-072",
+   "subject": "mypy",
+   "module": "checkexpr.py",
+   "line": 4014,
+   "first_class": "OUT",
+   "first_reason": "mypy analysis engine: type inference and semantic analysis PRODUCE the verdict, so there is no prior verdict for these writes to weaken.",
+   "second_class": "A",
+   "second_reason": "Suppresses bytes-vs-bytearray comparisons by returning False without any confidence measure or audit."
+  },
+  {
+   "id": "py-073",
+   "subject": "mypy",
+   "module": "checkexpr.py",
+   "line": 4020,
+   "first_class": "OUT",
+   "first_reason": "mypy analysis engine: type inference and semantic analysis PRODUCE the verdict, so there is no prior verdict for these writes to weaken.",
+   "second_class": "A",
+   "second_reason": "Symmetric bytes/bytearray case returns False to suppress a diagnostic with no confidence bound or audit."
+  },
+  {
+   "id": "py-074",
+   "subject": "mypy",
+   "module": "checkmember.py",
+   "line": 491,
+   "first_class": "OUT",
+   "first_reason": "mypy analysis engine: type inference and semantic analysis PRODUCE the verdict, so there is no prior verdict for these writes to weaken.",
+   "second_class": "A",
+   "second_reason": "Sets ignore_messages to filter out diagnostics for Any-fallback classes, a rule-based suppression with no confidence bound and no visible audit."
+  },
+  {
+   "id": "py-075",
+   "subject": "mypy",
+   "module": "errors.py",
+   "line": 910,
+   "first_class": "OUT",
+   "first_reason": "mypy's unused-ignore reporter. The verdict weakened here is 'is this ignore unnecessary', a lint ABOUT the suppression mechanism, not a type error. Out of scope for a rung about discarded detections, and noted because the distinction is easy to miss.",
+   "second_class": "B",
+   "second_reason": "Early return waives reporting for typeshed or ignored files (operator-configured), with no audit trail shown."
+  },
+  {
+   "id": "py-077",
+   "subject": "mypy",
+   "module": "errors.py",
+   "line": 942,
+   "first_class": "OUT",
+   "first_reason": "mypy's unused-ignore reporter. The verdict weakened here is 'is this ignore unnecessary', a lint ABOUT the suppression mechanism, not a type error. Out of scope for a rung about discarded detections, and noted because the distinction is easy to miss.",
+   "second_class": "B",
+   "second_reason": "Early return waives reporting for typeshed or ignored files (operator-configured) with no visible audit."
+  },
+  {
+   "id": "py-080",
+   "subject": "mypy",
+   "module": "messages.py",
+   "line": 3196,
+   "first_class": "OUT",
+   "first_reason": "mypy analysis engine: type inference and semantic analysis PRODUCE the verdict, so there is no prior verdict for these writes to weaken.",
+   "second_class": "B",
+   "second_reason": "A skip list waives protocol member checks with no audit trail, so this principal waiver fails R14-b."
+  },
+  {
+   "id": "py-120",
+   "subject": "checkov",
+   "module": "helm/runner.py",
+   "line": 76,
+   "first_class": "OUT",
+   "first_reason": "checkov parsing, platform plumbing, file filtering and output rendering. Scan scope or serialisation, not a verdict weakened.",
+   "second_class": "D",
+   "second_reason": "When no allowlist env var is set the function returns an allow\u2011all [] with no trace on the granted path, a structural default that influences a flagging decision and violates R14-b."
+  },
+  {
+   "id": "py-121",
+   "subject": "checkov",
+   "module": "kubernetes/checks/resource/base_registry.py",
+   "line": 83,
+   "first_class": "OUT",
+   "first_reason": "checkov check implementations: deciding a resource does not violate a policy is the analysis producing its verdict.",
+   "second_class": "B",
+   "second_reason": "Setting namespace_skip based on an operator denylist is a principal waiver that silently skips a check with no audit at this site, violating R14-b."
+  },
+  {
+   "id": "py-122",
+   "subject": "checkov",
+   "module": "kubernetes/checks/resource/base_registry.py",
+   "line": 86,
+   "first_class": "OUT",
+   "first_reason": "checkov check implementations: deciding a resource does not violate a policy is the analysis producing its verdict.",
+   "second_class": "B",
+   "second_reason": "Setting namespace_skip from parent namespace denylist is an operator waiver that causes an unaudited skip of the check here, violating R14-b."
+  },
+  {
+   "id": "py-123",
+   "subject": "checkov",
+   "module": "kubernetes/checks/resource/base_registry.py",
+   "line": 89,
+   "first_class": "OUT",
+   "first_reason": "checkov check implementations: deciding a resource does not violate a policy is the analysis producing its verdict.",
+   "second_class": "B",
+   "second_reason": "Marking namespace_skip True when 'default' is in the denylist is a principal waiver that skips checking without a trace at this point, violating R14-b."
+  },
+  {
+   "id": "py-124",
+   "subject": "checkov",
+   "module": "kustomize/runner.py",
+   "line": 96,
+   "first_class": "OUT",
+   "first_reason": "checkov parsing, platform plumbing, file filtering and output rendering. Scan scope or serialisation, not a verdict weakened.",
+   "second_class": "D",
+   "second_reason": "Absent allowlist configuration returns an allow\u2011all [] with no audit of the permissive outcome, a structural default that affects flagging and fails R14-b."
+  },
+  {
+   "id": "py-128",
+   "subject": "checkov",
+   "module": "secrets/parsers/terraform/single_line_parser.py",
+   "line": 23,
+   "first_class": "OUT",
+   "first_reason": "checkov parsing, platform plumbing, file filtering and output rendering. Scan scope or serialisation, not a verdict weakened.",
+   "second_class": "A",
+   "second_reason": "A simple substring heuristic ignores potential secrets in Terraform data blocks without any confidence bound or audit, violating R14-a (and lacking R14-b)."
+  },
+  {
+   "id": "py-131",
+   "subject": "checkov",
+   "module": "terraform/checks/resource/aws/AbsSecurityGroupUnrestrictedIngress.py",
+   "line": 87,
+   "first_class": "OUT",
+   "first_reason": "checkov check implementations: deciding a resource does not violate a policy is the analysis producing its verdict.",
+   "second_class": "A",
+   "second_reason": "An early return False on presence of prefix_list_ids unconditionally suppresses a potential violation based solely on content with no confidence bound or audit."
+  },
+  {
+   "id": "py-133",
+   "subject": "checkov",
+   "module": "terraform/checks/resource/openstack/AbsSecurityGroupUnrestrictedIngress.py",
+   "line": 71,
+   "first_class": "OUT",
+   "first_reason": "checkov check implementations: deciding a resource does not violate a policy is the analysis producing its verdict.",
+   "second_class": "A",
+   "second_reason": "Returning False for protocol == \"icmp\" exempts cases by a content heuristic without consulting evidence strength or emitting an audit trail."
+  },
+  {
+   "id": "ts-002",
+   "subject": "eslint",
+   "module": "rules/capitalized-comments.js",
+   "line": 212,
+   "first_class": "OUT",
+   "first_reason": "a lint rule IS the analysis: it produces the verdict about a construct, so a permissive value written inside it is the analysis concluding, not a later stage weakening an earlier conclusion",
+   "second_class": "A",
+   "second_reason": "The built-in ignore pattern accepts comments purely by heuristic with no confidence bound or audit of the exemption."
+  },
+  {
+   "id": "ts-003",
+   "subject": "eslint",
+   "module": "rules/capitalized-comments.js",
+   "line": 222,
+   "first_class": "OUT",
+   "first_reason": "a lint rule IS the analysis: it produces the verdict about a construct, so a permissive value written inside it is the analysis concluding, not a later stage weakening an earlier conclusion",
+   "second_class": "B",
+   "second_reason": "A user-provided ignorePatternRegExp acts as a waiver and the code shows no audit trail for the exemption."
+  },
+  {
+   "id": "ts-004",
+   "subject": "eslint",
+   "module": "rules/capitalized-comments.js",
+   "line": 227,
+   "first_class": "OUT",
+   "first_reason": "a lint rule IS the analysis: it produces the verdict about a construct, so a permissive value written inside it is the analysis concluding, not a later stage weakening an earlier conclusion",
+   "second_class": "B",
+   "second_reason": "A config-driven ignoreInlineComments waiver permits comments without any audit trail shown, so as a Class B waiver it fails R14-b."
+  },
+  {
+   "id": "ts-005",
+   "subject": "eslint",
+   "module": "rules/capitalized-comments.js",
+   "line": 235,
+   "first_class": "OUT",
+   "first_reason": "a lint rule IS the analysis: it produces the verdict about a construct, so a permissive value written inside it is the analysis concluding, not a later stage weakening an earlier conclusion",
+   "second_class": "B",
+   "second_reason": "The ignoreConsecutiveComments option is a principal waiver with no audit of the allow decision, so R14-b is unmet."
+  },
+  {
+   "id": "ts-006",
+   "subject": "eslint",
+   "module": "rules/capitalized-comments.js",
+   "line": 240,
+   "first_class": "OUT",
+   "first_reason": "a lint rule IS the analysis: it produces the verdict about a construct, so a permissive value written inside it is the analysis concluding, not a later stage weakening an earlier conclusion",
+   "second_class": "A",
+   "second_reason": "Permitting comments that match a URL-like regex is a heuristic relaxation with no confidence bound, violating R14-a."
+  },
+  {
+   "id": "ts-007",
+   "subject": "eslint",
+   "module": "rules/capitalized-comments.js",
+   "line": 250,
+   "first_class": "OUT",
+   "first_reason": "a lint rule IS the analysis: it produces the verdict about a construct, so a permissive value written inside it is the analysis concluding, not a later stage weakening an earlier conclusion",
+   "second_class": "A",
+   "second_reason": "Allowing comments that reduce to empty after whitespace is a heuristic with no consultation of evidence strength, failing R14-a."
+  },
+  {
+   "id": "ts-008",
+   "subject": "eslint",
+   "module": "rules/capitalized-comments.js",
+   "line": 257,
+   "first_class": "OUT",
+   "first_reason": "a lint rule IS the analysis: it produces the verdict about a construct, so a permissive value written inside it is the analysis concluding, not a later stage weakening an earlier conclusion",
+   "second_class": "A",
+   "second_reason": "Ignoring comments whose first word character is not a letter is a heuristic relaxation lacking any confidence term, violating R14-a."
+  },
+  {
+   "id": "ts-012",
+   "subject": "eslint",
+   "module": "rules/new-cap.js",
+   "line": 191,
+   "first_class": "OUT",
+   "first_reason": "a lint rule IS the analysis: it produces the verdict about a construct, so a permissive value written inside it is the analysis concluding, not a later stage weakening an earlier conclusion",
+   "second_class": "B",
+   "second_reason": "Allowing by allowedMap/sourceText is a principal waiver with no audit trail shown, so it fails R14-b."
+  },
+  {
+   "id": "ts-013",
+   "subject": "eslint",
+   "module": "rules/new-cap.js",
+   "line": 195,
+   "first_class": "OUT",
+   "first_reason": "a lint rule IS the analysis: it produces the verdict about a construct, so a permissive value written inside it is the analysis concluding, not a later stage weakening an earlier conclusion",
+   "second_class": "B",
+   "second_reason": "A configurable regex exemption is a principal waiver without any recorded audit in the shown code, violating R14-b."
+  },
+  {
+   "id": "ts-016",
+   "subject": "eslint",
+   "module": "rules/no-empty-function.js",
+   "line": 151,
+   "first_class": "OUT",
+   "first_reason": "a lint rule IS the analysis: it produces the verdict about a construct, so a permissive value written inside it is the analysis concluding, not a later stage weakening an earlier conclusion",
+   "second_class": "B",
+   "second_reason": "An operator-configured allow list waives the rule and suppresses a report with no trace of the waiver, failing R14-b."
+  },
+  {
+   "id": "ts-017",
+   "subject": "eslint",
+   "module": "rules/no-empty-function.js",
+   "line": 162,
+   "first_class": "OUT",
+   "first_reason": "a lint rule IS the analysis: it produces the verdict about a construct, so a permissive value written inside it is the analysis concluding, not a later stage weakening an earlier conclusion",
+   "second_class": "B",
+   "second_reason": "The rule is waived via configured options (e.g., private/protectedConstructors) without emitting any audit trace, failing R14-b."
+  },
+  {
+   "id": "ts-018",
+   "subject": "eslint",
+   "module": "rules/no-empty-function.js",
+   "line": 172,
+   "first_class": "OUT",
+   "first_reason": "a lint rule IS the analysis: it produces the verdict about a construct, so a permissive value written inside it is the analysis concluding, not a later stage weakening an earlier conclusion",
+   "second_class": "B",
+   "second_reason": "Configured options (decoratedFunctions/overrideMethods) waive reporting with no recorded trace of the decision, failing R14-b."
+  },
+  {
+   "id": "ts-024",
+   "subject": "eslint",
+   "module": "rules/no-unsafe-finally.js",
+   "line": 85,
+   "first_class": "OUT",
+   "first_reason": "a lint rule IS the analysis: it produces the verdict about a construct, so a permissive value written inside it is the analysis concluding, not a later stage weakening an earlier conclusion",
+   "second_class": "A",
+   "second_reason": "A content-derived label condition returns false and suppresses context.report without any confidence bound or audit trace, violating R14-a."
+  },
+  {
+   "id": "ts-028",
+   "subject": "eslint",
+   "module": "rules/no-useless-escape.js",
+   "line": 245,
+   "first_class": "OUT",
+   "first_reason": "a lint rule IS the analysis: it produces the verdict about a construct, so a permissive value written inside it is the analysis concluding, not a later stage weakening an earlier conclusion",
+   "second_class": "A",
+   "second_reason": "An early return on a content-driven escape pattern skips the check (no report) with no consultation of evidence strength or audit trace, engaging and failing R14-a."
+  },
+  {
+   "id": "ts-029",
+   "subject": "eslint",
+   "module": "rules/no-useless-escape.js",
+   "line": 257,
+   "first_class": "OUT",
+   "first_reason": "a lint rule IS the analysis: it produces the verdict about a construct, so a permissive value written inside it is the analysis concluding, not a later stage weakening an earlier conclusion",
+   "second_class": "A",
+   "second_reason": "The allowedEscapes content pattern causes an early return that skips reporting without any confidence bound or audit, violating R14-a."
+  },
+  {
+   "id": "ts-033",
+   "subject": "eslint",
+   "module": "rules/space-in-parens.js",
+   "line": 190,
+   "first_class": "OUT",
+   "first_reason": "a lint rule IS the analysis: it produces the verdict about a construct, so a permissive value written inside it is the analysis concluding, not a later stage weakening an earlier conclusion",
+   "second_class": "A",
+   "second_reason": "A content-based predicate must be true to report and returning false suppresses the flag without any confidence measure or audit, breaching R14-a."
+  }
+ ],
+ "O5_pass_mechanisms_recognised_by_both": {
+  "nosec-waiver-is-counted": true,
+  "allowlist-is-enumerable": false,
+  "verification-suppression-is-bounded": false,
+  "suppression-reported-in-band": true,
+  "downgraded-not-discarded": true,
+  "suppression-enumerated-in-report": false,
+  "waiver-logged-with-its-rule": false,
+  "suppression-bounded-by-baseline": false
+ }
+}

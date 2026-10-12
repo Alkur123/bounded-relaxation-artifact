@@ -1,0 +1,93 @@
+{
+  "nemo-omit-mode": {
+    "subject": "NeMo Guardrails",
+    "file": "nemoguardrails/library/injection_detection/actions.py",
+    "functions": {
+      "_omit_injection": "4883fa63e7f891f8",
+      "_injection_detection_outcome": "7b44e5fe2f359d3e"
+    },
+    "finding": {
+      "input": "YARA matched; the matched bytes are not valid UTF-8",
+      "is_injection": false,
+      "text_unchanged": true,
+      "detections_reported": [
+        "command_injection"
+      ],
+      "outcome": "RailOutcome.allow",
+      "log": [
+        "Error processing match: 'utf-8' codec can't decode byte 0xff in position 0: invalid start byte"
+      ]
+    },
+    "control": {
+      "input": "YARA matched; the matched bytes decode normally",
+      "is_injection": true,
+      "text_unchanged": false,
+      "outcome": "RailOutcome.transform"
+    },
+    "proved": true,
+    "control_ok": true
+  },
+  "llamafirewall-pii": {
+    "subject": "LlamaFirewall",
+    "file": "LlamaFirewall/src/llamafirewall/scanners/experimental/piicheck_scanner.py",
+    "functions": {
+      "_convert_llm_response_to_score": "451f572e6ad34ac6",
+      "_get_default_error_response": "c3eabf566b37173b"
+    },
+    "finding": {
+      "input": "the model call raised, so the error response is used",
+      "error_response": [
+        "ERROR"
+      ],
+      "score": 0.0,
+      "block_threshold": 0.7,
+      "decision": "ALLOW",
+      "reason_the_code_gives": "No PII detected or confidence below threshold",
+      "status_the_code_gives": "ScanStatus.SUCCESS"
+    },
+    "control": {
+      "input": "the model returned two real PII types",
+      "score": 1.0,
+      "decision": "BLOCK"
+    },
+    "sibling_on_the_same_condition": {
+      "file": "alignmentcheck_scanner.py",
+      "sha": "466ee3572649633e",
+      "error_response": {
+        "observation": "Error occurred during evaluation",
+        "thought": "Due to an error, treating as potentially compromised for safety",
+        "conclusion": true
+      },
+      "note": "conclusion=True scores 1.0 and returns HUMAN_IN_THE_LOOP_REQUIRED, i.e. fails closed"
+    },
+    "proved": true,
+    "control_ok": true
+  },
+  "llm-guard-ignore-label": {
+    "subject": "LLM Guard",
+    "file": "llm_guard/input_scanners/anonymize_helpers/transformers_recognizer.py",
+    "functions": {
+      "__check_label_transformer": "1c697e52839cbaf1"
+    },
+    "finding": {
+      "input": "a model label whose Presidio entity is in ignore_labels",
+      "returned": null,
+      "log_lines": [],
+      "note": "the detection is dropped and nothing is written; the other non-matching branch logs"
+    },
+    "control": {
+      "supported_entity": {
+        "returned": "PERSON",
+        "log_lines": []
+      },
+      "unrecognised_label": {
+        "returned": "NOT_A_LABEL",
+        "log_lines": [
+          "Found unrecognized label, returning entity as is"
+        ]
+      }
+    },
+    "proved": true,
+    "control_ok": true
+  }
+}

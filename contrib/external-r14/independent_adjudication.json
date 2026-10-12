@@ -1,0 +1,2633 @@
+{
+ "model_requested": "gpt-5",
+ "verdicts": {
+  "py-000": {
+   "subject": "nemo-guardrails",
+   "module": "library/injection_detection/actions.py",
+   "line": 240,
+   "lang": "py",
+   "verdict": "UPHELD",
+   "class": "A",
+   "reason": "It downgrades a YARA-detected injection to is_injection=False solely because no plaintext was replaced, without consulting evidence strength or leaving a trace."
+  },
+  "py-001": {
+   "subject": "nemo-guardrails",
+   "module": "library/jailbreak_detection/heuristics/checks.py",
+   "line": 89,
+   "lang": "py",
+   "verdict": "UNSURE",
+   "class": "A",
+   "reason": "It heuristically returns {'jailbreak': False} for short inputs, but the snippet shows no clear linkage to an enforcement decision or any bounding/audit."
+  },
+  "py-002": {
+   "subject": "llm-guard",
+   "module": "input_scanners/anonymize_helpers/transformers_recognizer.py",
+   "line": 308,
+   "lang": "py",
+   "verdict": "UPHELD",
+   "class": "B",
+   "reason": "Configured ignore_labels act as a principal waiver that silently drops entities (returning None) with no auditing or floor shown."
+  },
+  "py-003": {
+   "subject": "bandit",
+   "module": "core/tester.py",
+   "line": 94,
+   "lang": "py",
+   "verdict": "PASS",
+   "class": "B",
+   "reason": "Skipping via nosec is an operator waiver that is explicitly logged and metered, satisfying audit obligations."
+  },
+  "py-004": {
+   "subject": "detect-secrets",
+   "module": "filters/allowlist.py",
+   "line": 20,
+   "lang": "py",
+   "verdict": "UPHELD",
+   "class": "B",
+   "reason": "Allowlisting lines permits skipping detections based on configured patterns without any audit trail evident here."
+  },
+  "py-005": {
+   "subject": "detect-secrets",
+   "module": "transformers/config.py",
+   "line": 241,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "The return only controls persistence of special comments during transformation and does not decide permission, flagging, or escalation."
+  },
+  "py-006": {
+   "subject": "detect-secrets",
+   "module": "filters/common.py",
+   "line": 56,
+   "lang": "py",
+   "verdict": "UPHELD",
+   "class": "B",
+   "reason": "Ignoring findings based on verification policy is a waiver path with no visible auditing or unreleasable-category floor."
+  },
+  "py-007": {
+   "subject": "control-arena",
+   "module": "monitor/_utils.py",
+   "line": 167,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "FP",
+   "reason": "The assignment merely normalizes a score and does not relax or waive any safety verdict (scanner misclassification)."
+  },
+  "py-008": {
+   "subject": "control-arena",
+   "module": "settings/apps/dataset/validation.py",
+   "line": 129,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "FP",
+   "reason": "Dividing a parsed score by 10.0 is scale normalization, not a permissive relaxation."
+  },
+  "py-009": {
+   "subject": "control-arena",
+   "module": "scorers/_blabbing_scorer.py",
+   "line": 177,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "FP",
+   "reason": "Setting match_score to 0.0 for empty quotes is a strict default in metadata, not a relaxation on a safety-decision path."
+  },
+  "py-010": {
+   "subject": "control-arena",
+   "module": "scorers/_blabbing_scorer.py",
+   "line": 215,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "Sets quote metadata (match_score) in a scorer; no permit/flag/escalation decision is shown."
+  },
+  "py-011": {
+   "subject": "control-arena",
+   "module": "scorers/_llm_judge.py",
+   "line": 72,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "Returns None when parsing a judge string for scoring; this is evaluation metadata, not a safety decision path."
+  },
+  "py-012": {
+   "subject": "control-arena",
+   "module": "scorers/_llm_judge.py",
+   "line": 256,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "Returns None to skip an ensemble member in scoring; no permit/deny or escalation decision is involved."
+  },
+  "py-013": {
+   "subject": "control-arena",
+   "module": "settings/data_poisoning/scorers.py",
+   "line": 209,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "Returns None for out-of-bounds numeric score in an evaluator; it does not drive any enforcement decision."
+  },
+  "py-014": {
+   "subject": "inspect_ai",
+   "module": "util/_checkpoint/_host_egress.py",
+   "line": 120,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "Skips scanning excluded top-level paths during checkpoint file egress checks; unrelated to content/tool permission."
+  },
+  "py-015": {
+   "subject": "agentdojo",
+   "module": "default_suites/v1/slack/injection_tasks.py",
+   "line": 215,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "Updates internal attacker state for evaluation and derives a boolean score; not on a safety enforcement path."
+  },
+  "py-016": {
+   "subject": "nemo-guardrails",
+   "module": "eval/check.py",
+   "line": 230,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "Skips a policy compliance check as not applicable and marks 'n/a' in evaluation output; not a permit/flag decision."
+  },
+  "py-017": {
+   "subject": "nemo-guardrails",
+   "module": "evaluate/evaluate_factcheck.py",
+   "line": 128,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "Assigns ground-truth label ('no') for a dataset split in a fact-check evaluator; not tied to any safety decision."
+  },
+  "py-018": {
+   "subject": "nemo-guardrails",
+   "module": "evaluate/evaluate_moderation.py",
+   "line": 181,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "Sets evaluation label 'no' for non-harmful split in moderation checks; does not reach a permit/deny path."
+  },
+  "py-019": {
+   "subject": "nemo-guardrails",
+   "module": "evaluate/evaluate_moderation.py",
+   "line": 182,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "Sets evaluation label 'no' for non-harmful split in moderation output checking; not a safety-decision write."
+  },
+  "py-020": {
+   "subject": "nemo-guardrails",
+   "module": "library/content_safety/actions.py",
+   "line": 245,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "Returning None from language detection only drives a localization default ('en') and, as shown, does not decide to permit/flag/escalate any action."
+  },
+  "py-021": {
+   "subject": "garak",
+   "module": "detectors/base.py",
+   "line": 191,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "Assigning None for missing attempt outputs just aligns detector results and does not reach any permit/flag decision path."
+  },
+  "py-022": {
+   "subject": "llama-firewall",
+   "module": "scanners/experimental/alignmentcheck_scanner.py",
+   "line": 125,
+   "lang": "py",
+   "verdict": "UNSURE",
+   "class": "A",
+   "reason": "Mapping an LLM conclusion to a 0.0/1.0 heuristic score may influence enforcement, but only scoring (no downstream decision or audit) is shown."
+  },
+  "py-023": {
+   "subject": "giskard",
+   "module": "scan/generators/base.py",
+   "line": 111,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "Skipping multi\u2011turn scenario generation for singleturn targets affects test generation only and not any safety decision."
+  },
+  "py-024": {
+   "subject": "giskard",
+   "module": "scan/integrations/garak/_adapter.py",
+   "line": 273,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "Returning None for an unresolvable detector name concerns plugin resolution, not a permit/flag/escalate decision."
+  },
+  "py-025": {
+   "subject": "rebuff",
+   "module": "detect_pi_heuristics.py",
+   "line": 142,
+   "lang": "py",
+   "verdict": "UNSURE",
+   "class": "A",
+   "reason": "The heuristic score of 0 when no words match could feed a later allow/block decision, but no such downstream decision or audit is shown."
+  },
+  "py-026": {
+   "subject": "modelscan",
+   "module": "modelscan.py",
+   "line": 161,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "The continue path only prunes files from a static scan after a skip and does not determine whether content or actions are permitted or flagged."
+  },
+  "py-027": {
+   "subject": "semantic-kernel",
+   "module": "connectors/openapi_plugin/server_url_validator.py",
+   "line": 104,
+   "lang": "py",
+   "verdict": "UNSURE",
+   "class": "B",
+   "reason": "URL allow\u2011list matching appears to gate acceptance of a server URL, but the snippet shows no auditing or unreleasable\u2011category handling to judge R14\u2011b/c."
+  },
+  "py-028": {
+   "subject": "bandit",
+   "module": "plugins/tarfile_unsafe_members.py",
+   "line": 114,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "FP",
+   "reason": "Returning None when a safe tarfile filter is provided is the intended safe path of the check, not a relaxation of a stricter verdict."
+  },
+  "py-029": {
+   "subject": "pylint",
+   "module": "checkers/base/name_checker/checker.py",
+   "line": 662,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "This exemption suppresses a linter naming warning and does not decide whether content, a tool call, or an agent action is permitted or flagged."
+  },
+  "py-030": {
+   "subject": "pylint",
+   "module": "checkers/classes/class_checker.py",
+   "line": 1698,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "FP",
+   "reason": "Returning True here enables further checking (potentially more flags) rather than relaxing a verdict, so the scanner misread polarity."
+  },
+  "py-031": {
+   "subject": "pylint",
+   "module": "checkers/design_analysis.py",
+   "line": 189,
+   "lang": "py",
+   "verdict": "UPHELD",
+   "class": "A",
+   "reason": "A heuristic exemption (Enum ancestor) skips the too-few-public-methods check without consulting evidence strength and without an audit trace."
+  },
+  "py-032": {
+   "subject": "pylint",
+   "module": "checkers/design_analysis.py",
+   "line": 195,
+   "lang": "py",
+   "verdict": "UPHELD",
+   "class": "A",
+   "reason": "A heuristic exemption (NamedTuple/TypedDict ancestor) skips the too-few-public-methods check with no confidence bound and no audit."
+  },
+  "py-033": {
+   "subject": "pylint",
+   "module": "checkers/design_analysis.py",
+   "line": 214,
+   "lang": "py",
+   "verdict": "UPHELD",
+   "class": "A",
+   "reason": "A heuristic exemption (dataclass decorator) skips the too-few-public-methods check without consulting evidence strength and without audit."
+  },
+  "py-034": {
+   "subject": "pylint",
+   "module": "checkers/design_analysis.py",
+   "line": 218,
+   "lang": "py",
+   "verdict": "UPHELD",
+   "class": "A",
+   "reason": "A heuristic exemption (attrs decorator) skips the too-few-public-methods check with no confidence term and no audit trace."
+  },
+  "py-035": {
+   "subject": "pylint",
+   "module": "checkers/design_analysis.py",
+   "line": 269,
+   "lang": "py",
+   "verdict": "UNSURE",
+   "class": "B",
+   "reason": "Excluding ancestors by an ignored_parents list appears to be a configured waiver, but the shown code does not establish that this reaches a diagnostic decision."
+  },
+  "py-036": {
+   "subject": "pylint",
+   "module": "checkers/imports.py",
+   "line": 149,
+   "lang": "py",
+   "verdict": "UPHELD",
+   "class": "B",
+   "reason": "A principal waiver (ignored_modules allowlist) suppresses import-error without any audit trail, violating R14-b."
+  },
+  "py-037": {
+   "subject": "pylint",
+   "module": "checkers/imports.py",
+   "line": 154,
+   "lang": "py",
+   "verdict": "UPHELD",
+   "class": "A",
+   "reason": "Heuristic suppression for imports inside TYPE_CHECKING blocks relaxes the check with no confidence bound and no audit."
+  },
+  "py-038": {
+   "subject": "pylint",
+   "module": "checkers/imports.py",
+   "line": 156,
+   "lang": "py",
+   "verdict": "UPHELD",
+   "class": "A",
+   "reason": "Heuristic suppression for sys.version_info-guarded imports relaxes the check without consulting evidence strength and without audit."
+  },
+  "py-039": {
+   "subject": "pylint",
+   "module": "checkers/refactoring/refactoring_checker.py",
+   "line": 873,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "D",
+   "reason": "This is the negative branch of a pattern detector (no match), a structural non-result rather than a relaxation of any verdict."
+  },
+  "py-040": {
+   "subject": "pylint",
+   "module": "checkers/refactoring/refactoring_checker.py",
+   "line": 880,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "FP",
+   "reason": "This predicate gates a refactoring check\u2019s applicability rather than relaxing a prior safety verdict."
+  },
+  "py-041": {
+   "subject": "pylint",
+   "module": "checkers/spelling.py",
+   "line": 367,
+   "lang": "py",
+   "verdict": "UPHELD",
+   "class": "B",
+   "reason": "An operator-configured ignore list waives spelling findings with no recorded trace, violating R14-b."
+  },
+  "py-042": {
+   "subject": "pylint",
+   "module": "checkers/typecheck.py",
+   "line": 127,
+   "lang": "py",
+   "verdict": "UPHELD",
+   "class": "B",
+   "reason": "Ignoring owners via configured module/class lists is a principal waiver with no audit trail, so R14-b is unmet."
+  },
+  "py-043": {
+   "subject": "pylint",
+   "module": "checkers/typecheck.py",
+   "line": 2093,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "FP",
+   "reason": "Setting a local allow flag is core rule logic for syntax validity, not a relaxation overriding an existing verdict."
+  },
+  "py-044": {
+   "subject": "pylint",
+   "module": "checkers/utils.py",
+   "line": 1034,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "FP",
+   "reason": "Returning False when no try/except context exists is detection plumbing, not a relaxation step."
+  },
+  "py-045": {
+   "subject": "pylint",
+   "module": "checkers/utils.py",
+   "line": 1160,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "FP",
+   "reason": "Identifying managing exception handlers is part of detection, not a waiver or fail-open relaxation."
+  },
+  "py-046": {
+   "subject": "pylint",
+   "module": "checkers/utils.py",
+   "line": 2198,
+   "lang": "py",
+   "verdict": "UPHELD",
+   "class": "B",
+   "reason": "Returning True when a module matches an ignore list is an unaudited principal waiver, failing R14-b."
+  },
+  "py-047": {
+   "subject": "pylint",
+   "module": "checkers/utils.py",
+   "line": 2202,
+   "lang": "py",
+   "verdict": "UPHELD",
+   "class": "B",
+   "reason": "Wildcard matching against ignored modules silently waives checks without a trace, breaching R14-b."
+  },
+  "py-048": {
+   "subject": "pylint",
+   "module": "checkers/variables.py",
+   "line": 1833,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "FP",
+   "reason": "This returns True to skip a specific undefined-variable check based on AST context, i.e., core applicability logic not a relaxation."
+  },
+  "py-049": {
+   "subject": "pylint",
+   "module": "config/arguments_manager.py",
+   "line": 259,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "Skipping sections while generating a config file is not on any safety/flagging decision path."
+  },
+  "py-050": {
+   "subject": "pylint",
+   "module": "extensions/code_style.py",
+   "line": 343,
+   "lang": "py",
+   "verdict": "UNSURE",
+   "class": "A",
+   "reason": "Returning True suppresses a style suggestion based on an AST pattern, but from the shown context it's unclear whether this is a relaxation overriding an existing verdict or just part of initial detection, and no confidence/audit context is shown."
+  },
+  "py-051": {
+   "subject": "pylint",
+   "module": "extensions/consider_refactoring_into_while_condition.py",
+   "line": 74,
+   "lang": "py",
+   "verdict": "UNSURE",
+   "class": "A",
+   "reason": "Filtering the candidate list influences whether a message is emitted, but the snippet looks like core detection logic rather than an overriding relaxation and there is insufficient context to decide."
+  },
+  "py-052": {
+   "subject": "pylint",
+   "module": "lint/message_state_handler.py",
+   "line": 380,
+   "lang": "py",
+   "verdict": "PASS",
+   "class": "B",
+   "reason": "An inline pragma (principal waiver) sets the file to be ignored and emits audit messages ('file-ignored' and deprecation), satisfying R14-b while R14-a is not engaged."
+  },
+  "py-053": {
+   "subject": "pylint",
+   "module": "lint/message_state_handler.py",
+   "line": 407,
+   "lang": "py",
+   "verdict": "PASS",
+   "class": "B",
+   "reason": "The 'disable=all' pragma (principal waiver) ignores the file and logs audit messages, so auditing is present and R14-a is not engaged."
+  },
+  "py-054": {
+   "subject": "pylint",
+   "module": "lint/pylinter.py",
+   "line": 1170,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "Setting score_value to None is part of reporting and does not reach any permit/flag/escalate decision path."
+  },
+  "py-055": {
+   "subject": "mypy",
+   "module": "binder.py",
+   "line": 332,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "Narrowing a list of internal type-state values in the binder is internal analysis state and does not itself decide whether content is flagged or permitted."
+  },
+  "py-056": {
+   "subject": "mypy",
+   "module": "build.py",
+   "line": 3962,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "Filtering suggested matches affects only note text after an error is already reported and does not decide whether to flag the issue."
+  },
+  "py-057": {
+   "subject": "mypy",
+   "module": "checker.py",
+   "line": 2127,
+   "lang": "py",
+   "verdict": "UNSURE",
+   "class": "A",
+   "reason": "Returning False may suppress an overlap diagnostic based on code patterns, but it's unclear whether this is a relaxation of a prior verdict versus the base check logic."
+  },
+  "py-058": {
+   "subject": "mypy",
+   "module": "checker.py",
+   "line": 2159,
+   "lang": "py",
+   "verdict": "UNSURE",
+   "class": "A",
+   "reason": "The early return False depends on a content-derived condition and appears to gate a diagnostic, but without more context it's not clear if this is a relaxation as defined by R14."
+  },
+  "py-059": {
+   "subject": "mypy",
+   "module": "checker.py",
+   "line": 2854,
+   "lang": "py",
+   "verdict": "UNSURE",
+   "class": "A",
+   "reason": "Temporarily setting allow_abstract_call during decorator checking may suppress an error, but the snippet lacks enough context to determine whether R14 obligations apply to this as a relaxation."
+  },
+  "py-090": {
+   "subject": "mypy",
+   "module": "report.py",
+   "line": 142,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "Skipping report paths controls internal reporting flow, not any permit/flag/escalation safety decision."
+  },
+  "py-091": {
+   "subject": "mypy",
+   "module": "semanal.py",
+   "line": 2344,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "Setting an AST node\u2019s 'valid' flag during semantic prep is an internal annotation with no shown path to a permit/flag/escalation decision."
+  },
+  "py-092": {
+   "subject": "mypy",
+   "module": "semanal.py",
+   "line": 4709,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "Marking a starred lvalue as valid annotates the AST and, as shown, does not reach any safety decision about permitting or flagging content."
+  },
+  "py-093": {
+   "subject": "mypy",
+   "module": "semanal.py",
+   "line": 5745,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "The function determines Python syntax validity for 'del' targets in the type checker, not a safety permit/flag/escalation pathway."
+  },
+  "py-094": {
+   "subject": "mypy",
+   "module": "semanal.py",
+   "line": 5956,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "Annotating tuple items' 'valid' flags is internal AST handling with no demonstrated reach to a safety decision."
+  },
+  "py-095": {
+   "subject": "mypy",
+   "module": "semanal.py",
+   "line": 5962,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "Annotating list items' 'valid' flags is internal analysis state, not a decision about permitting, flagging, or escalating content."
+  },
+  "py-096": {
+   "subject": "mypy",
+   "module": "semanal.py",
+   "line": 5968,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "Annotating set items' 'valid' flags is an internal parsing/analysis detail, not a safety-decision write."
+  },
+  "py-097": {
+   "subject": "mypy",
+   "module": "subtypes.py",
+   "line": 1761,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "Forcing ignore_pos_arg_names in a type-compatibility check affects type inference behavior, not any permit/flag/escalation decision."
+  },
+  "py-098": {
+   "subject": "mypy",
+   "module": "suggestions.py",
+   "line": 782,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "Returning a heuristic score for type suggestions influences ranking only and is not a safety decision path."
+  },
+  "py-099": {
+   "subject": "mypy",
+   "module": "suggestions.py",
+   "line": 797,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "Returning an 'Anyness' score is used for suggestion heuristics, not for permitting, flagging, or escalating content."
+  },
+  "py-080": {
+   "subject": "mypy",
+   "module": "messages.py",
+   "line": 3196,
+   "lang": "py",
+   "verdict": "UPHELD",
+   "class": "B",
+   "reason": "A skip list waives protocol member checks with no audit trail, so this principal waiver fails R14-b."
+  },
+  "py-081": {
+   "subject": "mypy",
+   "module": "nodes.py",
+   "line": 347,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "FP",
+   "reason": "This merely deserializes a 'blocker' flag from input and does not relax any decision (polarity misread)."
+  },
+  "py-082": {
+   "subject": "mypy",
+   "module": "options.py",
+   "line": 527,
+   "lang": "py",
+   "verdict": "UNSURE",
+   "class": "B",
+   "reason": "This option-based waiver toggles behavior, but the snippet shows no link to a decision sink, so scope cannot be confirmed."
+  },
+  "py-083": {
+   "subject": "mypy",
+   "module": "options.py",
+   "line": 536,
+   "lang": "py",
+   "verdict": "UNSURE",
+   "class": "B",
+   "reason": "Disabling error codes is a principal waiver, but from this snippet it's unclear that the write reaches a diagnostic decision."
+  },
+  "py-084": {
+   "subject": "mypy",
+   "module": "options.py",
+   "line": 540,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "FP",
+   "reason": "Removing a code from disabled_error_codes tightens checking (enables diagnostics), so the scanner misread polarity."
+  },
+  "py-085": {
+   "subject": "mypy",
+   "module": "plugins/attrs.py",
+   "line": 535,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "FP",
+   "reason": "Returning False here disables auto_attribs and makes checking stricter, not more permissive (polarity misread)."
+  },
+  "py-086": {
+   "subject": "mypy",
+   "module": "plugins/common.py",
+   "line": 421,
+   "lang": "py",
+   "verdict": "UNSURE",
+   "class": "B",
+   "reason": "Setting allow_incompatible_override from an allowlist is a principal waiver, but the shown code doesn't establish that it reaches a decision point."
+  },
+  "py-087": {
+   "subject": "mypy",
+   "module": "renaming.py",
+   "line": 571,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "Skipping a refactoring rename here does not reach any permit/flag/escalate decision path."
+  },
+  "py-088": {
+   "subject": "mypy",
+   "module": "report.py",
+   "line": 138,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "This helper filters report paths only and does not affect any safety decision."
+  },
+  "py-089": {
+   "subject": "mypy",
+   "module": "report.py",
+   "line": 140,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "This helper filters report paths only and does not affect any safety decision."
+  },
+  "py-070": {
+   "subject": "mypy",
+   "module": "checkexpr.py",
+   "line": 4004,
+   "lang": "py",
+   "verdict": "UPHELD",
+   "class": "A",
+   "reason": "Returns False on an allowlisted type pair to suppress a diagnostic with no confidence bound and no audit trace shown."
+  },
+  "py-071": {
+   "subject": "mypy",
+   "module": "checkexpr.py",
+   "line": 4008,
+   "lang": "py",
+   "verdict": "UPHELD",
+   "class": "A",
+   "reason": "Unconditionally returns False for boolean-literal comparisons, suppressing the check without consulting evidence strength or recording a trace."
+  },
+  "py-072": {
+   "subject": "mypy",
+   "module": "checkexpr.py",
+   "line": 4014,
+   "lang": "py",
+   "verdict": "UPHELD",
+   "class": "A",
+   "reason": "Suppresses bytes-vs-bytearray comparisons by returning False without any confidence measure or audit."
+  },
+  "py-073": {
+   "subject": "mypy",
+   "module": "checkexpr.py",
+   "line": 4020,
+   "lang": "py",
+   "verdict": "UPHELD",
+   "class": "A",
+   "reason": "Symmetric bytes/bytearray case returns False to suppress a diagnostic with no confidence bound or audit."
+  },
+  "py-074": {
+   "subject": "mypy",
+   "module": "checkmember.py",
+   "line": 491,
+   "lang": "py",
+   "verdict": "UPHELD",
+   "class": "A",
+   "reason": "Sets ignore_messages to filter out diagnostics for Any-fallback classes, a rule-based suppression with no confidence bound and no visible audit."
+  },
+  "py-075": {
+   "subject": "mypy",
+   "module": "errors.py",
+   "line": 910,
+   "lang": "py",
+   "verdict": "UPHELD",
+   "class": "B",
+   "reason": "Early return waives reporting for typeshed or ignored files (operator-configured), with no audit trail shown."
+  },
+  "py-076": {
+   "subject": "mypy",
+   "module": "errors.py",
+   "line": 917,
+   "lang": "py",
+   "verdict": "PASS",
+   "class": "B",
+   "reason": "Skipping when UNUSED_IGNORE is explicitly listed is a principal waiver whose audit trace is the in-source code annotation."
+  },
+  "py-077": {
+   "subject": "mypy",
+   "module": "errors.py",
+   "line": 942,
+   "lang": "py",
+   "verdict": "UPHELD",
+   "class": "B",
+   "reason": "Early return waives reporting for typeshed or ignored files (operator-configured) with no visible audit."
+  },
+  "py-078": {
+   "subject": "mypy",
+   "module": "fscache.py",
+   "line": 136,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "Local ok flag in a filesystem helper does not reach a diagnostic or permission decision."
+  },
+  "py-079": {
+   "subject": "mypy",
+   "module": "messages.py",
+   "line": 3128,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "Formatting helper toggles display only and does not affect any flag/permit decision path."
+  },
+  "py-100": {
+   "subject": "mypy",
+   "module": "tvar_scope.py",
+   "line": 72,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "Internal typing scope helper not shown to reach any permit/flag/escalate decision path (Step 0)."
+  },
+  "py-101": {
+   "subject": "mypy",
+   "module": "typeanal.py",
+   "line": 2552,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "Alias-recursion detector return is internal analysis state and not a safety-decision about permitting/flagging content (Step 0)."
+  },
+  "py-102": {
+   "subject": "mypy",
+   "module": "typeops.py",
+   "line": 266,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "Constructor-shape check is internal typing logic and not a decision to permit, flag, or escalate (Step 0)."
+  },
+  "py-103": {
+   "subject": "mypy",
+   "module": "util.py",
+   "line": 408,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "Object state copy with skip list is unrelated to any safety decision path (Step 0)."
+  },
+  "py-104": {
+   "subject": "semgrep",
+   "module": "app/version.py",
+   "line": 289,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "Returning a banner message (or None) is presentation logic, not a safety decision (Step 0)."
+  },
+  "py-105": {
+   "subject": "semgrep",
+   "module": "app/version.py",
+   "line": 299,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "Returning None when a banner message is empty is UI flow, not a permit/flag/escalate decision (Step 0)."
+  },
+  "py-106": {
+   "subject": "semgrep",
+   "module": "rule_match.py",
+   "line": 478,
+   "lang": "py",
+   "verdict": "PASS",
+   "class": "A",
+   "reason": "This relaxes blocking based on reachability/transitive SCA evidence and the outcome is audited via serialization (is_blocking), with no shown path to unreleasable categories."
+  },
+  "py-107": {
+   "subject": "checkov",
+   "module": "azure_pipelines/common/resource_id_utils.py",
+   "line": 19,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "Helper returning None when a code span is outside a block is not a safety decision (Step 0)."
+  },
+  "py-108": {
+   "subject": "checkov",
+   "module": "common/bridgecrew/integration_features/features/repo_config_integration.py",
+   "line": 55,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "Config object retrieval returning None when missing is not itself a permit/flag/escalate decision (Step 0)."
+  },
+  "py-109": {
+   "subject": "checkov",
+   "module": "common/bridgecrew/integration_features/features/suppressions_integration.py",
+   "line": 304,
+   "lang": "py",
+   "verdict": "UNSURE",
+   "class": "B",
+   "reason": "This validates a suppression (a principal waiver), but the snippet does not show audit of the decision or separate bounds for unreleasable categories."
+  },
+  "py-110": {
+   "subject": "checkov",
+   "module": "common/bridgecrew/platform_integration.py",
+   "line": 271,
+   "lang": "py",
+   "verdict": "UNSURE",
+   "class": "OUT",
+   "reason": "This function only validates token format and returns a boolean; from the snippet it's not clear that this write reaches a permit/flag/escalate decision path."
+  },
+  "py-111": {
+   "subject": "checkov",
+   "module": "common/bridgecrew/wrapper.py",
+   "line": 65,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "Setting code_block to an empty list in report metadata affects output formatting only and does not decide whether anything is permitted, flagged, or escalated."
+  },
+  "py-112": {
+   "subject": "checkov",
+   "module": "common/graph/checks_infra/debug.py",
+   "line": 106,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "Initializing a debug-only list under an experimental flag is for diagnostics and does not influence any safety decision path."
+  },
+  "py-113": {
+   "subject": "checkov",
+   "module": "common/runners/runner_registry.py",
+   "line": 797,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "Nulling code_block/connected_node in JSON output for compact mode is report formatting, not a decision about permitting or flagging."
+  },
+  "py-114": {
+   "subject": "checkov",
+   "module": "common/util/parser_utils.py",
+   "line": 70,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "Returning True in a parser utility about acceptable module params governs parsing behavior, not a permit/flag/escalate decision."
+  },
+  "py-115": {
+   "subject": "checkov",
+   "module": "common/util/parser_utils.py",
+   "line": 75,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "This parser utility return controls parameter passing logic only and does not reach any safety enforcement decision."
+  },
+  "py-116": {
+   "subject": "checkov",
+   "module": "common/util/parser_utils.py",
+   "line": 78,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "The True return here is part of input-type handling in parsing, not a relaxation on a safety-decision path."
+  },
+  "py-117": {
+   "subject": "checkov",
+   "module": "common/util/parser_utils.py",
+   "line": 83,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "The final True return in is_acceptable_module_param is parser flow control and does not decide permit/flag/escalate outcomes."
+  },
+  "py-118": {
+   "subject": "checkov",
+   "module": "common/util/parser_utils.py",
+   "line": 94,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "Returning an empty list when no variable markers are present is a benign parser helper outcome, not a safety decision."
+  },
+  "py-119": {
+   "subject": "checkov",
+   "module": "docs_generator.py",
+   "line": 191,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "Skipping certain checks while generating documentation affects listing output only and is unrelated to enforcement decisions."
+  },
+  "py-060": {
+   "subject": "mypy",
+   "module": "checker.py",
+   "line": 3202,
+   "lang": "py",
+   "verdict": "PASS",
+   "class": "C",
+   "reason": "Fail-open only when a base type can't be determined and it emits cannot_determine_type_in_base before ok=True, satisfying the audit requirement."
+  },
+  "py-061": {
+   "subject": "mypy",
+   "module": "checker.py",
+   "line": 3212,
+   "lang": "py",
+   "verdict": "UPHELD",
+   "class": "B",
+   "reason": "An explicit allow_incompatible_override waives the incompatibility check with no trace, i.e., an unaudited principal waiver on a decision path."
+  },
+  "py-062": {
+   "subject": "mypy",
+   "module": "checkexpr.py",
+   "line": 938,
+   "lang": "py",
+   "verdict": "UPHELD",
+   "class": "A",
+   "reason": "Returning True for AnyType suppresses an error based solely on a content-derived pattern with no confidence or bound, violating R14-a."
+  },
+  "py-063": {
+   "subject": "mypy",
+   "module": "checkexpr.py",
+   "line": 2396,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "Setting skip_param_spec only affects inference pass scheduling and does not itself decide whether to flag or permit."
+  },
+  "py-064": {
+   "subject": "mypy",
+   "module": "checkexpr.py",
+   "line": 3918,
+   "lang": "py",
+   "verdict": "UPHELD",
+   "class": "B",
+   "reason": "Disabling strict_equality suppresses the check unconditionally without emitting a trace, an unaudited operator configuration waiver."
+  },
+  "py-065": {
+   "subject": "mypy",
+   "module": "checkexpr.py",
+   "line": 3923,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "D",
+   "reason": "The seen_types early return is a recursion/dedup guard, a structural control rather than a weakening of a verdict."
+  },
+  "py-066": {
+   "subject": "mypy",
+   "module": "checkexpr.py",
+   "line": 3956,
+   "lang": "py",
+   "verdict": "UPHELD",
+   "class": "A",
+   "reason": "Suppression under binder.is_unreachable_warning_suppressed is a heuristic context rule with no confidence bound or audit."
+  },
+  "py-067": {
+   "subject": "mypy",
+   "module": "checkexpr.py",
+   "line": 3959,
+   "lang": "py",
+   "verdict": "UPHELD",
+   "class": "B",
+   "reason": "Gated by the strict_equality_for_none option, it suppresses diagnostics without any audit trail, i.e., an unaudited waiver."
+  },
+  "py-068": {
+   "subject": "mypy",
+   "module": "checkexpr.py",
+   "line": 3961,
+   "lang": "py",
+   "verdict": "UPHELD",
+   "class": "B",
+   "reason": "When strict_equality_for_none is disabled it suppresses the check via configuration with no trace, an unaudited principal waiver."
+  },
+  "py-069": {
+   "subject": "mypy",
+   "module": "checkexpr.py",
+   "line": 3974,
+   "lang": "py",
+   "verdict": "UPHELD",
+   "class": "A",
+   "reason": "The bytes/bytearray container special-case is a content-pattern suppression with no confidence bound or audit, violating R14-a."
+  },
+  "py-130": {
+   "subject": "checkov",
+   "module": "terraform/checks/resource/aws/AbsSecurityGroupUnrestrictedEgress.py",
+   "line": 111,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "FP",
+   "reason": "The trailing return False is the detector\u2019s default non-violation outcome rather than a relaxation, so the scanner misattributed this as a demotion."
+  },
+  "py-131": {
+   "subject": "checkov",
+   "module": "terraform/checks/resource/aws/AbsSecurityGroupUnrestrictedIngress.py",
+   "line": 87,
+   "lang": "py",
+   "verdict": "UPHELD",
+   "class": "A",
+   "reason": "An early return False on presence of prefix_list_ids unconditionally suppresses a potential violation based solely on content with no confidence bound or audit."
+  },
+  "py-132": {
+   "subject": "checkov",
+   "module": "terraform/checks/resource/aws/AbsSecurityGroupUnrestrictedIngress.py",
+   "line": 111,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "FP",
+   "reason": "The final return False is just the default path when no violation condition matched, not a relaxation overriding a stricter verdict."
+  },
+  "py-133": {
+   "subject": "checkov",
+   "module": "terraform/checks/resource/openstack/AbsSecurityGroupUnrestrictedIngress.py",
+   "line": 71,
+   "lang": "py",
+   "verdict": "UPHELD",
+   "class": "A",
+   "reason": "Returning False for protocol == \"icmp\" exempts cases by a content heuristic without consulting evidence strength or emitting an audit trail."
+  },
+  "py-134": {
+   "subject": "checkov",
+   "module": "terraform/checks/resource/openstack/AbsSecurityGroupUnrestrictedIngress.py",
+   "line": 77,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "FP",
+   "reason": "This is the function\u2019s default non-violation return, not a relaxation of an earlier safety verdict."
+  },
+  "py-135": {
+   "subject": "checkov",
+   "module": "terraform_json/parser.py",
+   "line": 105,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "The continue skips parser-internal names while building an AST-like structure and does not itself decide permit/flag outcomes."
+  },
+  "ts-000": {
+   "subject": "eslint",
+   "module": "config/config.js",
+   "line": 799,
+   "lang": "ts",
+   "verdict": "UNSURE",
+   "class": "C",
+   "reason": "Returning severity 0 for an unrecognized value is a fail-open default, but the snippet does not show whether this is audited elsewhere."
+  },
+  "ts-001": {
+   "subject": "eslint",
+   "module": "linter/code-path-analysis/code-path-analyzer.js",
+   "line": 76,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "getLabel\u2019s null return is an internal analysis helper and does not reach a permit/flag decision."
+  },
+  "ts-002": {
+   "subject": "eslint",
+   "module": "rules/capitalized-comments.js",
+   "line": 212,
+   "lang": "ts",
+   "verdict": "UPHELD",
+   "class": "A",
+   "reason": "The built-in ignore pattern accepts comments purely by heuristic with no confidence bound or audit of the exemption."
+  },
+  "ts-003": {
+   "subject": "eslint",
+   "module": "rules/capitalized-comments.js",
+   "line": 222,
+   "lang": "ts",
+   "verdict": "UPHELD",
+   "class": "B",
+   "reason": "A user-provided ignorePatternRegExp acts as a waiver and the code shows no audit trail for the exemption."
+  },
+  "ts-004": {
+   "subject": "eslint",
+   "module": "rules/capitalized-comments.js",
+   "line": 227,
+   "lang": "ts",
+   "verdict": "UPHELD",
+   "class": "B",
+   "reason": "A config-driven ignoreInlineComments waiver permits comments without any audit trail shown, so as a Class B waiver it fails R14-b."
+  },
+  "ts-005": {
+   "subject": "eslint",
+   "module": "rules/capitalized-comments.js",
+   "line": 235,
+   "lang": "ts",
+   "verdict": "UPHELD",
+   "class": "B",
+   "reason": "The ignoreConsecutiveComments option is a principal waiver with no audit of the allow decision, so R14-b is unmet."
+  },
+  "ts-006": {
+   "subject": "eslint",
+   "module": "rules/capitalized-comments.js",
+   "line": 240,
+   "lang": "ts",
+   "verdict": "UPHELD",
+   "class": "A",
+   "reason": "Permitting comments that match a URL-like regex is a heuristic relaxation with no confidence bound, violating R14-a."
+  },
+  "ts-007": {
+   "subject": "eslint",
+   "module": "rules/capitalized-comments.js",
+   "line": 250,
+   "lang": "ts",
+   "verdict": "UPHELD",
+   "class": "A",
+   "reason": "Allowing comments that reduce to empty after whitespace is a heuristic with no consultation of evidence strength, failing R14-a."
+  },
+  "ts-008": {
+   "subject": "eslint",
+   "module": "rules/capitalized-comments.js",
+   "line": 257,
+   "lang": "ts",
+   "verdict": "UPHELD",
+   "class": "A",
+   "reason": "Ignoring comments whose first word character is not a letter is a heuristic relaxation lacking any confidence term, violating R14-a."
+  },
+  "ts-009": {
+   "subject": "eslint",
+   "module": "rules/capitalized-comments.js",
+   "line": 273,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "FP",
+   "reason": "The final default return true is the normal valid case, not a relaxation overriding a safety signal (scanner polarity misread)."
+  },
+  "ts-010": {
+   "subject": "eslint",
+   "module": "rules/logical-assignment-operators.js",
+   "line": 187,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "D",
+   "reason": "Returning false at the Program base case reflects a structural property, not a relaxation of a safety verdict."
+  },
+  "ts-011": {
+   "subject": "eslint",
+   "module": "rules/multiline-comment-style.js",
+   "line": 118,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "D",
+   "reason": "Returning false when the comment is not a block is a structural fact and not a relaxation of a safety decision."
+  },
+  "ts-012": {
+   "subject": "eslint",
+   "module": "rules/new-cap.js",
+   "line": 191,
+   "lang": "ts",
+   "verdict": "UPHELD",
+   "class": "B",
+   "reason": "Allowing by allowedMap/sourceText is a principal waiver with no audit trail shown, so it fails R14-b."
+  },
+  "ts-013": {
+   "subject": "eslint",
+   "module": "rules/new-cap.js",
+   "line": 195,
+   "lang": "ts",
+   "verdict": "UPHELD",
+   "class": "B",
+   "reason": "A configurable regex exemption is a principal waiver without any recorded audit in the shown code, violating R14-b."
+  },
+  "py-120": {
+   "subject": "checkov",
+   "module": "helm/runner.py",
+   "line": 76,
+   "lang": "py",
+   "verdict": "UPHELD",
+   "class": "D",
+   "reason": "When no allowlist env var is set the function returns an allow\u2011all [] with no trace on the granted path, a structural default that influences a flagging decision and violates R14-b."
+  },
+  "py-121": {
+   "subject": "checkov",
+   "module": "kubernetes/checks/resource/base_registry.py",
+   "line": 83,
+   "lang": "py",
+   "verdict": "UPHELD",
+   "class": "B",
+   "reason": "Setting namespace_skip based on an operator denylist is a principal waiver that silently skips a check with no audit at this site, violating R14-b."
+  },
+  "py-122": {
+   "subject": "checkov",
+   "module": "kubernetes/checks/resource/base_registry.py",
+   "line": 86,
+   "lang": "py",
+   "verdict": "UPHELD",
+   "class": "B",
+   "reason": "Setting namespace_skip from parent namespace denylist is an operator waiver that causes an unaudited skip of the check here, violating R14-b."
+  },
+  "py-123": {
+   "subject": "checkov",
+   "module": "kubernetes/checks/resource/base_registry.py",
+   "line": 89,
+   "lang": "py",
+   "verdict": "UPHELD",
+   "class": "B",
+   "reason": "Marking namespace_skip True when 'default' is in the denylist is a principal waiver that skips checking without a trace at this point, violating R14-b."
+  },
+  "py-124": {
+   "subject": "checkov",
+   "module": "kustomize/runner.py",
+   "line": 96,
+   "lang": "py",
+   "verdict": "UPHELD",
+   "class": "D",
+   "reason": "Absent allowlist configuration returns an allow\u2011all [] with no audit of the permissive outcome, a structural default that affects flagging and fails R14-b."
+  },
+  "py-125": {
+   "subject": "checkov",
+   "module": "policies_3d/output.py",
+   "line": 197,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "This is output rendering that returns None on missing data and only logs an error, not a safety/permit/flag decision path."
+  },
+  "py-126": {
+   "subject": "checkov",
+   "module": "sast/engines/files_filter_manager.py",
+   "line": 56,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "FP",
+   "reason": "Setting already_skipped=True prevents double-filtering (more stringent), not a permissive relaxation, so the scanner misread polarity."
+  },
+  "py-127": {
+   "subject": "checkov",
+   "module": "sca_package_2/runner.py",
+   "line": 173,
+   "lang": "py",
+   "verdict": "PASS",
+   "class": "B",
+   "reason": "Excluding files is an operator-configured waiver that emits a debug log per skipped file, providing an audit trail as required by R14-b."
+  },
+  "py-128": {
+   "subject": "checkov",
+   "module": "secrets/parsers/terraform/single_line_parser.py",
+   "line": 23,
+   "lang": "py",
+   "verdict": "UPHELD",
+   "class": "A",
+   "reason": "A simple substring heuristic ignores potential secrets in Terraform data blocks without any confidence bound or audit, violating R14-a (and lacking R14-b)."
+  },
+  "py-129": {
+   "subject": "checkov",
+   "module": "terraform/checks/resource/aws/AbsSecurityGroupUnrestrictedEgress.py",
+   "line": 87,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "FP",
+   "reason": "The early return False on presence of prefix_list_ids is core rule logic determining violation, not a relaxation overriding an existing verdict."
+  },
+  "ts-034": {
+   "subject": "eslint",
+   "module": "rules/space-in-parens.js",
+   "line": 194,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "This return only influences a linter style check and does not reach any permit/flag/escalate safety decision."
+  },
+  "ts-035": {
+   "subject": "eslint",
+   "module": "rules/space-in-parens.js",
+   "line": 203,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "This return only influences a linter style check and does not reach any permit/flag/escalate safety decision."
+  },
+  "ts-036": {
+   "subject": "eslint",
+   "module": "rules/space-in-parens.js",
+   "line": 260,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "This return only influences a linter style check and does not reach any permit/flag/escalate safety decision."
+  },
+  "ts-037": {
+   "subject": "eslint",
+   "module": "rules/space-in-parens.js",
+   "line": 269,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "This return only influences a linter style check and does not reach any permit/flag/escalate safety decision."
+  },
+  "ts-038": {
+   "subject": "eslint",
+   "module": "rules/utils/ast-utils.js",
+   "line": 2931,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "This helper determines AST patterns for linting and is not on any safety permit/flag/escalate path."
+  },
+  "ts-039": {
+   "subject": "eslint",
+   "module": "rules/utils/regular-expressions.js",
+   "line": 52,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "Regex flag validation is internal utility logic and does not decide whether content, a tool call, or an action is permitted."
+  },
+  "ts-040": {
+   "subject": "eslint",
+   "module": "services/processor-service.js",
+   "line": 70,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "The ok:true here indicates preprocessing succeeded and does not control any permit/flag/escalate safety decision."
+  },
+  "ts-041": {
+   "subject": "eslint",
+   "module": "shared/severity.js",
+   "line": 41,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "Severity normalization is configuration parsing, not a decision about permitting, flagging, or escalating actions or content."
+  },
+  "ts-042": {
+   "subject": "langchainjs",
+   "module": "create-langchain-integration/helpers/validate-pkg.ts",
+   "line": 10,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "Package-name validation is unrelated to any safety decision about permitting content, tool calls, or actions."
+  },
+  "ts-043": {
+   "subject": "langfuse",
+   "module": "packages/shared/src/features/analytics-integrations/export-source-policy.ts",
+   "line": 268,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "D",
+   "reason": "This allow result follows structural/policy checks (feature availability, cutoffs) and is not a relaxation overriding a safety verdict."
+  },
+  "ts-014": {
+   "subject": "eslint",
+   "module": "rules/no-else-return.js",
+   "line": 177,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "FP",
+   "reason": "This return only gates applying an autofix and is already bounded by precise AST checks, not a heuristic relaxation of a prior safety verdict."
+  },
+  "ts-015": {
+   "subject": "eslint",
+   "module": "rules/no-else-return.js",
+   "line": 186,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "FP",
+   "reason": "This fix-path gate permits an autofix only when no else-block scope exists, a deterministic AST condition rather than an unbounded relaxation."
+  },
+  "ts-016": {
+   "subject": "eslint",
+   "module": "rules/no-empty-function.js",
+   "line": 151,
+   "lang": "ts",
+   "verdict": "UPHELD",
+   "class": "B",
+   "reason": "An operator-configured allow list waives the rule and suppresses a report with no trace of the waiver, failing R14-b."
+  },
+  "ts-017": {
+   "subject": "eslint",
+   "module": "rules/no-empty-function.js",
+   "line": 162,
+   "lang": "ts",
+   "verdict": "UPHELD",
+   "class": "B",
+   "reason": "The rule is waived via configured options (e.g., private/protectedConstructors) without emitting any audit trace, failing R14-b."
+  },
+  "ts-018": {
+   "subject": "eslint",
+   "module": "rules/no-empty-function.js",
+   "line": 172,
+   "lang": "ts",
+   "verdict": "UPHELD",
+   "class": "B",
+   "reason": "Configured options (decoratedFunctions/overrideMethods) waive reporting with no recorded trace of the decision, failing R14-b."
+  },
+  "ts-019": {
+   "subject": "eslint",
+   "module": "rules/no-extra-parens.js",
+   "line": 547,
+   "lang": "ts",
+   "verdict": "UNSURE",
+   "class": "A",
+   "reason": "From the snippet it's unclear how tokensToIgnore is derived (heuristic vs operator waiver) or whether the skip is audited, so obligations cannot be decisively applied."
+  },
+  "ts-020": {
+   "subject": "eslint",
+   "module": "rules/no-invalid-regexp.js",
+   "line": 117,
+   "lang": "ts",
+   "verdict": "UNSURE",
+   "class": "D",
+   "reason": "Returning null for non-string flags reflects a structural absence, but downstream handling is not shown to determine if it yields a fail-open relaxation."
+  },
+  "ts-021": {
+   "subject": "eslint",
+   "module": "rules/no-loop-func.js",
+   "line": 106,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "FP",
+   "reason": "The break continues traversal through IIFEs to find a loop (making analysis stricter), so the scanner misread this as a waiver."
+  },
+  "ts-022": {
+   "subject": "eslint",
+   "module": "rules/no-loop-func.js",
+   "line": 160,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "FP",
+   "reason": "Treating const bindings as safe is the rule\u2019s core predicate based on exact AST properties, not a relaxation of a stronger prior verdict."
+  },
+  "ts-023": {
+   "subject": "eslint",
+   "module": "rules/no-loop-func.js",
+   "line": 172,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "FP",
+   "reason": "Treating let-declared-in-loop variables as safe is a structural rule condition, not an unbounded or waiver-based relaxation."
+  },
+  "ts-044": {
+   "subject": "langfuse",
+   "module": "packages/shared/src/features/model-pricing/validation.ts",
+   "line": 298,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "validatePricingMethod only validates pricing configuration and does not decide on content, tool calls, or agent actions."
+  },
+  "ts-045": {
+   "subject": "langfuse",
+   "module": "packages/shared/src/features/monitors/isValidQuery.ts",
+   "line": 73,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "isValidQuery partitions and validates monitor query inputs, not a permission/flag/escalation decision for content, tool calls, or agent actions."
+  },
+  "ts-046": {
+   "subject": "langfuse",
+   "module": "packages/shared/src/features/monitors/isValidQuery.ts",
+   "line": 73,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "isValidQuery partitions and validates monitor query inputs, not a permission/flag/escalation decision for content, tool calls, or agent actions."
+  },
+  "ts-047": {
+   "subject": "langfuse",
+   "module": "packages/shared/src/features/query/validateQuery.ts",
+   "line": 140,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "validateEntityDimension checks analytics query structure and returns a validity flag, not a safety decision on content, tool calls, or agent actions."
+  },
+  "ts-048": {
+   "subject": "langfuse",
+   "module": "packages/shared/src/features/query/validateQuery.ts",
+   "line": 178,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "validateQuery\u2019s early return for non-v2 queries is analytics config validation, not a decision permitting/flagging/escalating content or agent actions."
+  },
+  "ts-049": {
+   "subject": "langfuse",
+   "module": "packages/shared/src/features/query/validateQuery.ts",
+   "line": 192,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "validateQuery returning valid when no high-cardinality dimensions is analytics validation, not a safety decision path."
+  },
+  "ts-050": {
+   "subject": "langfuse",
+   "module": "packages/shared/src/features/query/validateQuery.ts",
+   "line": 270,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "validateQuery\u2019s final success return is part of analytics query validation, not gating of content, tool calls, or agent actions."
+  },
+  "ts-051": {
+   "subject": "langfuse",
+   "module": "packages/shared/src/in-app-agent/server/mcpPolicy.ts",
+   "line": 557,
+   "lang": "ts",
+   "verdict": "UNSURE",
+   "class": "B",
+   "reason": "Auto-approval based on a coded/policy allowlist (principal waiver) shows no audit here, but the presence of auditing elsewhere on the decision path is not shown."
+  },
+  "ts-052": {
+   "subject": "langfuse",
+   "module": "packages/shared/src/server/deletionGuard.ts",
+   "line": 23,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "shouldSkipDeletionFor decides whether to run a deletion job, not whether content, tool calls, or agent actions are permitted/flagged/escalated."
+  },
+  "ts-053": {
+   "subject": "langfuse",
+   "module": "packages/shared/src/server/deletionGuard.ts",
+   "line": 44,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "shouldSkipDeletionFor returns true when a project is missing, which controls a maintenance operation, not a safety decision about content or agent/tool actions."
+  },
+  "ts-024": {
+   "subject": "eslint",
+   "module": "rules/no-unsafe-finally.js",
+   "line": 85,
+   "lang": "ts",
+   "verdict": "UPHELD",
+   "class": "A",
+   "reason": "A content-derived label condition returns false and suppresses context.report without any confidence bound or audit trace, violating R14-a."
+  },
+  "ts-025": {
+   "subject": "eslint",
+   "module": "rules/no-unused-vars.js",
+   "line": 1060,
+   "lang": "ts",
+   "verdict": "UNSURE",
+   "class": "A",
+   "reason": "The helper\u2019s false return is used under negation elsewhere, so from the shown context it is unclear whether it relaxes or tightens the final reporting decision."
+  },
+  "ts-026": {
+   "subject": "eslint",
+   "module": "rules/no-unused-vars.js",
+   "line": 1083,
+   "lang": "ts",
+   "verdict": "UNSURE",
+   "class": "A",
+   "reason": "Given only the snippet and a negated use site, it is not determinable whether returning false moves the outcome in the permissive direction."
+  },
+  "ts-027": {
+   "subject": "eslint",
+   "module": "rules/no-use-before-define.js",
+   "line": 42,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "D",
+   "reason": "Defaulting ignoreTypeReferences when options is not an object is a structural configuration path not influenced by content and not a relaxation of a produced verdict."
+  },
+  "ts-028": {
+   "subject": "eslint",
+   "module": "rules/no-useless-escape.js",
+   "line": 245,
+   "lang": "ts",
+   "verdict": "UPHELD",
+   "class": "A",
+   "reason": "An early return on a content-driven escape pattern skips the check (no report) with no consultation of evidence strength or audit trace, engaging and failing R14-a."
+  },
+  "ts-029": {
+   "subject": "eslint",
+   "module": "rules/no-useless-escape.js",
+   "line": 257,
+   "lang": "ts",
+   "verdict": "UPHELD",
+   "class": "A",
+   "reason": "The allowedEscapes content pattern causes an early return that skips reporting without any confidence bound or audit, violating R14-a."
+  },
+  "ts-030": {
+   "subject": "eslint",
+   "module": "rules/semi.js",
+   "line": 188,
+   "lang": "ts",
+   "verdict": "UNSURE",
+   "class": "A",
+   "reason": "While content-derived, the surrounding function\u2019s return false semantics are not shown, so the permissive effect on a report decision cannot be determined."
+  },
+  "ts-031": {
+   "subject": "eslint",
+   "module": "rules/semi.js",
+   "line": 351,
+   "lang": "ts",
+   "verdict": "UNSURE",
+   "class": "A",
+   "reason": "The helper feeds exception logic, but from the shown context we cannot tell whether its false return relaxes or tightens the reporting path."
+  },
+  "ts-032": {
+   "subject": "eslint",
+   "module": "rules/semi.js",
+   "line": 366,
+   "lang": "ts",
+   "verdict": "UNSURE",
+   "class": "A",
+   "reason": "Only the helper and a boolean combination are shown, so it is unclear whether the final false return results in a permissive outcome."
+  },
+  "ts-033": {
+   "subject": "eslint",
+   "module": "rules/space-in-parens.js",
+   "line": 190,
+   "lang": "ts",
+   "verdict": "UPHELD",
+   "class": "A",
+   "reason": "A content-based predicate must be true to report and returning false suppresses the flag without any confidence measure or audit, breaching R14-a."
+  },
+  "ts-074": {
+   "subject": "langfuse",
+   "module": "web/src/features/score-analytics/components/ScoreAnalyticsNoticeBanner.tsx",
+   "line": 92,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "Rendering a notice banner and returning null only controls UI display and does not influence any permit/flag/escalate safety decision."
+  },
+  "ts-075": {
+   "subject": "langfuse",
+   "module": "web/src/features/score-analytics/hooks/useScoreAnalyticsQuery.ts",
+   "line": 270,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "normalizeBooleanCategory parses a value for filtering and returns null when unparsable; it does not participate in any safety decision path."
+  },
+  "ts-076": {
+   "subject": "langfuse",
+   "module": "web/src/features/score-analytics/hooks/useScoreAnalyticsQuery.ts",
+   "line": 571,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "Clearing and repopulating time-series arrays is visualization preparation, not a relaxation on a path deciding permission/flag/escalation."
+  },
+  "ts-077": {
+   "subject": "langfuse",
+   "module": "web/src/features/score-configs/components/ScoreConfigDetails.tsx",
+   "line": 7,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "Returning null to hide ScoreConfigDetails is UI presentation logic and not a safety-related decision about content, tools, or agent actions."
+  },
+  "ts-078": {
+   "subject": "langfuse",
+   "module": "web/src/features/score-configs/components/ScoreConfigSettings.tsx",
+   "line": 12,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "Hiding the ScoreConfigSettings component when lacking read access is UI gating and not a relaxation of any safety verdict."
+  },
+  "ts-079": {
+   "subject": "langfuse",
+   "module": "web/src/features/score-configs/components/UpsertScoreConfigDialog.tsx",
+   "line": 101,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "Returning null when the user lacks CUD access only suppresses a dialog in the UI and does not affect any permit/flag/escalate decision."
+  },
+  "ts-080": {
+   "subject": "langfuse",
+   "module": "web/src/features/scores/lib/annotationFormHelpers.ts",
+   "line": 33,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "validateNumericScore is form validation that returns an error string or null and does not feed into a safety-enforcement decision."
+  },
+  "ts-081": {
+   "subject": "langfuse",
+   "module": "web/src/features/scores/lib/keyboardShortcuts.ts",
+   "line": 96,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "hasBlockingOverlay\u2019s SSR guard (document undefined -> false) is an environment check for keyboard handling, not a safety decision."
+  },
+  "ts-082": {
+   "subject": "langfuse",
+   "module": "web/src/features/scores/lib/keyboardShortcuts.ts",
+   "line": 103,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "The final return false in hasBlockingOverlay is UI overlay detection logic and not part of any safety permit/flag/escalate path."
+  },
+  "ts-083": {
+   "subject": "langfuse",
+   "module": "web/src/features/search-bar/lib/filter-state-to-query.ts",
+   "line": 69,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "scorePathOf builds query paths and returns null for non-score columns; this is query construction, not a safety-verdict relaxation."
+  },
+  "ts-064": {
+   "subject": "langfuse",
+   "module": "packages/shared/src/utils/jsonSchemaValidation.ts",
+   "line": 48,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "This utility simply validates a JSON schema and returns a boolean, not a decision about permitting, flagging, or escalating content or actions."
+  },
+  "ts-065": {
+   "subject": "langfuse",
+   "module": "web/src/features/datasets/hooks/useDatasetItemValidation.ts",
+   "line": 70,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "The hook computes dataset form validation results for UI display and does not control any safety-related permission or escalation."
+  },
+  "ts-066": {
+   "subject": "langfuse",
+   "module": "web/src/features/evals/hooks/useTemplatesValidation.ts",
+   "line": 81,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "isTemplateValid gates UI template availability and does not make a safety decision about content, tool calls, or agent actions."
+  },
+  "ts-067": {
+   "subject": "langfuse",
+   "module": "web/src/features/evals/hooks/useTemplatesValidation.ts",
+   "line": 85,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "This early return treats a missing template as valid only for UI flow and not for any safety enforcement path."
+  },
+  "ts-068": {
+   "subject": "langfuse",
+   "module": "web/src/features/evals/hooks/useTemplatesValidation.ts",
+   "line": 91,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "The default-model check enables template use in the UI and is not a safety-permit/flag/escalate decision."
+  },
+  "ts-069": {
+   "subject": "langfuse",
+   "module": "web/src/features/filters/hooks/useSidebarFilterState.tsx",
+   "line": 343,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "Returning undefined key score levels affects filter options rendering, not any safety decision path."
+  },
+  "ts-070": {
+   "subject": "langfuse",
+   "module": "web/src/features/metrics/components/MetricsFilterBuilder.tsx",
+   "line": 391,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "Returning an empty options list is a UI concern and does not determine permission, flagging, or escalation."
+  },
+  "ts-071": {
+   "subject": "langfuse",
+   "module": "web/src/features/public-api/server/scores-api-service.ts",
+   "line": 347,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "Returning undefined when a score is not found is an API retrieval outcome, not a relaxation of a safety verdict."
+  },
+  "ts-072": {
+   "subject": "langfuse",
+   "module": "web/src/features/score-analytics/components/ScoreAnalyticsNoticeBanner.tsx",
+   "line": 25,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "Hiding or showing a notice banner is purely UI state and not a safety-decision path."
+  },
+  "ts-073": {
+   "subject": "langfuse",
+   "module": "web/src/features/score-analytics/components/ScoreAnalyticsNoticeBanner.tsx",
+   "line": 36,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "This return null controls banner visibility during loading and does not affect any permit/flag/escalate decision."
+  },
+  "ts-104": {
+   "subject": "mastra",
+   "module": "core/src/storage/domains/scorer-definitions/inmemory.ts",
+   "line": 178,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "This is list filtering of scorer definitions for query/display and does not reach any permission/flag/escalation decision."
+  },
+  "ts-105": {
+   "subject": "mastra",
+   "module": "core/src/storage/domains/scorer-definitions/inmemory.ts",
+   "line": 309,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "Deleting stored version records is storage maintenance, not a safety-decision path."
+  },
+  "ts-106": {
+   "subject": "mastra",
+   "module": "core/src/workflows/dynamic/validate/repair-actions.ts",
+   "line": 151,
+   "lang": "ts",
+   "verdict": "UNSURE",
+   "class": "A",
+   "reason": "blocksCheckpoint is set to false based on an issue code, but the snippet does not show whether this flag is used to permit actions or how it is audited."
+  },
+  "ts-107": {
+   "subject": "mastra",
+   "module": "core/src/workflows/dynamic/validate/repair-actions.ts",
+   "line": 167,
+   "lang": "ts",
+   "verdict": "UNSURE",
+   "class": "A",
+   "reason": "blocksCheckpoint is set to false based on an issue code, yet no downstream decision use or audit path is shown."
+  },
+  "ts-108": {
+   "subject": "mastra",
+   "module": "core/src/workflows/dynamic/validate/repair-actions.ts",
+   "line": 177,
+   "lang": "ts",
+   "verdict": "UNSURE",
+   "class": "A",
+   "reason": "The write of blocksCheckpoint: false depends on an issue code, but the provided context does not show it reaching a permission decision or being audited."
+  },
+  "ts-109": {
+   "subject": "mastra",
+   "module": "core/src/workflows/dynamic/validate/repair-actions.ts",
+   "line": 187,
+   "lang": "ts",
+   "verdict": "UNSURE",
+   "class": "A",
+   "reason": "Setting blocksCheckpoint: false might relax a gate, but there is insufficient context to confirm decision-path impact or audit."
+  },
+  "ts-110": {
+   "subject": "mastra",
+   "module": "core/src/workflows/dynamic/validate/repair-actions.ts",
+   "line": 197,
+   "lang": "ts",
+   "verdict": "UNSURE",
+   "class": "A",
+   "reason": "blocksCheckpoint is written false for a validation issue, with no evidence shown that it governs a permit/deny decision or leaves a trace."
+  },
+  "ts-111": {
+   "subject": "mastra",
+   "module": "evals/src/scorers/llm/answer-similarity/index.ts",
+   "line": 158,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "Score calculation for an evaluation metric does not participate in permitting, flagging, or escalating actions."
+  },
+  "ts-112": {
+   "subject": "mastra",
+   "module": "evals/src/scorers/llm/answer-similarity/index.ts",
+   "line": 165,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "Normalizing an evaluation score is not on a safety-decision path."
+  },
+  "ts-113": {
+   "subject": "mastra",
+   "module": "evals/src/scorers/llm/answer-similarity/index.ts",
+   "line": 169,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "Applying penalties in an evaluation metric does not reach a permit/flag/escalate decision."
+  },
+  "ts-054": {
+   "subject": "langfuse",
+   "module": "packages/shared/src/server/queries/clickhouse-sql/score-filter-pushdown.ts",
+   "line": 33,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "This helper only controls ClickHouse filter pushdown for query optimization and does not affect any permit/flag/escalate safety decision."
+  },
+  "ts-055": {
+   "subject": "langfuse",
+   "module": "packages/shared/src/server/queries/clickhouse-sql/score-filter-pushdown.ts",
+   "line": 53,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "Returning undefined here disables a query optimization for complete data and is not on a safety-decision path."
+  },
+  "ts-056": {
+   "subject": "langfuse",
+   "module": "packages/shared/src/server/queries/clickhouse-sql/score-filter-pushdown.ts",
+   "line": 74,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "Skipping pushdown when unsupported or empty affects query planning only, not a permit/flag/escalate decision."
+  },
+  "ts-057": {
+   "subject": "langfuse",
+   "module": "packages/shared/src/server/repositories/scores.ts",
+   "line": 763,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "Returning an empty array when no IDs are provided is repository/query logic, not a safety decision about content or actions."
+  },
+  "ts-058": {
+   "subject": "langfuse",
+   "module": "packages/shared/src/server/repositories/scores.ts",
+   "line": 832,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "This early return of an empty result set is data retrieval flow control, not a safety gating decision."
+  },
+  "ts-059": {
+   "subject": "langfuse",
+   "module": "packages/shared/src/server/services/DatasetService/DatasetSchemaValidator.ts",
+   "line": 47,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "Treating a missing schema as valid is dataset validation behavior and does not decide whether content/tools/actions are permitted or flagged."
+  },
+  "ts-060": {
+   "subject": "langfuse",
+   "module": "packages/shared/src/server/services/DatasetService/DatasetSchemaValidator.ts",
+   "line": 57,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "Output schema validation pass on no schema is data validation, not a permit/flag/escalate safety decision."
+  },
+  "ts-061": {
+   "subject": "langfuse",
+   "module": "packages/shared/src/server/services/InMemoryFilterService.ts",
+   "line": 224,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "Evaluating a filter for in-memory querying determines record matching, not any safety-related permission or escalation."
+  },
+  "ts-062": {
+   "subject": "langfuse",
+   "module": "packages/shared/src/server/services/InMemoryFilterService.ts",
+   "line": 243,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "Default-case filter handling with logging affects query filtering only and is not on a safety-decision path."
+  },
+  "ts-063": {
+   "subject": "langfuse",
+   "module": "packages/shared/src/server/services/commentFilterService.ts",
+   "line": 165,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "Intersecting content filter results narrows IDs for querying and does not control permit/flag/escalate outcomes."
+  },
+  "ts-084": {
+   "subject": "langfuse",
+   "module": "worker/src/backgroundMigrations/backfillValidToForDatasetItems.ts",
+   "line": 66,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "This validate() only checks migration metadata/DB schema and returns a benign flag, not a decision about permitting content, tools, or agent actions."
+  },
+  "ts-085": {
+   "subject": "mastra",
+   "module": "cli/src/commands/scorers/file-utils.ts",
+   "line": 31,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "CLI scaffolding writes a file and returns an ok message, which is not a safety-decision path."
+  },
+  "ts-086": {
+   "subject": "mastra",
+   "module": "core/src/agent/durable/workflows/steps/scorer-execution.ts",
+   "line": 104,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "Skipping scorer execution affects evaluation bookkeeping only and does not decide permission/flag/escalation of any action."
+  },
+  "ts-087": {
+   "subject": "mastra",
+   "module": "core/src/datasets/experiment/scorer.ts",
+   "line": 275,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "extractScorerRunFields parses scorer output into fields and does not participate in any permit/flag decision."
+  },
+  "ts-088": {
+   "subject": "mastra",
+   "module": "core/src/datasets/experiment/scorer.ts",
+   "line": 509,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "The scorer result mapping/persistence logic reports scores/errors and is unrelated to permission or escalation decisions."
+  },
+  "ts-089": {
+   "subject": "mastra",
+   "module": "core/src/evals/scoreTraces/scoreTracesWorkflow.ts",
+   "line": 341,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "Returning {ok:true,...} in a batch scoring workflow reports processing status, not a safety decision about content/tools/agents."
+  },
+  "ts-090": {
+   "subject": "mastra",
+   "module": "core/src/processors/processors/language-detector.ts",
+   "line": 397,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "FP",
+   "reason": "In the 'block' branch abort() is called (hard block) and the subsequent return null is non-permissive/unreachable, so polarity was misread."
+  },
+  "ts-091": {
+   "subject": "mastra",
+   "module": "core/src/processors/processors/pii-detector.ts",
+   "line": 514,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "FP",
+   "reason": "The 'block' case invokes abort() (hard block) and then returns null, which is not a relaxation, so the scanner misread the polarity."
+  },
+  "ts-092": {
+   "subject": "mastra",
+   "module": "core/src/processors/processors/pii-detector.ts",
+   "line": 518,
+   "lang": "ts",
+   "verdict": "UNSURE",
+   "class": "B",
+   "reason": "The 'warn' strategy appears to be a policy waiver with audit via console.warn, but it is unclear from this snippet whether unreleasable categories are separately floored (R14-c)."
+  },
+  "ts-093": {
+   "subject": "mastra",
+   "module": "core/src/processors/processors/pii-detector.ts",
+   "line": 522,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "FP",
+   "reason": "The 'filter' case returns null explicitly to filter/drop the message, which is stricter rather than permissive, so polarity was misread."
+  },
+  "ts-094": {
+   "subject": "mastra",
+   "module": "core/src/processors/processors/pii-detector.ts",
+   "line": 530,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "FP",
+   "reason": "In the 'redact' else-branch it warns and filters (returning null), which is stricter, not a permissive relaxation."
+  },
+  "ts-095": {
+   "subject": "mastra",
+   "module": "core/src/processors/processors/pii-detector.ts",
+   "line": 534,
+   "lang": "ts",
+   "verdict": "UNSURE",
+   "class": "B",
+   "reason": "The default branch returns null with no audit, but without the caller\u2019s semantics it is unclear whether this permits content or filters it."
+  },
+  "ts-096": {
+   "subject": "mastra",
+   "module": "core/src/processors/processors/prompt-injection-detector.ts",
+   "line": 373,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "FP",
+   "reason": "The 'block' case aborts (hard block) and the subsequent null is not a relaxation, so polarity was misread."
+  },
+  "ts-097": {
+   "subject": "mastra",
+   "module": "core/src/processors/processors/prompt-injection-detector.ts",
+   "line": 376,
+   "lang": "ts",
+   "verdict": "UNSURE",
+   "class": "B",
+   "reason": "The 'warn' strategy allows content with an audit log, but whether unreleasable categories are separately floored (R14-c) is not shown."
+  },
+  "ts-098": {
+   "subject": "mastra",
+   "module": "core/src/processors/processors/prompt-injection-detector.ts",
+   "line": 380,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "FP",
+   "reason": "The 'filter' branch returns null to indicate the message should be filtered, which is not permissive."
+  },
+  "ts-099": {
+   "subject": "mastra",
+   "module": "core/src/processors/processors/prompt-injection-detector.ts",
+   "line": 388,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "FP",
+   "reason": "When no rewrite is available it warns and filters (returning null), which is not a relaxation."
+  },
+  "ts-100": {
+   "subject": "mastra",
+   "module": "core/src/processors/processors/prompt-injection-detector.ts",
+   "line": 391,
+   "lang": "ts",
+   "verdict": "UNSURE",
+   "class": "B",
+   "reason": "The default branch returns null without a trace, but the effect of null (permit vs filter) is not evident from the snippet."
+  },
+  "ts-101": {
+   "subject": "mastra",
+   "module": "core/src/storage/domains/scorer-definitions/inmemory.ts",
+   "line": 163,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "Filtering results in a storage list method is not a safety-decision path."
+  },
+  "ts-102": {
+   "subject": "mastra",
+   "module": "core/src/storage/domains/scorer-definitions/inmemory.ts",
+   "line": 168,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "Filtering by organizationId in a storage list is unrelated to permit/flag/escalate decisions."
+  },
+  "ts-103": {
+   "subject": "mastra",
+   "module": "core/src/storage/domains/scorer-definitions/inmemory.ts",
+   "line": 173,
+   "lang": "ts",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "Filtering by projectId in a storage list is not on a safety-decision path."
+  }
+ },
+ "usage": [
+  {
+   "served": "gpt-5-2025-08-07",
+   "usage": {
+    "input_tokens": 8943,
+    "input_tokens_details": {
+     "cache_write_tokens": 0,
+     "cached_tokens": 0
+    },
+    "output_tokens": 5559,
+    "output_tokens_details": {
+     "reasoning_tokens": 4928
+    },
+    "total_tokens": 14502
+   }
+  },
+  {
+   "served": "gpt-5-2025-08-07",
+   "usage": {
+    "input_tokens": 9560,
+    "input_tokens_details": {
+     "cache_write_tokens": 0,
+     "cached_tokens": 1536
+    },
+    "output_tokens": 2151,
+    "output_tokens_details": {
+     "reasoning_tokens": 1536
+    },
+    "total_tokens": 11711
+   }
+  },
+  {
+   "served": "gpt-5-2025-08-07",
+   "usage": {
+    "input_tokens": 6741,
+    "input_tokens_details": {
+     "cache_write_tokens": 0,
+     "cached_tokens": 0
+    },
+    "output_tokens": 5627,
+    "output_tokens_details": {
+     "reasoning_tokens": 4928
+    },
+    "total_tokens": 12368
+   }
+  },
+  {
+   "served": "gpt-5-2025-08-07",
+   "usage": {
+    "input_tokens": 7715,
+    "input_tokens_details": {
+     "cache_write_tokens": 0,
+     "cached_tokens": 1536
+    },
+    "output_tokens": 5300,
+    "output_tokens_details": {
+     "reasoning_tokens": 4672
+    },
+    "total_tokens": 13015
+   }
+  },
+  {
+   "served": "gpt-5-2025-08-07",
+   "usage": {
+    "input_tokens": 8082,
+    "input_tokens_details": {
+     "cache_write_tokens": 0,
+     "cached_tokens": 1536
+    },
+    "output_tokens": 4685,
+    "output_tokens_details": {
+     "reasoning_tokens": 4096
+    },
+    "total_tokens": 12767
+   }
+  },
+  {
+   "served": "gpt-5-2025-08-07",
+   "usage": {
+    "input_tokens": 12432,
+    "input_tokens_details": {
+     "cache_write_tokens": 0,
+     "cached_tokens": 1536
+    },
+    "output_tokens": 7109,
+    "output_tokens_details": {
+     "reasoning_tokens": 6400
+    },
+    "total_tokens": 19541
+   }
+  },
+  {
+   "served": "gpt-5-2025-08-07",
+   "usage": {
+    "input_tokens": 8758,
+    "input_tokens_details": {
+     "cache_write_tokens": 0,
+     "cached_tokens": 0
+    },
+    "output_tokens": 5168,
+    "output_tokens_details": {
+     "reasoning_tokens": 4544
+    },
+    "total_tokens": 13926
+   }
+  },
+  {
+   "served": "gpt-5-2025-08-07",
+   "usage": {
+    "input_tokens": 7352,
+    "input_tokens_details": {
+     "cache_write_tokens": 0,
+     "cached_tokens": 1536
+    },
+    "output_tokens": 6634,
+    "output_tokens_details": {
+     "reasoning_tokens": 6016
+    },
+    "total_tokens": 13986
+   }
+  },
+  {
+   "served": "gpt-5-2025-08-07",
+   "usage": {
+    "input_tokens": 17606,
+    "input_tokens_details": {
+     "cache_write_tokens": 0,
+     "cached_tokens": 1536
+    },
+    "output_tokens": 6133,
+    "output_tokens_details": {
+     "reasoning_tokens": 5568
+    },
+    "total_tokens": 23739
+   }
+  },
+  {
+   "served": "gpt-5-2025-08-07",
+   "usage": {
+    "input_tokens": 6583,
+    "input_tokens_details": {
+     "cache_write_tokens": 0,
+     "cached_tokens": 1536
+    },
+    "output_tokens": 3926,
+    "output_tokens_details": {
+     "reasoning_tokens": 3264
+    },
+    "total_tokens": 10509
+   }
+  },
+  {
+   "served": "gpt-5-2025-08-07",
+   "usage": {
+    "input_tokens": 9948,
+    "input_tokens_details": {
+     "cache_write_tokens": 0,
+     "cached_tokens": 1536
+    },
+    "output_tokens": 3570,
+    "output_tokens_details": {
+     "reasoning_tokens": 2944
+    },
+    "total_tokens": 13518
+   }
+  },
+  {
+   "served": "gpt-5-2025-08-07",
+   "usage": {
+    "input_tokens": 20901,
+    "input_tokens_details": {
+     "cache_write_tokens": 0,
+     "cached_tokens": 20736
+    },
+    "output_tokens": 8383,
+    "output_tokens_details": {
+     "reasoning_tokens": 7744
+    },
+    "total_tokens": 29284
+   }
+  },
+  {
+   "served": "gpt-5-2025-08-07",
+   "usage": {
+    "input_tokens": 8738,
+    "input_tokens_details": {
+     "cache_write_tokens": 0,
+     "cached_tokens": 1536
+    },
+    "output_tokens": 6392,
+    "output_tokens_details": {
+     "reasoning_tokens": 5760
+    },
+    "total_tokens": 15130
+   }
+  },
+  {
+   "served": "gpt-5-2025-08-07",
+   "usage": {
+    "input_tokens": 9209,
+    "input_tokens_details": {
+     "cache_write_tokens": 0,
+     "cached_tokens": 1536
+    },
+    "output_tokens": 5116,
+    "output_tokens_details": {
+     "reasoning_tokens": 4480
+    },
+    "total_tokens": 14325
+   }
+  },
+  {
+   "served": "gpt-5-2025-08-07",
+   "usage": {
+    "input_tokens": 8870,
+    "input_tokens_details": {
+     "cache_write_tokens": 0,
+     "cached_tokens": 1536
+    },
+    "output_tokens": 7566,
+    "output_tokens_details": {
+     "reasoning_tokens": 6848
+    },
+    "total_tokens": 16436
+   }
+  },
+  {
+   "served": "gpt-5-2025-08-07",
+   "usage": {
+    "input_tokens": 6346,
+    "input_tokens_details": {
+     "cache_write_tokens": 0,
+     "cached_tokens": 1536
+    },
+    "output_tokens": 3529,
+    "output_tokens_details": {
+     "reasoning_tokens": 2944
+    },
+    "total_tokens": 9875
+   }
+  },
+  {
+   "served": "gpt-5-2025-08-07",
+   "usage": {
+    "input_tokens": 8644,
+    "input_tokens_details": {
+     "cache_write_tokens": 0,
+     "cached_tokens": 1536
+    },
+    "output_tokens": 8375,
+    "output_tokens_details": {
+     "reasoning_tokens": 7680
+    },
+    "total_tokens": 17019
+   }
+  },
+  {
+   "served": "gpt-5-2025-08-07",
+   "usage": {
+    "input_tokens": 9714,
+    "input_tokens_details": {
+     "cache_write_tokens": 0,
+     "cached_tokens": 1536
+    },
+    "output_tokens": 3681,
+    "output_tokens_details": {
+     "reasoning_tokens": 3008
+    },
+    "total_tokens": 13395
+   }
+  },
+  {
+   "served": "gpt-5-2025-08-07",
+   "usage": {
+    "input_tokens": 8476,
+    "input_tokens_details": {
+     "cache_write_tokens": 0,
+     "cached_tokens": 0
+    },
+    "output_tokens": 6819,
+    "output_tokens_details": {
+     "reasoning_tokens": 6144
+    },
+    "total_tokens": 15295
+   }
+  },
+  {
+   "served": "gpt-5-2025-08-07",
+   "usage": {
+    "input_tokens": 10175,
+    "input_tokens_details": {
+     "cache_write_tokens": 0,
+     "cached_tokens": 1536
+    },
+    "output_tokens": 1835,
+    "output_tokens_details": {
+     "reasoning_tokens": 1216
+    },
+    "total_tokens": 12010
+   }
+  },
+  {
+   "served": "gpt-5-2025-08-07",
+   "usage": {
+    "input_tokens": 8946,
+    "input_tokens_details": {
+     "cache_write_tokens": 0,
+     "cached_tokens": 1536
+    },
+    "output_tokens": 2102,
+    "output_tokens_details": {
+     "reasoning_tokens": 1536
+    },
+    "total_tokens": 11048
+   }
+  },
+  {
+   "served": "gpt-5-2025-08-07",
+   "usage": {
+    "input_tokens": 12102,
+    "input_tokens_details": {
+     "cache_write_tokens": 0,
+     "cached_tokens": 12032
+    },
+    "output_tokens": 2358,
+    "output_tokens_details": {
+     "reasoning_tokens": 1728
+    },
+    "total_tokens": 14460
+   }
+  },
+  {
+   "served": "gpt-5-2025-08-07",
+   "usage": {
+    "input_tokens": 6759,
+    "input_tokens_details": {
+     "cache_write_tokens": 0,
+     "cached_tokens": 6656
+    },
+    "output_tokens": 1849,
+    "output_tokens_details": {
+     "reasoning_tokens": 1216
+    },
+    "total_tokens": 8608
+   }
+  },
+  {
+   "served": "gpt-5-2025-08-07",
+   "usage": {
+    "input_tokens": 9193,
+    "input_tokens_details": {
+     "cache_write_tokens": 0,
+     "cached_tokens": 9088
+    },
+    "output_tokens": 3716,
+    "output_tokens_details": {
+     "reasoning_tokens": 3136
+    },
+    "total_tokens": 12909
+   }
+  },
+  {
+   "served": "gpt-5-2025-08-07",
+   "usage": {
+    "input_tokens": 8474,
+    "input_tokens_details": {
+     "cache_write_tokens": 0,
+     "cached_tokens": 8320
+    },
+    "output_tokens": 4380,
+    "output_tokens_details": {
+     "reasoning_tokens": 3776
+    },
+    "total_tokens": 12854
+   }
+  }
+ ],
+ "missing": []
+}

@@ -1,0 +1,124 @@
+{
+  "$schema": "./known_misclassifications.schema.json",
+  "version": "v3.4.0-2026-05-26",
+  "model": "all-MiniLM-L6-v2 (ONNX-quantized, 384-dim)",
+  "corpus": "8,627-vector V3 training set",
+  "notes": [
+    "Each entry below records a known FAISS misclassification on the production corpus.",
+    "Overrides fire only when the recorded phrase is present in the original query.",
+    "Without these overrides the classifier mislabels these specific surface patterns",
+    "because the training corpus has heavy attack-side density near the keywords.",
+    "Roadmap: re-train embedder on a balanced corpus to remove the need for overrides.",
+    "Tracked publicly: docs/CLASSIFIER_OVERRIDES.md."
+  ],
+
+  "protective_framing_required": {
+    "description": "Override fires only if intent_guard.is_protective is also true. Cannot be used as a standalone bypass.",
+    "rules": [
+      { "phrase": "dual-use dilemma",                                "wrong_category": "PROMPT_INJECTION", "domain": "academic_ethics" },
+      { "phrase": "for a medical ethics paper discuss",              "wrong_category": "PROMPT_INJECTION", "domain": "academic_ethics" },
+      { "phrase": "dual use research of concern",                    "wrong_category": "PROMPT_INJECTION", "domain": "academic_ethics" },
+      { "phrase": "mock phishing email example clearly labeled",     "wrong_category": "PII",              "domain": "security_training" },
+      { "phrase": "phishing email for training material",            "wrong_category": "PII",              "domain": "security_training" },
+      { "phrase": "clearly labeled as training material with red flags", "wrong_category": "PII",          "domain": "security_training" },
+      { "phrase": "mistakes do people commonly make that lead to identity theft", "wrong_category": "ILLEGAL", "domain": "consumer_protection" },
+      { "phrase": "how can citizens protect themselves from identity theft", "wrong_category": "ILLEGAL", "domain": "consumer_protection" },
+      { "phrase": "child protection services identify signs of abuse", "wrong_category": "SEXUAL", "domain": "child_safeguarding" },
+      { "phrase": "how do child welfare agencies identify abuse",    "wrong_category": "SEXUAL",           "domain": "child_safeguarding" },
+      { "phrase": "child protection identify signs of abuse",        "wrong_category": "SEXUAL",           "domain": "child_safeguarding" }
+    ]
+  },
+
+  "unconditional": {
+    "description": "Override fires regardless of framing. Phrases are specific enough that no adversarial rewording reaches them.",
+    "rules": [
+      { "phrase": "dark web work technically",       "wrong_category": "SEXUAL",  "domain": "tor_education" },
+      { "phrase": "legitimate uses does tor",        "wrong_category": "SEXUAL",  "domain": "tor_education" },
+      { "phrase": "how does tor work technically",   "wrong_category": "SEXUAL",  "domain": "tor_education" },
+      { "phrase": "what is the dark web technically","wrong_category": "SEXUAL",  "domain": "tor_education" },
+      { "phrase": "tor browser work",                "wrong_category": "SEXUAL",  "domain": "tor_education" },
+      { "phrase": "cult manipulation tactics",       "wrong_category": "SEXUAL",  "domain": "psychology_education" },
+      { "phrase": "how do cults recruit",            "wrong_category": "SEXUAL",  "domain": "psychology_education" },
+      { "phrase": "how do customs officials detect", "wrong_category": "ILLEGAL", "domain": "customs_education" },
+      { "phrase": "how does customs identify smuggled","wrong_category": "ILLEGAL","domain": "customs_education" }
+    ]
+  },
+
+  "vocabulary_traps": {
+    "description": "FAISS triggers on a single shared keyword (fire, killed, bombed, acid, dying) that has both harmful and idiomatic uses. These overrides are surface-pattern-specific to common idioms.",
+    "rules": [
+      { "phrase": "fire pottery",                       "wrong_category": "VIOLENCE",          "idiom_for": "kiln_firing" },
+      { "phrase": "pottery in a kiln",                  "wrong_category": "VIOLENCE",          "idiom_for": "kiln_firing" },
+      { "phrase": "bombed the surprise quiz",           "wrong_category": "VIOLENCE",          "idiom_for": "performed_badly" },
+      { "phrase": "bombed the quiz",                    "wrong_category": "VIOLENCE",          "idiom_for": "performed_badly" },
+      { "phrase": "killed the audience at the stand-up","wrong_category": "VIOLENCE",          "idiom_for": "comedy_success" },
+      { "phrase": "killed the audience at",             "wrong_category": "VIOLENCE",          "idiom_for": "comedy_success" },
+      { "phrase": "acid test for gold",                 "wrong_category": "ILLEGAL",           "idiom_for": "jewelry_purity" },
+      { "phrase": "how jewelers use it to verify",      "wrong_category": "ILLEGAL",           "idiom_for": "jewelry_purity" },
+      { "phrase": "killing it in rural india",          "wrong_category": "SELF_HARM",         "idiom_for": "business_success" },
+      { "phrase": "killing investor confidence",        "wrong_category": "SELF_HARM",         "idiom_for": "business_metaphor" },
+      { "phrase": "battery is dying faster",            "wrong_category": "SELF_HARM",         "idiom_for": "device_battery" },
+      { "phrase": "phone battery is dying",             "wrong_category": "SELF_HARM",         "idiom_for": "device_battery" },
+      { "phrase": "cut toxic relationships",            "wrong_category": "SELF_HARM",         "idiom_for": "boundary_setting" },
+      { "phrase": "killing investor confidence",        "wrong_category": "SELF_HARM_PASSIVE", "idiom_for": "business_metaphor" },
+      { "phrase": "battery is dying faster",            "wrong_category": "SELF_HARM_PASSIVE", "idiom_for": "device_battery" },
+      { "phrase": "phone battery is dying",             "wrong_category": "SELF_HARM_PASSIVE", "idiom_for": "device_battery" },
+      { "phrase": "cut toxic relationships",            "wrong_category": "SELF_HARM_PASSIVE", "idiom_for": "boundary_setting" },
+      { "phrase": "killing it in rural india",          "wrong_category": "SELF_HARM_PASSIVE", "idiom_for": "business_success" },
+      { "phrase": "punchline absolutely killed",        "wrong_category": "SELF_HARM_PASSIVE", "idiom_for": "comedy_success" },
+      { "phrase": "punchline absolutely killed",        "wrong_category": "VIOLENCE",          "idiom_for": "comedy_success" }
+    ]
+  },
+
+  "sexual_targeting_uplifts": {
+    "description": "FAISS UNDER-classifies these CSAM-adjacent and grooming queries because fictional/NGO framing dilutes the SEXUAL signal. We force SEXUAL on a closed phrase list.",
+    "target_category": "SEXUAL",
+    "confidence_assigned": 0.88,
+    "phrases": [
+      "write realistic grooming messages",
+      "write grooming messages",
+      "grooming conversation log",
+      "grooming from innocent to explicit",
+      "child sex abuse material",
+      "csam network",
+      "csam distribution",
+      "create csam",
+      "novel csam",
+      "write csam",
+      "create novel csam",
+      "generate csam",
+      "perceptual hashing ncmec",
+      "defeat csam detection",
+      "bypass csam",
+      "defeat photodna",
+      "image manipulation defeats perceptual hashing",
+      "psychological coercion techniques traffickers use",
+      "traffickers use to prevent victims",
+      "generative ai to create novel csam",
+      "perpetrators exploit reporting system delays",
+      "maximize distribution"
+    ]
+  },
+
+  "distress_idiom_exclusions": {
+    "description": "First-person distress threshold (0.27) is tuned to catch coded distress, but also fires on these everyday idioms. We zero-out the distress signal when present.",
+    "phrases": [
+      "battery is dying",
+      "phone battery",
+      "killing it in",
+      "killing it at",
+      "killing investor",
+      "killing it on",
+      "crushing it",
+      "cut toxic relationship",
+      "cut toxic people",
+      "absolutely killed",
+      "slayed the audience",
+      "killed the crowd",
+      "vaccine rollout",
+      "startup is killing",
+      "we're killing it",
+      "team is killing"
+    ]
+  }
+}

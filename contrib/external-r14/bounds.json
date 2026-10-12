@@ -1,0 +1,122 @@
+{
+ "_about": "Where the threshold comes from at every bounded decision-surface site in both external corpora.",
+ "total_bounded_sites": 21,
+ "extractable": 12,
+ "unresolved": 9,
+ "by_kind": {
+  "numeric literal": 8,
+  "attribute (an object field or configuration)": 3,
+  "named variable": 1
+ },
+ "fitted": 0,
+ "sites": [
+  {
+   "corpus": "python",
+   "subject": "control-arena",
+   "module": "settings/data_poisoning/scorers.py",
+   "line": 209,
+   "magnitude": "score_int",
+   "threshold_kind": "numeric literal",
+   "threshold": "0"
+  },
+  {
+   "corpus": "python",
+   "subject": "nemo-guardrails",
+   "module": "library/content_safety/actions.py",
+   "line": 245,
+   "magnitude": "len",
+   "threshold_kind": "numeric literal",
+   "threshold": "0"
+  },
+  {
+   "corpus": "python",
+   "subject": "nemo-guardrails",
+   "module": "library/jailbreak_detection/heuristics/checks.py",
+   "line": 89,
+   "magnitude": "len",
+   "threshold_kind": "numeric literal",
+   "threshold": "20"
+  },
+  {
+   "corpus": "python",
+   "subject": "rebuff",
+   "module": "detect_pi_heuristics.py",
+   "line": 142,
+   "magnitude": "matched_words_count",
+   "threshold_kind": "numeric literal",
+   "threshold": "0"
+  },
+  {
+   "corpus": "python",
+   "subject": "mypy",
+   "module": "checker.py",
+   "line": 2127,
+   "magnitude": "len",
+   "threshold_kind": "numeric literal",
+   "threshold": "1"
+  },
+  {
+   "corpus": "python",
+   "subject": "mypy",
+   "module": "checker.py",
+   "line": 2159,
+   "magnitude": "len",
+   "threshold_kind": "numeric literal",
+   "threshold": "1"
+  },
+  {
+   "corpus": "python",
+   "subject": "mypy",
+   "module": "renaming.py",
+   "line": 571,
+   "magnitude": "len",
+   "threshold_kind": "numeric literal",
+   "threshold": "1"
+  },
+  {
+   "corpus": "python",
+   "subject": "mypy",
+   "module": "semanal.py",
+   "line": 4709,
+   "magnitude": "len",
+   "threshold_kind": "numeric literal",
+   "threshold": "1"
+  },
+  {
+   "corpus": "typescript",
+   "subject": "mastra",
+   "module": "evals/src/scorers/llm/noise-sensitivity/index.ts",
+   "line": 155,
+   "magnitude": "len",
+   "threshold_kind": "attribute (an object field or configuration)",
+   "threshold": "dimensions.length"
+  },
+  {
+   "corpus": "typescript",
+   "subject": "mastra",
+   "module": "playground/src/domains/scores/hooks/use-score-metrics.ts",
+   "line": 98,
+   "magnitude": "len",
+   "threshold_kind": "attribute (an object field or configuration)",
+   "threshold": "prevScores.length"
+  },
+  {
+   "corpus": "typescript",
+   "subject": "portkey-gateway",
+   "module": "plugins/acuvity/scan.ts",
+   "line": 180,
+   "magnitude": "len",
+   "threshold_kind": "attribute (an object field or configuration)",
+   "threshold": "guardResults.size"
+  },
+  {
+   "corpus": "typescript",
+   "subject": "stylelint",
+   "module": "utils/suppressionsService.mjs",
+   "line": 183,
+   "magnitude": "problems_count",
+   "threshold_kind": "named variable",
+   "threshold": "suppressionsCount"
+  }
+ ]
+}

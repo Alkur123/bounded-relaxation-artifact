@@ -1,0 +1,1252 @@
+{
+  "_about": "Human adjudication of every R14-DOMAIN candidate on a decision-surface path. Rubric: contrib/external-r14/ADJUDICATION.md, whose step 0a (domain) is a dated amendment. 'class' follows the rubric: A heuristic relaxation, B principal waiver, C fail-open on error, D structural fact, OUT out of scope, FP the scanner was wrong. 'verdict' is UPHELD, WITHDRAWN, or PASS for a site where the invariant is genuinely satisfied. Each entry was checked against the source at the pinned commit in external_r14_results.json.",
+  "_surface_regex": "monitor|guard|scanner|scan|detect|valid|score|judge|policy|filter|rail|check|safety|secur|moderat|shield|align|inject|firewall|protect",
+  "_prior_work": "backend/paper/cross_system_audit/ ran R1/R2 (pramana), saksin and R3 (anupalabdhi) against ten external frameworks on 2026-07-06 using hand-written per-system declarations. Several of its subjects overlap. Entries it had already recorded are marked 'prior_work'. R14's external run is NOT this corpus's first external application of a rung; what is new is that sites are proposed MECHANICALLY, and that R14 is measured on its own domain rather than borrowing R3's yield.",
+  "_pass_is_a_verdict": "PASS entries are as load-bearing as UPHELD ones. A rung that can only convict is not an invariant, it is an accusation generator, and the stratum B passes are evidence that the obligation R14 states is SATISFIABLE in practice. Read no further than that: the generalisation they invite, that classical tooling audits its relaxations more than AI guardrails do, was pre-registered and FALSIFIED on 2026-08-18 (see PREREGISTRATION_audit_rate.md and audit_rate.json). Measured over 28 subjects the effect runs the other way and is not robust to leave-one-subject-out. These four sites are exceptional within their own stratum, not representative of it.",
+  "entries": [
+    {
+      "subject": "nemo-guardrails",
+      "module": "library/injection_detection/actions.py",
+      "line": 240,
+      "class": "A",
+      "verdict": "UPHELD",
+      "finding": "omit-mode-detection-discarded",
+      "executed": true,
+      "why": "Reached only after rules.match() returned matches and the library logged 'Input matched on rule ...'. _omit_injection decodes each matched instance inside a try; AttributeError and UnicodeDecodeError are caught, logged, and the loop continues without removing that instance. If nothing is removed, modified_text == original_text and the function returns is_injection=False with the original text, and _injection_detection_outcome falls through to RailOutcome.allow. The guard consults whether the REPAIR changed anything, never the strength of the DETECTION, so a maximally confident match is released exactly as readily as a marginal one. The subject's own docstring states the conflation: 'False if the text is safe (i.e., not modified)'.",
+      "prior_work": "NEW, and R3 could not reach it. R3 scanned this same file at v0.23.0 and confirmed two sites, both the 'rules is None' case where the YARA check never ran, and explicitly classified the 'no matches found' branch as an over-approximation rather than a fault. This site is neither: the rules loaded, the rules matched, and the verdict was then set from whether the repair succeeded.",
+      "proof": "prove_reachable.py: executed, is_injection False, text unchanged, outcome RailOutcome.allow with the matched rule still in detections. Control with decodable bytes gives True and RailOutcome.transform."
+    },
+    {
+      "subject": "nemo-guardrails",
+      "module": "library/jailbreak_detection/heuristics/checks.py",
+      "line": 89,
+      "class": "A",
+      "verdict": "UPHELD",
+      "finding": "short-input-exemption-unaudited",
+      "why": "Inputs under 20 whitespace-separated tokens return {'jailbreak': False} without running the perplexity check. R14-a is SATISFIED and the reasoning is sound and documented in a comment: GCG-style suffixes are not meaningful below that length. R14-b is not: nothing records that the check was skipped, so a caller cannot distinguish a short prompt that was exempted from one that was tested and passed. Included precisely because it is the mild case and shows the rung separating its two obligations."
+    },
+    {
+      "subject": "llm-guard",
+      "module": "input_scanners/anonymize_helpers/transformers_recognizer.py",
+      "line": 308,
+      "class": "B",
+      "verdict": "UPHELD",
+      "finding": "silent-ignore-label",
+      "executed": true,
+      "why": "A deployer-configured ignore_labels entry suppresses a detected PII entity by returning None. R14-a is correctly NOT ENGAGED: a waiver by an identified principal has no evidence strength to consult, and demanding a confidence term from an operator allow list would be a category error. R14-b is violated, and the shape is exact: the function has three non-matching branches, two call LOGGER.warning, and the one that suppresses a detection returns silently.",
+      "proof": "prove_reachable.py: executed, the ignore-list branch returns None with zero log lines; the unrecognised-label control returns the entity and emits one log line."
+    },
+    {
+      "subject": "bandit",
+      "module": "core/tester.py",
+      "line": 94,
+      "class": "B",
+      "verdict": "PASS",
+      "finding": "nosec-waiver-is-counted",
+      "why": "The canonical suppression: an inline '# nosec' comment drops a finding. R14-a is correctly not engaged, since the developer writing the comment is the principal. R14-b is SATISFIED, and thoroughly: the branch emits LOG.debug naming the suppressed test id AND calls self.metrics.note_skipped_test(), so suppressions are counted in the run's own metrics rather than vanishing. This is what apavada's second floor asks for, implemented by a project that has never heard of it."
+    },
+    {
+      "subject": "detect-secrets",
+      "module": "filters/allowlist.py",
+      "line": 20,
+      "class": "B",
+      "verdict": "PASS",
+      "finding": "allowlist-is-enumerable",
+      "why": "An inline allowlist regex suppresses a detected secret, and the predicate itself neither logs nor counts, which is what the scanner reported. Withdrawn as a violation after reading the callers: core/scan.py ships scan_for_allowlisted_secrets_in_file, a dedicated path that disables this very filter in order to ENUMERATE what it suppressed. The obligation is met at the system level rather than at the site, which is a legitimate way to meet it and is exactly the distinction R14-b's site-local phrasing cannot see on its own."
+    },
+    {
+      "subject": "detect-secrets",
+      "module": "transformers/config.py",
+      "line": 241,
+      "class": "B",
+      "verdict": "PASS",
+      "finding": "allowlist-is-enumerable",
+      "why": "The next-line pragma form of the same allowlist, covered by the same enumeration path."
+    },
+    {
+      "subject": "detect-secrets",
+      "module": "filters/common.py",
+      "line": 56,
+      "class": "B",
+      "verdict": "PASS",
+      "finding": "verification-suppression-is-bounded",
+      "why": "A secret is suppressed when its verification result is weaker than the configured minimum policy level. R14-a is SATISFIED in the strongest available sense: the relaxation consults a magnitude of the very evidence it overrides, and the threshold is operator configuration rather than a constant. The scanner read it as unbounded because 'value' is not in its evidence lexicon, so this is also a recorded false negative on the bound question."
+    },
+    {
+      "subject": "control-arena",
+      "module": "monitor/_utils.py",
+      "line": 167,
+      "class": "FP",
+      "verdict": "WITHDRAWN",
+      "why": "score_float = (score_float - score_range.min) / (score_range.max - score_range.min) is normalisation to [0,1], not a discount. The discount detector fires on any subtraction or division involving the target, and this is the price of that. Recorded as a false positive of the new shape rather than filtered away."
+    },
+    {
+      "subject": "control-arena",
+      "module": "settings/apps/dataset/validation.py",
+      "line": 129,
+      "class": "FP",
+      "verdict": "WITHDRAWN",
+      "why": "score = score / 10.0 rescales a 0-10 judge score. Same false positive as above, in a benchmark dataset validator that is out of scope anyway."
+    },
+    {
+      "subject": "control-arena",
+      "module": "scorers/_blabbing_scorer.py",
+      "line": 177,
+      "class": "D",
+      "verdict": "WITHDRAWN",
+      "why": "An empty quote string scores 0.0 for quote-match verification. 0.0 is the correct answer, not a suppressed one."
+    },
+    {
+      "subject": "control-arena",
+      "module": "scorers/_blabbing_scorer.py",
+      "line": 215,
+      "class": "D",
+      "verdict": "WITHDRAWN",
+      "why": "No regex match means the quote was not found. Correct negative."
+    },
+    {
+      "subject": "control-arena",
+      "module": "scorers/_llm_judge.py",
+      "line": 72,
+      "class": "D",
+      "verdict": "WITHDRAWN",
+      "why": "A judge string that is neither accept nor reject yields None for the caller to handle."
+    },
+    {
+      "subject": "control-arena",
+      "module": "scorers/_llm_judge.py",
+      "line": 256,
+      "class": "D",
+      "verdict": "WITHDRAWN",
+      "why": "An ensemble member that produced no score contributes None; the aggregate handles absence."
+    },
+    {
+      "subject": "control-arena",
+      "module": "settings/data_poisoning/scorers.py",
+      "line": 209,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "Task-specific benchmark scorer, and its guard does consult the quality threshold."
+    },
+    {
+      "subject": "inspect_ai",
+      "module": "util/_checkpoint/_host_egress.py",
+      "line": 120,
+      "class": "B",
+      "verdict": "WITHDRAWN",
+      "why": "A frozenset of two names, one of which is the manifest filename, excludes top-level entries from a new-file egress scan. It is an author-declared exclusion with no record, which is the R14-b shape, and it is withdrawn anyway because we could not establish from the surrounding module that the excluded entries carry any content the scan exists to catch, rather than being the mechanism's own bookkeeping. Reported rather than claimed: under-claiming is the correct direction when the safety consequence cannot be stated concretely."
+    },
+    {
+      "subject": "agentdojo",
+      "module": "default_suites/v1/slack/injection_tasks.py",
+      "line": 215,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "Benchmark state tracking: the attacker was removed from the workspace, so the tracked state becomes False. The security verdict is computed afterwards from the state sequence."
+    },
+    {
+      "subject": "nemo-guardrails",
+      "module": "eval/check.py",
+      "line": 230,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "A policy declared not applicable to an interaction is skipped. Out of scope as evaluation tooling, and audited anyway: it records compliance 'n/a' on the output and prints a progress line."
+    },
+    {
+      "subject": "nemo-guardrails",
+      "module": "evaluate/evaluate_factcheck.py",
+      "line": 128,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "Offline benchmark tooling assigning ground-truth labels, not a runtime rail."
+    },
+    {
+      "subject": "nemo-guardrails",
+      "module": "evaluate/evaluate_moderation.py",
+      "line": 181,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "Offline benchmark tooling setting the expected label for the benign split."
+    },
+    {
+      "subject": "nemo-guardrails",
+      "module": "evaluate/evaluate_moderation.py",
+      "line": 182,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "Same, second results dict."
+    },
+    {
+      "subject": "nemo-guardrails",
+      "module": "library/content_safety/actions.py",
+      "line": 245,
+      "class": "FP",
+      "verdict": "WITHDRAWN",
+      "why": "_detect_language selects which refusal message to render. Not a safety verdict."
+    },
+    {
+      "subject": "garak",
+      "module": "detectors/base.py",
+      "line": 191,
+      "class": "D",
+      "verdict": "WITHDRAWN",
+      "why": "norm_result_score = None marks offsets where the generator produced no output. Absence of a result, correctly represented as None rather than as a score."
+    },
+    {
+      "subject": "llama-firewall",
+      "module": "scanners/experimental/alignmentcheck_scanner.py",
+      "line": 125,
+      "class": "D",
+      "verdict": "WITHDRAWN",
+      "why": "The negative branch of a binary judge: conclusion true gives 1.0, otherwise 0.0. Not a relaxation. Worth recording the opposite way: this scanner's error default sets conclusion=True with the comment 'Due to an error, treating as potentially compromised for safety', so it fails CLOSED on the identical condition its PII sibling fails open on.",
+      "prior_work": "Withdrawal AGREES with the July audit, independently: R3 flagged the same function and disclosed it as an over-approximation, a genuine score-based decision rather than a couldn't-evaluate default."
+    },
+    {
+      "subject": "giskard",
+      "module": "scan/generators/base.py",
+      "line": 111,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "A scenario generator declining to produce single-turn scenarios. Test generation, not a verdict on behaviour, and it logs a warning."
+    },
+    {
+      "subject": "giskard",
+      "module": "scan/integrations/garak/_adapter.py",
+      "line": 273,
+      "class": "D",
+      "verdict": "WITHDRAWN",
+      "why": "A dotted detector name with more than two parts cannot be resolved to a module and class. Name resolution, not a verdict."
+    },
+    {
+      "subject": "rebuff",
+      "module": "detect_pi_heuristics.py",
+      "line": 142,
+      "class": "D",
+      "verdict": "WITHDRAWN",
+      "why": "No matched keyword parts means the heuristic score is 0. The correct negative, and the guard consults the match count."
+    },
+    {
+      "subject": "modelscan",
+      "module": "modelscan.py",
+      "line": 161,
+      "class": "D",
+      "verdict": "WITHDRAWN",
+      "why": "Container bookkeeping: when a container file is itself skipped, its own entry is removed from the skipped list and only its contents are recorded. It narrows the SKIPPED list, not the findings list."
+    },
+    {
+      "subject": "semantic-kernel",
+      "module": "connectors/openapi_plugin/server_url_validator.py",
+      "line": 104,
+      "class": "D",
+      "verdict": "WITHDRAWN",
+      "why": "The positive branch of an allowlist validator that returns False by default. Returning True is the whole decision, not a weakening of a prior one, and the surrounding function compares scheme, host, port and path prefix before it. A correctly built default-deny check."
+    },
+    {
+      "subject": "bandit",
+      "module": "plugins/tarfile_unsafe_members.py",
+      "line": 114,
+      "class": "D",
+      "verdict": "WITHDRAWN",
+      "why": "No issue is raised when extractall is called with a data filter, which genuinely makes the call safe on supported Python versions. A correct determination, not a suppression."
+    },
+    {
+      "subject": "pylint",
+      "module": "checkers/base/name_checker/checker.py",
+      "line": 662,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "mypy analysis engine: type inference and semantic analysis PRODUCE the verdict, so there is no prior verdict for these writes to weaken.",
+      "read": "step 0 by module role"
+    },
+    {
+      "subject": "pylint",
+      "module": "checkers/classes/class_checker.py",
+      "line": 1698,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "mypy analysis engine: type inference and semantic analysis PRODUCE the verdict, so there is no prior verdict for these writes to weaken.",
+      "read": "step 0 by module role"
+    },
+    {
+      "subject": "pylint",
+      "module": "checkers/design_analysis.py",
+      "line": 189,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "mypy analysis engine: type inference and semantic analysis PRODUCE the verdict, so there is no prior verdict for these writes to weaken.",
+      "read": "step 0 by module role"
+    },
+    {
+      "subject": "pylint",
+      "module": "checkers/design_analysis.py",
+      "line": 195,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "mypy analysis engine: type inference and semantic analysis PRODUCE the verdict, so there is no prior verdict for these writes to weaken.",
+      "read": "step 0 by module role"
+    },
+    {
+      "subject": "pylint",
+      "module": "checkers/design_analysis.py",
+      "line": 214,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "mypy analysis engine: type inference and semantic analysis PRODUCE the verdict, so there is no prior verdict for these writes to weaken.",
+      "read": "step 0 by module role"
+    },
+    {
+      "subject": "pylint",
+      "module": "checkers/design_analysis.py",
+      "line": 218,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "mypy analysis engine: type inference and semantic analysis PRODUCE the verdict, so there is no prior verdict for these writes to weaken.",
+      "read": "step 0 by module role"
+    },
+    {
+      "subject": "pylint",
+      "module": "checkers/design_analysis.py",
+      "line": 269,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "mypy analysis engine: type inference and semantic analysis PRODUCE the verdict, so there is no prior verdict for these writes to weaken.",
+      "read": "step 0 by module role"
+    },
+    {
+      "subject": "pylint",
+      "module": "checkers/imports.py",
+      "line": 149,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "mypy analysis engine: type inference and semantic analysis PRODUCE the verdict, so there is no prior verdict for these writes to weaken.",
+      "read": "step 0 by module role"
+    },
+    {
+      "subject": "pylint",
+      "module": "checkers/imports.py",
+      "line": 154,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "mypy analysis engine: type inference and semantic analysis PRODUCE the verdict, so there is no prior verdict for these writes to weaken.",
+      "read": "step 0 by module role"
+    },
+    {
+      "subject": "pylint",
+      "module": "checkers/imports.py",
+      "line": 156,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "mypy analysis engine: type inference and semantic analysis PRODUCE the verdict, so there is no prior verdict for these writes to weaken.",
+      "read": "step 0 by module role"
+    },
+    {
+      "subject": "pylint",
+      "module": "checkers/refactoring/refactoring_checker.py",
+      "line": 873,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "mypy analysis engine: type inference and semantic analysis PRODUCE the verdict, so there is no prior verdict for these writes to weaken.",
+      "read": "step 0 by module role"
+    },
+    {
+      "subject": "pylint",
+      "module": "checkers/refactoring/refactoring_checker.py",
+      "line": 880,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "mypy analysis engine: type inference and semantic analysis PRODUCE the verdict, so there is no prior verdict for these writes to weaken.",
+      "read": "step 0 by module role"
+    },
+    {
+      "subject": "pylint",
+      "module": "checkers/spelling.py",
+      "line": 367,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "mypy analysis engine: type inference and semantic analysis PRODUCE the verdict, so there is no prior verdict for these writes to weaken.",
+      "read": "step 0 by module role"
+    },
+    {
+      "subject": "pylint",
+      "module": "checkers/typecheck.py",
+      "line": 127,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "mypy analysis engine: type inference and semantic analysis PRODUCE the verdict, so there is no prior verdict for these writes to weaken.",
+      "read": "step 0 by module role"
+    },
+    {
+      "subject": "pylint",
+      "module": "checkers/typecheck.py",
+      "line": 2093,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "mypy analysis engine: type inference and semantic analysis PRODUCE the verdict, so there is no prior verdict for these writes to weaken.",
+      "read": "step 0 by module role"
+    },
+    {
+      "subject": "pylint",
+      "module": "checkers/utils.py",
+      "line": 1034,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "mypy analysis engine: type inference and semantic analysis PRODUCE the verdict, so there is no prior verdict for these writes to weaken.",
+      "read": "step 0 by module role"
+    },
+    {
+      "subject": "pylint",
+      "module": "checkers/utils.py",
+      "line": 1160,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "mypy analysis engine: type inference and semantic analysis PRODUCE the verdict, so there is no prior verdict for these writes to weaken.",
+      "read": "step 0 by module role"
+    },
+    {
+      "subject": "pylint",
+      "module": "checkers/utils.py",
+      "line": 2198,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "mypy analysis engine: type inference and semantic analysis PRODUCE the verdict, so there is no prior verdict for these writes to weaken.",
+      "read": "step 0 by module role"
+    },
+    {
+      "subject": "pylint",
+      "module": "checkers/utils.py",
+      "line": 2202,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "mypy analysis engine: type inference and semantic analysis PRODUCE the verdict, so there is no prior verdict for these writes to weaken.",
+      "read": "step 0 by module role"
+    },
+    {
+      "subject": "pylint",
+      "module": "checkers/variables.py",
+      "line": 1833,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "mypy analysis engine: type inference and semantic analysis PRODUCE the verdict, so there is no prior verdict for these writes to weaken.",
+      "read": "step 0 by module role"
+    },
+    {
+      "subject": "pylint",
+      "module": "config/arguments_manager.py",
+      "line": 259,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "pylint configuration handling and score computation, not a finding being discarded.",
+      "read": "step 0 by module role"
+    },
+    {
+      "subject": "pylint",
+      "module": "extensions/code_style.py",
+      "line": 343,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "pylint configuration handling and score computation, not a finding being discarded.",
+      "read": "step 0 by module role"
+    },
+    {
+      "subject": "pylint",
+      "module": "extensions/consider_refactoring_into_while_condition.py",
+      "line": 74,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "pylint configuration handling and score computation, not a finding being discarded.",
+      "read": "step 0 by module role"
+    },
+    {
+      "subject": "pylint",
+      "module": "lint/message_state_handler.py",
+      "line": 380,
+      "class": "B",
+      "verdict": "PASS",
+      "finding": "suppression-reported-in-band",
+      "why": "`# pylint: skip-file` or `disable-all` sets _ignore_file and the whole file is skipped. R14-a is correctly not engaged: the developer writing the pragma is the principal. R14-b is SATISFIED in the strongest form seen in this corpus: immediately before the write the branch calls self.linter.add_message('file-ignored'), which emits the suppression AS A FINDING in the same output stream as the findings it suppressed, and the deprecated pragma form emits a second message. Our scanner reported this unaudited because add_message is not in its audit lexicon, so this is also a recorded false negative on the audit question.",
+      "read": "individually"
+    },
+    {
+      "subject": "pylint",
+      "module": "lint/message_state_handler.py",
+      "line": 407,
+      "class": "B",
+      "verdict": "PASS",
+      "finding": "suppression-reported-in-band",
+      "why": "The `disable=all` spelling of the same suppression, with the same in-band file-ignored message.",
+      "read": "individually"
+    },
+    {
+      "subject": "pylint",
+      "module": "lint/pylinter.py",
+      "line": 1170,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "pylint configuration handling and score computation, not a finding being discarded.",
+      "read": "step 0 by module role"
+    },
+    {
+      "subject": "mypy",
+      "module": "binder.py",
+      "line": 332,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "mypy analysis engine: type inference and semantic analysis PRODUCE the verdict, so there is no prior verdict for these writes to weaken.",
+      "read": "step 0 by module role"
+    },
+    {
+      "subject": "mypy",
+      "module": "build.py",
+      "line": 3962,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "mypy analysis engine: type inference and semantic analysis PRODUCE the verdict, so there is no prior verdict for these writes to weaken.",
+      "read": "step 0 by module role"
+    },
+    {
+      "subject": "mypy",
+      "module": "checker.py",
+      "line": 2127,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "mypy analysis engine: type inference and semantic analysis PRODUCE the verdict, so there is no prior verdict for these writes to weaken.",
+      "read": "step 0 by module role"
+    },
+    {
+      "subject": "mypy",
+      "module": "checker.py",
+      "line": 2159,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "mypy analysis engine: type inference and semantic analysis PRODUCE the verdict, so there is no prior verdict for these writes to weaken.",
+      "read": "step 0 by module role"
+    },
+    {
+      "subject": "mypy",
+      "module": "checker.py",
+      "line": 2854,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "mypy analysis engine: type inference and semantic analysis PRODUCE the verdict, so there is no prior verdict for these writes to weaken.",
+      "read": "step 0 by module role"
+    },
+    {
+      "subject": "mypy",
+      "module": "checker.py",
+      "line": 3202,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "mypy analysis engine: type inference and semantic analysis PRODUCE the verdict, so there is no prior verdict for these writes to weaken.",
+      "read": "step 0 by module role"
+    },
+    {
+      "subject": "mypy",
+      "module": "checker.py",
+      "line": 3212,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "mypy analysis engine: type inference and semantic analysis PRODUCE the verdict, so there is no prior verdict for these writes to weaken.",
+      "read": "step 0 by module role"
+    },
+    {
+      "subject": "mypy",
+      "module": "checkexpr.py",
+      "line": 938,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "mypy analysis engine: type inference and semantic analysis PRODUCE the verdict, so there is no prior verdict for these writes to weaken.",
+      "read": "step 0 by module role"
+    },
+    {
+      "subject": "mypy",
+      "module": "checkexpr.py",
+      "line": 2396,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "mypy analysis engine: type inference and semantic analysis PRODUCE the verdict, so there is no prior verdict for these writes to weaken.",
+      "read": "step 0 by module role"
+    },
+    {
+      "subject": "mypy",
+      "module": "checkexpr.py",
+      "line": 3918,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "mypy analysis engine: type inference and semantic analysis PRODUCE the verdict, so there is no prior verdict for these writes to weaken.",
+      "read": "step 0 by module role"
+    },
+    {
+      "subject": "mypy",
+      "module": "checkexpr.py",
+      "line": 3923,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "mypy analysis engine: type inference and semantic analysis PRODUCE the verdict, so there is no prior verdict for these writes to weaken.",
+      "read": "step 0 by module role"
+    },
+    {
+      "subject": "mypy",
+      "module": "checkexpr.py",
+      "line": 3956,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "mypy analysis engine: type inference and semantic analysis PRODUCE the verdict, so there is no prior verdict for these writes to weaken.",
+      "read": "step 0 by module role"
+    },
+    {
+      "subject": "mypy",
+      "module": "checkexpr.py",
+      "line": 3959,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "mypy analysis engine: type inference and semantic analysis PRODUCE the verdict, so there is no prior verdict for these writes to weaken.",
+      "read": "step 0 by module role"
+    },
+    {
+      "subject": "mypy",
+      "module": "checkexpr.py",
+      "line": 3961,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "mypy analysis engine: type inference and semantic analysis PRODUCE the verdict, so there is no prior verdict for these writes to weaken.",
+      "read": "step 0 by module role"
+    },
+    {
+      "subject": "mypy",
+      "module": "checkexpr.py",
+      "line": 3974,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "mypy analysis engine: type inference and semantic analysis PRODUCE the verdict, so there is no prior verdict for these writes to weaken.",
+      "read": "step 0 by module role"
+    },
+    {
+      "subject": "mypy",
+      "module": "checkexpr.py",
+      "line": 4004,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "mypy analysis engine: type inference and semantic analysis PRODUCE the verdict, so there is no prior verdict for these writes to weaken.",
+      "read": "step 0 by module role"
+    },
+    {
+      "subject": "mypy",
+      "module": "checkexpr.py",
+      "line": 4008,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "mypy analysis engine: type inference and semantic analysis PRODUCE the verdict, so there is no prior verdict for these writes to weaken.",
+      "read": "step 0 by module role"
+    },
+    {
+      "subject": "mypy",
+      "module": "checkexpr.py",
+      "line": 4014,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "mypy analysis engine: type inference and semantic analysis PRODUCE the verdict, so there is no prior verdict for these writes to weaken.",
+      "read": "step 0 by module role"
+    },
+    {
+      "subject": "mypy",
+      "module": "checkexpr.py",
+      "line": 4020,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "mypy analysis engine: type inference and semantic analysis PRODUCE the verdict, so there is no prior verdict for these writes to weaken.",
+      "read": "step 0 by module role"
+    },
+    {
+      "subject": "mypy",
+      "module": "checkmember.py",
+      "line": 491,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "mypy analysis engine: type inference and semantic analysis PRODUCE the verdict, so there is no prior verdict for these writes to weaken.",
+      "read": "step 0 by module role"
+    },
+    {
+      "subject": "mypy",
+      "module": "errors.py",
+      "line": 910,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "mypy's unused-ignore reporter. The verdict weakened here is 'is this ignore unnecessary', a lint ABOUT the suppression mechanism, not a type error. Out of scope for a rung about discarded detections, and noted because the distinction is easy to miss.",
+      "read": "step 0 by module role"
+    },
+    {
+      "subject": "mypy",
+      "module": "errors.py",
+      "line": 917,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "mypy's unused-ignore reporter. The verdict weakened here is 'is this ignore unnecessary', a lint ABOUT the suppression mechanism, not a type error. Out of scope for a rung about discarded detections, and noted because the distinction is easy to miss.",
+      "read": "step 0 by module role"
+    },
+    {
+      "subject": "mypy",
+      "module": "errors.py",
+      "line": 942,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "mypy's unused-ignore reporter. The verdict weakened here is 'is this ignore unnecessary', a lint ABOUT the suppression mechanism, not a type error. Out of scope for a rung about discarded detections, and noted because the distinction is easy to miss.",
+      "read": "step 0 by module role"
+    },
+    {
+      "subject": "mypy",
+      "module": "fscache.py",
+      "line": 136,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "mypy analysis engine: type inference and semantic analysis PRODUCE the verdict, so there is no prior verdict for these writes to weaken.",
+      "read": "step 0 by module role"
+    },
+    {
+      "subject": "mypy",
+      "module": "messages.py",
+      "line": 3128,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "mypy analysis engine: type inference and semantic analysis PRODUCE the verdict, so there is no prior verdict for these writes to weaken.",
+      "read": "step 0 by module role"
+    },
+    {
+      "subject": "mypy",
+      "module": "messages.py",
+      "line": 3196,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "mypy analysis engine: type inference and semantic analysis PRODUCE the verdict, so there is no prior verdict for these writes to weaken.",
+      "read": "step 0 by module role"
+    },
+    {
+      "subject": "mypy",
+      "module": "nodes.py",
+      "line": 347,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "mypy analysis engine: type inference and semantic analysis PRODUCE the verdict, so there is no prior verdict for these writes to weaken.",
+      "read": "step 0 by module role"
+    },
+    {
+      "subject": "mypy",
+      "module": "options.py",
+      "line": 527,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "mypy report scoping and option propagation: which files appear in a coverage report, and copying a global flag to its per-module twin. Neither is a verdict about code.",
+      "read": "step 0 by module role"
+    },
+    {
+      "subject": "mypy",
+      "module": "options.py",
+      "line": 536,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "mypy report scoping and option propagation: which files appear in a coverage report, and copying a global flag to its per-module twin. Neither is a verdict about code.",
+      "read": "step 0 by module role"
+    },
+    {
+      "subject": "mypy",
+      "module": "options.py",
+      "line": 540,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "mypy report scoping and option propagation: which files appear in a coverage report, and copying a global flag to its per-module twin. Neither is a verdict about code.",
+      "read": "step 0 by module role"
+    },
+    {
+      "subject": "mypy",
+      "module": "plugins/attrs.py",
+      "line": 535,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "mypy analysis engine: type inference and semantic analysis PRODUCE the verdict, so there is no prior verdict for these writes to weaken.",
+      "read": "step 0 by module role"
+    },
+    {
+      "subject": "mypy",
+      "module": "plugins/common.py",
+      "line": 421,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "mypy analysis engine: type inference and semantic analysis PRODUCE the verdict, so there is no prior verdict for these writes to weaken.",
+      "read": "step 0 by module role"
+    },
+    {
+      "subject": "mypy",
+      "module": "renaming.py",
+      "line": 571,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "mypy analysis engine: type inference and semantic analysis PRODUCE the verdict, so there is no prior verdict for these writes to weaken.",
+      "read": "step 0 by module role"
+    },
+    {
+      "subject": "mypy",
+      "module": "report.py",
+      "line": 138,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "mypy report scoping and option propagation: which files appear in a coverage report, and copying a global flag to its per-module twin. Neither is a verdict about code.",
+      "read": "step 0 by module role"
+    },
+    {
+      "subject": "mypy",
+      "module": "report.py",
+      "line": 140,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "mypy report scoping and option propagation: which files appear in a coverage report, and copying a global flag to its per-module twin. Neither is a verdict about code.",
+      "read": "step 0 by module role"
+    },
+    {
+      "subject": "mypy",
+      "module": "report.py",
+      "line": 142,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "mypy report scoping and option propagation: which files appear in a coverage report, and copying a global flag to its per-module twin. Neither is a verdict about code.",
+      "read": "step 0 by module role"
+    },
+    {
+      "subject": "mypy",
+      "module": "semanal.py",
+      "line": 2344,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "mypy analysis engine: type inference and semantic analysis PRODUCE the verdict, so there is no prior verdict for these writes to weaken.",
+      "read": "step 0 by module role"
+    },
+    {
+      "subject": "mypy",
+      "module": "semanal.py",
+      "line": 4709,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "mypy analysis engine: type inference and semantic analysis PRODUCE the verdict, so there is no prior verdict for these writes to weaken.",
+      "read": "step 0 by module role"
+    },
+    {
+      "subject": "mypy",
+      "module": "semanal.py",
+      "line": 5745,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "mypy analysis engine: type inference and semantic analysis PRODUCE the verdict, so there is no prior verdict for these writes to weaken.",
+      "read": "step 0 by module role"
+    },
+    {
+      "subject": "mypy",
+      "module": "semanal.py",
+      "line": 5956,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "mypy analysis engine: type inference and semantic analysis PRODUCE the verdict, so there is no prior verdict for these writes to weaken.",
+      "read": "step 0 by module role"
+    },
+    {
+      "subject": "mypy",
+      "module": "semanal.py",
+      "line": 5962,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "mypy analysis engine: type inference and semantic analysis PRODUCE the verdict, so there is no prior verdict for these writes to weaken.",
+      "read": "step 0 by module role"
+    },
+    {
+      "subject": "mypy",
+      "module": "semanal.py",
+      "line": 5968,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "mypy analysis engine: type inference and semantic analysis PRODUCE the verdict, so there is no prior verdict for these writes to weaken.",
+      "read": "step 0 by module role"
+    },
+    {
+      "subject": "mypy",
+      "module": "subtypes.py",
+      "line": 1761,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "mypy analysis engine: type inference and semantic analysis PRODUCE the verdict, so there is no prior verdict for these writes to weaken.",
+      "read": "step 0 by module role"
+    },
+    {
+      "subject": "mypy",
+      "module": "suggestions.py",
+      "line": 782,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "mypy analysis engine: type inference and semantic analysis PRODUCE the verdict, so there is no prior verdict for these writes to weaken.",
+      "read": "step 0 by module role"
+    },
+    {
+      "subject": "mypy",
+      "module": "suggestions.py",
+      "line": 797,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "mypy analysis engine: type inference and semantic analysis PRODUCE the verdict, so there is no prior verdict for these writes to weaken.",
+      "read": "step 0 by module role"
+    },
+    {
+      "subject": "mypy",
+      "module": "tvar_scope.py",
+      "line": 72,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "mypy analysis engine: type inference and semantic analysis PRODUCE the verdict, so there is no prior verdict for these writes to weaken.",
+      "read": "step 0 by module role"
+    },
+    {
+      "subject": "mypy",
+      "module": "typeanal.py",
+      "line": 2552,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "mypy analysis engine: type inference and semantic analysis PRODUCE the verdict, so there is no prior verdict for these writes to weaken.",
+      "read": "step 0 by module role"
+    },
+    {
+      "subject": "mypy",
+      "module": "typeops.py",
+      "line": 266,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "mypy analysis engine: type inference and semantic analysis PRODUCE the verdict, so there is no prior verdict for these writes to weaken.",
+      "read": "step 0 by module role"
+    },
+    {
+      "subject": "mypy",
+      "module": "util.py",
+      "line": 408,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "mypy analysis engine: type inference and semantic analysis PRODUCE the verdict, so there is no prior verdict for these writes to weaken.",
+      "read": "step 0 by module role"
+    },
+    {
+      "subject": "semgrep",
+      "module": "app/version.py",
+      "line": 289,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "semgrep banner fetching for a too-many-findings notice. Presentation, not a verdict.",
+      "read": "step 0 by module role"
+    },
+    {
+      "subject": "semgrep",
+      "module": "app/version.py",
+      "line": 299,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "semgrep banner fetching for a too-many-findings notice. Presentation, not a verdict.",
+      "read": "step 0 by module role"
+    },
+    {
+      "subject": "semgrep",
+      "module": "rule_match.py",
+      "line": 478,
+      "class": "A",
+      "verdict": "PASS",
+      "finding": "downgraded-not-discarded",
+      "why": "A matched rule is marked non-blocking when its SCA finding is not reachable, or is always-reachable only through a transitive dependency. R14-a is SATISFIED and by a real property of the evidence rather than a pattern over the input: reachability is computed about the finding itself. R14-b is satisfied by design rather than by logging, which is the cleanest mechanism in this corpus: formatter/text.py sorts matches into blocking and nonblocking subgroups and prints both, so the relaxation weakens the ACTION and preserves the RECORD.",
+      "read": "individually"
+    },
+    {
+      "subject": "checkov",
+      "module": "azure_pipelines/common/resource_id_utils.py",
+      "line": 19,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "checkov parsing, platform plumbing, file filtering and output rendering. Scan scope or serialisation, not a verdict weakened.",
+      "read": "step 0 by module role"
+    },
+    {
+      "subject": "checkov",
+      "module": "common/bridgecrew/integration_features/features/repo_config_integration.py",
+      "line": 55,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "checkov platform plumbing: mapping a repository configuration to a code category. Neither a finding nor a suppression of one.",
+      "read": "step 0 by module role"
+    },
+    {
+      "subject": "checkov",
+      "module": "common/bridgecrew/integration_features/features/suppressions_integration.py",
+      "line": 304,
+      "class": "B",
+      "verdict": "PASS",
+      "finding": "suppression-enumerated-in-report",
+      "why": "Validates whether a platform-supplied suppression applies to this run, gated on the policy id resolving in the mapping and on the account matching the repository. R14-a is correctly not engaged for a waiver by an identified principal. R14-b is satisfied downstream rather than here: common/output/report.py keeps skipped_checks as a first-class list, counts it in the summary under 'skipped', and serialises it in the output, so a suppressed check is enumerable rather than absent.",
+      "read": "individually"
+    },
+    {
+      "subject": "checkov",
+      "module": "common/bridgecrew/platform_integration.py",
+      "line": 271,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "checkov parsing, platform plumbing, file filtering and output rendering. Scan scope or serialisation, not a verdict weakened.",
+      "read": "step 0 by module role"
+    },
+    {
+      "subject": "checkov",
+      "module": "common/bridgecrew/wrapper.py",
+      "line": 65,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "checkov parsing, platform plumbing, file filtering and output rendering. Scan scope or serialisation, not a verdict weakened.",
+      "read": "step 0 by module role"
+    },
+    {
+      "subject": "checkov",
+      "module": "common/graph/checks_infra/debug.py",
+      "line": 106,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "checkov parsing, platform plumbing, file filtering and output rendering. Scan scope or serialisation, not a verdict weakened.",
+      "read": "step 0 by module role"
+    },
+    {
+      "subject": "checkov",
+      "module": "common/runners/runner_registry.py",
+      "line": 797,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "checkov parsing, platform plumbing, file filtering and output rendering. Scan scope or serialisation, not a verdict weakened.",
+      "read": "step 0 by module role"
+    },
+    {
+      "subject": "checkov",
+      "module": "common/util/parser_utils.py",
+      "line": 70,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "checkov parsing, platform plumbing, file filtering and output rendering. Scan scope or serialisation, not a verdict weakened.",
+      "read": "step 0 by module role"
+    },
+    {
+      "subject": "checkov",
+      "module": "common/util/parser_utils.py",
+      "line": 75,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "checkov parsing, platform plumbing, file filtering and output rendering. Scan scope or serialisation, not a verdict weakened.",
+      "read": "step 0 by module role"
+    },
+    {
+      "subject": "checkov",
+      "module": "common/util/parser_utils.py",
+      "line": 78,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "checkov parsing, platform plumbing, file filtering and output rendering. Scan scope or serialisation, not a verdict weakened.",
+      "read": "step 0 by module role"
+    },
+    {
+      "subject": "checkov",
+      "module": "common/util/parser_utils.py",
+      "line": 83,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "checkov parsing, platform plumbing, file filtering and output rendering. Scan scope or serialisation, not a verdict weakened.",
+      "read": "step 0 by module role"
+    },
+    {
+      "subject": "checkov",
+      "module": "common/util/parser_utils.py",
+      "line": 94,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "checkov parsing, platform plumbing, file filtering and output rendering. Scan scope or serialisation, not a verdict weakened.",
+      "read": "step 0 by module role"
+    },
+    {
+      "subject": "checkov",
+      "module": "docs_generator.py",
+      "line": 191,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "checkov parsing, platform plumbing, file filtering and output rendering. Scan scope or serialisation, not a verdict weakened.",
+      "read": "step 0 by module role"
+    },
+    {
+      "subject": "checkov",
+      "module": "helm/runner.py",
+      "line": 76,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "checkov parsing, platform plumbing, file filtering and output rendering. Scan scope or serialisation, not a verdict weakened.",
+      "read": "step 0 by module role"
+    },
+    {
+      "subject": "checkov",
+      "module": "kubernetes/checks/resource/base_registry.py",
+      "line": 83,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "checkov check implementations: deciding a resource does not violate a policy is the analysis producing its verdict.",
+      "read": "step 0 by module role"
+    },
+    {
+      "subject": "checkov",
+      "module": "kubernetes/checks/resource/base_registry.py",
+      "line": 86,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "checkov check implementations: deciding a resource does not violate a policy is the analysis producing its verdict.",
+      "read": "step 0 by module role"
+    },
+    {
+      "subject": "checkov",
+      "module": "kubernetes/checks/resource/base_registry.py",
+      "line": 89,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "checkov check implementations: deciding a resource does not violate a policy is the analysis producing its verdict.",
+      "read": "step 0 by module role"
+    },
+    {
+      "subject": "checkov",
+      "module": "kustomize/runner.py",
+      "line": 96,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "checkov parsing, platform plumbing, file filtering and output rendering. Scan scope or serialisation, not a verdict weakened.",
+      "read": "step 0 by module role"
+    },
+    {
+      "subject": "checkov",
+      "module": "policies_3d/output.py",
+      "line": 197,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "checkov parsing, platform plumbing, file filtering and output rendering. Scan scope or serialisation, not a verdict weakened.",
+      "read": "step 0 by module role"
+    },
+    {
+      "subject": "checkov",
+      "module": "sast/engines/files_filter_manager.py",
+      "line": 56,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "checkov parsing, platform plumbing, file filtering and output rendering. Scan scope or serialisation, not a verdict weakened.",
+      "read": "step 0 by module role"
+    },
+    {
+      "subject": "checkov",
+      "module": "sca_package_2/runner.py",
+      "line": 173,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "checkov parsing, platform plumbing, file filtering and output rendering. Scan scope or serialisation, not a verdict weakened.",
+      "read": "step 0 by module role"
+    },
+    {
+      "subject": "checkov",
+      "module": "secrets/parsers/terraform/single_line_parser.py",
+      "line": 23,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "checkov parsing, platform plumbing, file filtering and output rendering. Scan scope or serialisation, not a verdict weakened.",
+      "read": "step 0 by module role"
+    },
+    {
+      "subject": "checkov",
+      "module": "terraform/checks/resource/aws/AbsSecurityGroupUnrestrictedEgress.py",
+      "line": 87,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "checkov check implementations: deciding a resource does not violate a policy is the analysis producing its verdict.",
+      "read": "step 0 by module role"
+    },
+    {
+      "subject": "checkov",
+      "module": "terraform/checks/resource/aws/AbsSecurityGroupUnrestrictedEgress.py",
+      "line": 111,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "checkov check implementations: deciding a resource does not violate a policy is the analysis producing its verdict.",
+      "read": "step 0 by module role"
+    },
+    {
+      "subject": "checkov",
+      "module": "terraform/checks/resource/aws/AbsSecurityGroupUnrestrictedIngress.py",
+      "line": 87,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "checkov check implementations: deciding a resource does not violate a policy is the analysis producing its verdict.",
+      "read": "step 0 by module role"
+    },
+    {
+      "subject": "checkov",
+      "module": "terraform/checks/resource/aws/AbsSecurityGroupUnrestrictedIngress.py",
+      "line": 111,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "checkov check implementations: deciding a resource does not violate a policy is the analysis producing its verdict.",
+      "read": "step 0 by module role"
+    },
+    {
+      "subject": "checkov",
+      "module": "terraform/checks/resource/openstack/AbsSecurityGroupUnrestrictedIngress.py",
+      "line": 71,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "checkov check implementations: deciding a resource does not violate a policy is the analysis producing its verdict.",
+      "read": "step 0 by module role"
+    },
+    {
+      "subject": "checkov",
+      "module": "terraform/checks/resource/openstack/AbsSecurityGroupUnrestrictedIngress.py",
+      "line": 77,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "checkov check implementations: deciding a resource does not violate a policy is the analysis producing its verdict.",
+      "read": "step 0 by module role"
+    },
+    {
+      "subject": "checkov",
+      "module": "terraform_json/parser.py",
+      "line": 105,
+      "class": "OUT",
+      "verdict": "WITHDRAWN",
+      "why": "checkov parsing, platform plumbing, file filtering and output rendering. Scan scope or serialisation, not a verdict weakened.",
+      "read": "step 0 by module role"
+    }
+  ],
+  "_adjudicated_subjects": [
+    "agentdojo",
+    "autogen",
+    "bandit",
+    "checkov",
+    "control-arena",
+    "crewai",
+    "detect-secrets",
+    "garak",
+    "giskard",
+    "guardrails",
+    "inspect_ai",
+    "langgraph",
+    "llama-firewall",
+    "llm-guard",
+    "modelscan",
+    "mypy",
+    "nemo-guardrails",
+    "openai-agents",
+    "petri",
+    "pip-audit",
+    "presidio",
+    "pylint",
+    "rebuff",
+    "semantic-kernel",
+    "semgrep",
+    "trulens",
+    "vigil",
+    "vulture"
+  ],
+  "_scope_note": "As of 2026-08-18 ALL scanned subjects are adjudicated. Six classical subjects were added mid-session to test the pre-registered audit-rate hypothesis and were initially scan-only; their 107 decision-surface sites were then adjudicated too, 103 of them by step 0 at module granularity (see _step0_note) and 4 read individually. vulture and pip-audit proposed no sites at all, which is a complete adjudication of zero. There is therefore one corpus, not two.",
+  "_step0_note": "For the four large stratum B subjects added on 2026-08-18, step 0 was applied at MODULE granularity and 103 of 107 sites were dismissed that way; the 4 that survived were read individually and carry per-site reasons. The rule is R14's own definition one level up: in an analysis engine the analysis produces the verdict, so there is no prior verdict to weaken, and only the reporting and suppression layer can discard one."
+}

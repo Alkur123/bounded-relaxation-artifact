@@ -1,0 +1,163 @@
+{
+  "hypothesis": "stratum B audits its relaxations at a higher rate than A",
+  "unit": "one R14-domain proposed site",
+  "outcome": "scanner 'audited' flag, which over-credits symmetrically",
+  "stratum_A": {
+    "sites": 125,
+    "audited": 20,
+    "rate_pct": 16.0
+  },
+  "stratum_B": {
+    "sites": 112,
+    "audited": 6,
+    "rate_pct": 5.4
+  },
+  "per_subject": {
+    "control-arena": {
+      "stratum": "A",
+      "sites": 10,
+      "audited": 2,
+      "rate_pct": 20.0
+    },
+    "inspect_ai": {
+      "stratum": "A",
+      "sites": 14,
+      "audited": 2,
+      "rate_pct": 14.3
+    },
+    "agentdojo": {
+      "stratum": "A",
+      "sites": 1,
+      "audited": 0,
+      "rate_pct": 0.0
+    },
+    "nemo-guardrails": {
+      "stratum": "A",
+      "sites": 31,
+      "audited": 4,
+      "rate_pct": 12.9
+    },
+    "llm-guard": {
+      "stratum": "A",
+      "sites": 1,
+      "audited": 0,
+      "rate_pct": 0.0
+    },
+    "guardrails": {
+      "stratum": "A",
+      "sites": 1,
+      "audited": 0,
+      "rate_pct": 0.0
+    },
+    "presidio": {
+      "stratum": "A",
+      "sites": 6,
+      "audited": 1,
+      "rate_pct": 16.7
+    },
+    "garak": {
+      "stratum": "A",
+      "sites": 14,
+      "audited": 6,
+      "rate_pct": 42.9
+    },
+    "llama-firewall": {
+      "stratum": "A",
+      "sites": 1,
+      "audited": 0,
+      "rate_pct": 0.0
+    },
+    "openai-agents": {
+      "stratum": "A",
+      "sites": 25,
+      "audited": 3,
+      "rate_pct": 12.0
+    },
+    "petri": {
+      "stratum": "A",
+      "sites": 2,
+      "audited": 0,
+      "rate_pct": 0.0
+    },
+    "giskard": {
+      "stratum": "A",
+      "sites": 2,
+      "audited": 1,
+      "rate_pct": 50.0
+    },
+    "rebuff": {
+      "stratum": "A",
+      "sites": 1,
+      "audited": 0,
+      "rate_pct": 0.0
+    },
+    "modelscan": {
+      "stratum": "A",
+      "sites": 2,
+      "audited": 0,
+      "rate_pct": 0.0
+    },
+    "trulens": {
+      "stratum": "A",
+      "sites": 2,
+      "audited": 0,
+      "rate_pct": 0.0
+    },
+    "semantic-kernel": {
+      "stratum": "A",
+      "sites": 8,
+      "audited": 1,
+      "rate_pct": 12.5
+    },
+    "crewai": {
+      "stratum": "A",
+      "sites": 4,
+      "audited": 0,
+      "rate_pct": 0.0
+    },
+    "bandit": {
+      "stratum": "B",
+      "sites": 2,
+      "audited": 1,
+      "rate_pct": 50.0
+    },
+    "detect-secrets": {
+      "stratum": "B",
+      "sites": 3,
+      "audited": 0,
+      "rate_pct": 0.0
+    },
+    "pylint": {
+      "stratum": "B",
+      "sites": 26,
+      "audited": 0,
+      "rate_pct": 0.0
+    },
+    "mypy": {
+      "stratum": "B",
+      "sites": 49,
+      "audited": 2,
+      "rate_pct": 4.1
+    },
+    "semgrep": {
+      "stratum": "B",
+      "sites": 3,
+      "audited": 0,
+      "rate_pct": 0.0
+    },
+    "checkov": {
+      "stratum": "B",
+      "sites": 29,
+      "audited": 3,
+      "rate_pct": 10.3
+    }
+  },
+  "difference_pp": -10.6,
+  "fisher_p_two_sided": 0.011548852856552015,
+  "verdict": "OPPOSITE DIRECTION",
+  "significance_lost_without": [
+    "garak",
+    "mypy",
+    "pylint"
+  ]
+}

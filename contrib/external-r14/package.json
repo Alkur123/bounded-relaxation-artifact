@@ -1,0 +1,14 @@
+{
+  "name": "r14-ts-frontend",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "TypeScript/JavaScript front end for R14's relaxation-site proposer. Pure syntax extraction; every lexicon judgement stays in the shipped Python.",
+  "scripts": {
+    "propose": "node ts_propose.mjs"
+  },
+  "dependencies": {
+    "typescript": "5.9.3",
+    "zod": "^3.25.76"
+  }
+}

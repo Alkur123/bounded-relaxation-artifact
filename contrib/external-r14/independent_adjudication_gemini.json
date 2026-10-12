@@ -1,0 +1,1172 @@
+{
+ "model_requested": "gemini-3-flash-preview",
+ "verdicts": {
+  "py-000": {
+   "subject": "nemo-guardrails",
+   "module": "library/injection_detection/actions.py",
+   "line": 240,
+   "lang": "py",
+   "verdict": "UPHELD",
+   "class": "A",
+   "reason": "Heuristic-based relaxation (YARA matches) fails to consult evidence strength and lacks an audit trace when mitigation fails to modify the text."
+  },
+  "py-001": {
+   "subject": "nemo-guardrails",
+   "module": "library/jailbreak_detection/heuristics/checks.py",
+   "line": 89,
+   "lang": "py",
+   "verdict": "UPHELD",
+   "class": "A",
+   "reason": "Heuristic relaxation based on input length returns a safe verdict without consulting evidence strength or leaving an audit trace."
+  },
+  "py-002": {
+   "subject": "llm-guard",
+   "module": "input_scanners/anonymize_helpers/transformers_recognizer.py",
+   "line": 308,
+   "lang": "py",
+   "verdict": "UPHELD",
+   "class": "B",
+   "reason": "Principal waiver via ignore_labels suppresses PII detection without an audit trace as required for Class B relaxations."
+  },
+  "py-003": {
+   "subject": "bandit",
+   "module": "core/tester.py",
+   "line": 94,
+   "lang": "py",
+   "verdict": "PASS",
+   "class": "B",
+   "reason": "Principal waiver (nosec) is properly audited through logging and metrics tracking."
+  },
+  "py-004": {
+   "subject": "detect-secrets",
+   "module": "filters/allowlist.py",
+   "line": 20,
+   "lang": "py",
+   "verdict": "UPHELD",
+   "class": "B",
+   "reason": "Principal waiver via allowlist regexes lacks an audit trace."
+  },
+  "py-005": {
+   "subject": "detect-secrets",
+   "module": "transformers/config.py",
+   "line": 241,
+   "lang": "py",
+   "verdict": "UPHELD",
+   "class": "B",
+   "reason": "Principal waiver via inline allowlist comments lacks an audit trace."
+  },
+  "py-006": {
+   "subject": "detect-secrets",
+   "module": "filters/common.py",
+   "line": 56,
+   "lang": "py",
+   "verdict": "UPHELD",
+   "class": "B",
+   "reason": "Principal waiver based on verification policy levels lacks an audit trace."
+  },
+  "py-007": {
+   "subject": "control-arena",
+   "module": "monitor/_utils.py",
+   "line": 167,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "Normalization of a score is a calculation step, not a relaxation of a safety verdict."
+  },
+  "py-008": {
+   "subject": "control-arena",
+   "module": "settings/apps/dataset/validation.py",
+   "line": 129,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "Scaling a raw model score is a calculation step, not a relaxation of a safety verdict."
+  },
+  "py-009": {
+   "subject": "control-arena",
+   "module": "scorers/_blabbing_scorer.py",
+   "line": 177,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "D",
+   "reason": "Setting a match score to zero for empty input is a structural fact about the absence of evidence, not a relaxation."
+  },
+  "py-020": {
+   "subject": "nemo-guardrails",
+   "module": "library/content_safety/actions.py",
+   "line": 245,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "D",
+   "reason": "Returning a null value when language detection fails is a structural statement that no verdict was produced, rather than a relaxation."
+  },
+  "py-021": {
+   "subject": "garak",
+   "module": "detectors/base.py",
+   "line": 191,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "D",
+   "reason": "Returning a null score for a null model output is a structural fact about alignment and not a safety relaxation."
+  },
+  "py-022": {
+   "subject": "llama-firewall",
+   "module": "scanners/experimental/alignmentcheck_scanner.py",
+   "line": 125,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "FP",
+   "reason": "The scanner misidentified the primary classification logic (mapping an LLM conclusion to a score) as a relaxation stage."
+  },
+  "py-023": {
+   "subject": "giskard",
+   "module": "scan/generators/base.py",
+   "line": 111,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "Logic for determining whether to generate a test scenario in a testing framework is out of scope for the safety-decision path rubric."
+  },
+  "py-024": {
+   "subject": "giskard",
+   "module": "scan/integrations/garak/_adapter.py",
+   "line": 273,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "D",
+   "reason": "Returning None when failing to resolve a detector class name from a string is a structural failure handling and not a relaxation."
+  },
+  "py-025": {
+   "subject": "rebuff",
+   "module": "detect_pi_heuristics.py",
+   "line": 142,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "FP",
+   "reason": "The scanner misidentified the primary heuristic scoring function as a relaxation stage."
+  },
+  "py-026": {
+   "subject": "modelscan",
+   "module": "modelscan.py",
+   "line": 161,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "Loop control logic for managing the internal list of skipped subjects during a scan is a benign scanner artifact and out of scope."
+  },
+  "py-027": {
+   "subject": "semantic-kernel",
+   "module": "connectors/openapi_plugin/server_url_validator.py",
+   "line": 104,
+   "lang": "py",
+   "verdict": "UPHELD",
+   "class": "B",
+   "reason": "The allow-list waiver permits URLs without an audit trace, failing the obligation that every outcome of a principal waiver must be recorded."
+  },
+  "py-028": {
+   "subject": "bandit",
+   "module": "plugins/tarfile_unsafe_members.py",
+   "line": 114,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "D",
+   "reason": "Suppressing a security warning when a mitigation is present in analyzed code is a structural fact of the analysis rule, not a relaxation."
+  },
+  "py-029": {
+   "subject": "pylint",
+   "module": "checkers/base/name_checker/checker.py",
+   "line": 662,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "A naming convention checker for source code variables is out of scope for a content or action safety rubric."
+  },
+  "py-010": {
+   "subject": "control-arena",
+   "module": "scorers/_blabbing_scorer.py",
+   "line": 215,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "The match_score is a display field in an evaluation scorer report, which is out of scope for R14-a enforcement."
+  },
+  "py-011": {
+   "subject": "control-arena",
+   "module": "scorers/_llm_judge.py",
+   "line": 72,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "This is a parser for converting judge output strings into score objects for benchmarking, not a safety-decision path."
+  },
+  "py-012": {
+   "subject": "control-arena",
+   "module": "scorers/_llm_judge.py",
+   "line": 256,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "The return value is a parser state for an evaluation judge ensemble, not an enforcement decision about permitted content."
+  },
+  "py-013": {
+   "subject": "control-arena",
+   "module": "settings/data_poisoning/scorers.py",
+   "line": 209,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "This is a parser for converting training example quality scores in a benchmark, which is out of scope for R14."
+  },
+  "py-014": {
+   "subject": "inspect_ai",
+   "module": "util/_checkpoint/_host_egress.py",
+   "line": 120,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "This is a file system utility for synchronizing experiment checkpoints, not a safety-critical content or action gate."
+  },
+  "py-015": {
+   "subject": "agentdojo",
+   "module": "default_suites/v1/slack/injection_tasks.py",
+   "line": 215,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "The assignment is a state update within an offline evaluation's security metric logic, not a runtime safety verdict."
+  },
+  "py-016": {
+   "subject": "nemo-guardrails",
+   "module": "eval/check.py",
+   "line": 230,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "This utility calculates compliance metrics for an evaluation report and is not part of a runtime safety-decision path."
+  },
+  "py-017": {
+   "subject": "nemo-guardrails",
+   "module": "evaluate/evaluate_factcheck.py",
+   "line": 128,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "This code sets ground-truth labels for an evaluation dataset used in testing, not a safety-decision path."
+  },
+  "py-018": {
+   "subject": "nemo-guardrails",
+   "module": "evaluate/evaluate_moderation.py",
+   "line": 181,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "This code sets ground-truth labels for an evaluation dataset used in testing, not a safety-decision path."
+  },
+  "py-019": {
+   "subject": "nemo-guardrails",
+   "module": "evaluate/evaluate_moderation.py",
+   "line": 182,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "This code sets ground-truth labels for an evaluation dataset used in testing, not a safety-decision path."
+  },
+  "py-030": {
+   "subject": "pylint",
+   "module": "checkers/classes/class_checker.py",
+   "line": 1698,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "FP",
+   "reason": "The scanner misread the polarity; returning True enables further structural checking rather than weakening a verdict."
+  },
+  "py-031": {
+   "subject": "pylint",
+   "module": "checkers/design_analysis.py",
+   "line": 189,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "D",
+   "reason": "The exemption for Enum types defines the structural scope of the design rule's applicability rather than relaxing a safety verdict."
+  },
+  "py-032": {
+   "subject": "pylint",
+   "module": "checkers/design_analysis.py",
+   "line": 195,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "D",
+   "reason": "The exemption for TypedDict types defines the structural scope of the design rule's applicability rather than relaxing a safety verdict."
+  },
+  "py-033": {
+   "subject": "pylint",
+   "module": "checkers/design_analysis.py",
+   "line": 214,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "D",
+   "reason": "The exemption for Dataclass decorators defines the structural scope of the design rule's applicability rather than relaxing a safety verdict."
+  },
+  "py-034": {
+   "subject": "pylint",
+   "module": "checkers/design_analysis.py",
+   "line": 218,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "D",
+   "reason": "The exemption for Attrs decorators defines the structural scope of the design rule's applicability rather than relaxing a safety verdict."
+  },
+  "py-035": {
+   "subject": "pylint",
+   "module": "checkers/design_analysis.py",
+   "line": 269,
+   "lang": "py",
+   "verdict": "UPHELD",
+   "class": "B",
+   "reason": "The loop skips traversal of ancestors based on an operator-configured list without generating an audit trace, failing R14-b."
+  },
+  "py-036": {
+   "subject": "pylint",
+   "module": "checkers/imports.py",
+   "line": 149,
+   "lang": "py",
+   "verdict": "UPHELD",
+   "class": "B",
+   "reason": "The use of a configurable module ignore-list to suppress import errors constitutes an unaudited principal waiver, failing R14-b."
+  },
+  "py-037": {
+   "subject": "pylint",
+   "module": "checkers/imports.py",
+   "line": 154,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "D",
+   "reason": "The exclusion of imports inside type-checking blocks is a structural property of the linter's domain scope rather than a relaxation."
+  },
+  "py-038": {
+   "subject": "pylint",
+   "module": "checkers/imports.py",
+   "line": 156,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "D",
+   "reason": "The exclusion of imports inside system-version guard blocks is a structural property of the linter's domain scope rather than a relaxation."
+  },
+  "py-039": {
+   "subject": "pylint",
+   "module": "checkers/refactoring/refactoring_checker.py",
+   "line": 873,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "D",
+   "reason": "The default match case identifies content that does not meet the structural criteria for a detection, which is a statement that no verdict was produced."
+  },
+  "py-050": {
+   "subject": "pylint",
+   "module": "extensions/code_style.py",
+   "line": 343,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "Suppression of a code style suggestion for the walrus operator is not a safety-decision path."
+  },
+  "py-051": {
+   "subject": "pylint",
+   "module": "extensions/consider_refactoring_into_while_condition.py",
+   "line": 74,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "Filtering logic for a loop refactoring suggestion is not a safety-decision path."
+  },
+  "py-052": {
+   "subject": "pylint",
+   "module": "lint/message_state_handler.py",
+   "line": 380,
+   "lang": "py",
+   "verdict": "PASS",
+   "class": "B",
+   "reason": "Explicit file-level suppression via a pragma is a principal waiver that is audited by a dedicated message."
+  },
+  "py-053": {
+   "subject": "pylint",
+   "module": "lint/message_state_handler.py",
+   "line": 407,
+   "lang": "py",
+   "verdict": "PASS",
+   "class": "B",
+   "reason": "Explicit file-level suppression via 'disable=all' is a principal waiver that is audited by a dedicated message."
+  },
+  "py-054": {
+   "subject": "pylint",
+   "module": "lint/pylinter.py",
+   "line": 1170,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "The evaluation score is a display metric, not a safety verdict, making this write out of scope."
+  },
+  "py-055": {
+   "subject": "mypy",
+   "module": "binder.py",
+   "line": 332,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "FP",
+   "reason": "This is internal type-inference logic for merging frames, not a relaxation of a safety decision."
+  },
+  "py-056": {
+   "subject": "mypy",
+   "module": "build.py",
+   "line": 3962,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "Suggesting alternative module names for a failed import is a display feature, not a safety-decision path."
+  },
+  "py-057": {
+   "subject": "mypy",
+   "module": "checker.py",
+   "line": 2127,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "D",
+   "reason": "The lack of arguments in a method makes it structurally impossible for it to be an overlapping operator."
+  },
+  "py-058": {
+   "subject": "mypy",
+   "module": "checker.py",
+   "line": 2159,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "FP",
+   "reason": "This check is an integral part of the type-matching logic, not a relaxation of an existing safety verdict."
+  },
+  "py-059": {
+   "subject": "mypy",
+   "module": "checker.py",
+   "line": 2854,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "Modifying an internal checker flag during AST traversal is a scanner artifact."
+  },
+  "py-040": {
+   "subject": "pylint",
+   "module": "checkers/refactoring/refactoring_checker.py",
+   "line": 880,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "D",
+   "reason": "Determining if a code block matches a refactoring pattern is a structural analysis of the AST, not a relaxation of a verdict."
+  },
+  "py-041": {
+   "subject": "pylint",
+   "module": "checkers/spelling.py",
+   "line": 367,
+   "lang": "py",
+   "verdict": "UPHELD",
+   "class": "B",
+   "reason": "The spelling ignore list acts as a principal waiver but lacks the required audit trace for skipped detections."
+  },
+  "py-042": {
+   "subject": "pylint",
+   "module": "checkers/typecheck.py",
+   "line": 127,
+   "lang": "py",
+   "verdict": "UPHELD",
+   "class": "B",
+   "reason": "Module and class ignore lists provide a principal waiver that suppresses flagging without the required audit trace."
+  },
+  "py-043": {
+   "subject": "pylint",
+   "module": "checkers/typecheck.py",
+   "line": 2093,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "D",
+   "reason": "The context-based check for PEP 604 syntax is a structural fact defining the linter rule's applicability, not a relaxation."
+  },
+  "py-044": {
+   "subject": "pylint",
+   "module": "checkers/utils.py",
+   "line": 1034,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "FP",
+   "reason": "The scanner misread the polarity; returning False is the strict path that does not weaken a verdict."
+  },
+  "py-045": {
+   "subject": "pylint",
+   "module": "checkers/utils.py",
+   "line": 1160,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "D",
+   "reason": "Detecting if an exception is handled by surrounding code is a structural fact about control flow, not a relaxation."
+  },
+  "py-046": {
+   "subject": "pylint",
+   "module": "checkers/utils.py",
+   "line": 2198,
+   "lang": "py",
+   "verdict": "UPHELD",
+   "class": "B",
+   "reason": "The module ignore list provides a principal waiver that suppresses flagging without an audit trace."
+  },
+  "py-047": {
+   "subject": "pylint",
+   "module": "checkers/utils.py",
+   "line": 2202,
+   "lang": "py",
+   "verdict": "UPHELD",
+   "class": "B",
+   "reason": "The pattern-based module ignore list provides a principal waiver that suppresses flagging without an audit trace."
+  },
+  "py-048": {
+   "subject": "pylint",
+   "module": "checkers/variables.py",
+   "line": 1833,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "D",
+   "reason": "Scope-based skip logic is a structural analysis of the AST used to define the linter rule's domain."
+  },
+  "py-049": {
+   "subject": "pylint",
+   "module": "config/arguments_manager.py",
+   "line": 259,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "This function generates configuration documentation and does not participate in content flagging or safety decision paths."
+  },
+  "py-060": {
+   "subject": "mypy",
+   "module": "checker.py",
+   "line": 3202,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "FP",
+   "reason": "The relaxation is a fail-open when type info is missing, but it is audited by the preceding error message regarding the inability to determine types."
+  },
+  "py-061": {
+   "subject": "mypy",
+   "module": "checker.py",
+   "line": 3212,
+   "lang": "py",
+   "verdict": "UPHELD",
+   "class": "B",
+   "reason": "The principal waiver allowing incompatible overrides for specific nodes is not audited."
+  },
+  "py-062": {
+   "subject": "mypy",
+   "module": "checkexpr.py",
+   "line": 938,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "D",
+   "reason": "The permissive treatment of the Any type is a fundamental structural property of the gradual type system, not a relaxation of a verdict."
+  },
+  "py-063": {
+   "subject": "mypy",
+   "module": "checkexpr.py",
+   "line": 2396,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "Internal state used to manage multi-pass type inference is not a safety-decision path."
+  },
+  "py-064": {
+   "subject": "mypy",
+   "module": "checkexpr.py",
+   "line": 3918,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "D",
+   "reason": "The safety check is skipped because the feature is disabled in the user-controlled configuration."
+  },
+  "py-065": {
+   "subject": "mypy",
+   "module": "checkexpr.py",
+   "line": 3923,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "Recursion tracking via a seen-types set is an internal algorithm guard to prevent infinite loops, not a safety relaxation."
+  },
+  "py-066": {
+   "subject": "mypy",
+   "module": "checkexpr.py",
+   "line": 3956,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "D",
+   "reason": "Warning suppression for code contextually determined to be unreachable is a structural property of the static analysis."
+  },
+  "py-067": {
+   "subject": "mypy",
+   "module": "checkexpr.py",
+   "line": 3959,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "D",
+   "reason": "Comparing None to itself is a structural identity fact that is inherently safe, not a relaxation of a safety verdict."
+  },
+  "py-068": {
+   "subject": "mypy",
+   "module": "checkexpr.py",
+   "line": 3961,
+   "lang": "py",
+   "verdict": "UPHELD",
+   "class": "A",
+   "reason": "A heuristic relaxation permitting comparisons involving None lacks both a strength/confidence bound and an audit trace."
+  },
+  "py-069": {
+   "subject": "mypy",
+   "module": "checkexpr.py",
+   "line": 3974,
+   "lang": "py",
+   "verdict": "UPHELD",
+   "class": "A",
+   "reason": "A heuristic relaxation for bytes-related container checks is neither bounded by evidence strength nor audited."
+  },
+  "py-070": {
+   "subject": "mypy",
+   "module": "checkexpr.py",
+   "line": 4004,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "D",
+   "reason": "The use of a hardcoded type list to define safe comparisons is a structural property of the type system logic rather than a relaxation of a verdict."
+  },
+  "py-071": {
+   "subject": "mypy",
+   "module": "checkexpr.py",
+   "line": 4008,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "D",
+   "reason": "Comparing boolean values is a structural case defined by the tool as safe, representing a statement that no 'dangerous' verdict is produced."
+  },
+  "py-072": {
+   "subject": "mypy",
+   "module": "checkexpr.py",
+   "line": 4014,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "D",
+   "reason": "The specific handling of bytes and bytearray comparisons is a structural property of the language semantics as implemented in the tool."
+  },
+  "py-073": {
+   "subject": "mypy",
+   "module": "checkexpr.py",
+   "line": 4020,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "D",
+   "reason": "The specific handling of bytearray and bytes comparisons is a structural property of the language semantics as implemented in the tool."
+  },
+  "py-074": {
+   "subject": "mypy",
+   "module": "checkmember.py",
+   "line": 491,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "D",
+   "reason": "Suppressing errors based on AnyType semantics is a structural property of how the type system is defined to handle that specific category of types."
+  },
+  "py-075": {
+   "subject": "mypy",
+   "module": "errors.py",
+   "line": 910,
+   "lang": "py",
+   "verdict": "UPHELD",
+   "class": "B",
+   "reason": "The file-based ignore list is an unaudited principal waiver that allows bypassing error reporting for specified files without leaving a trace."
+  },
+  "py-076": {
+   "subject": "mypy",
+   "module": "errors.py",
+   "line": 917,
+   "lang": "py",
+   "verdict": "UPHELD",
+   "class": "B",
+   "reason": "Allowing an error code to suppress its own 'unused' warning via in-code comments is an unaudited principal waiver that lacks a required audit trace."
+  },
+  "py-077": {
+   "subject": "mypy",
+   "module": "errors.py",
+   "line": 942,
+   "lang": "py",
+   "verdict": "UPHELD",
+   "class": "B",
+   "reason": "The file-based ignore list for code-less ignore comments is an unaudited principal waiver that fails the requirement for a recorded outcome trace."
+  },
+  "py-078": {
+   "subject": "mypy",
+   "module": "fscache.py",
+   "line": 136,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "This logic manages internal file system cache state and package identification, which is a scanner artifact rather than a safety-decision path."
+  },
+  "py-079": {
+   "subject": "mypy",
+   "module": "messages.py",
+   "line": 3128,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "This function handles the formatting of type representations for display purposes and does not involve a safety-decision relaxation."
+  },
+  "py-090": {
+   "subject": "mypy",
+   "module": "report.py",
+   "line": 142,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "Filtering paths for report generation is a UI/reporting concern, not a relaxation of a safety verdict."
+  },
+  "py-091": {
+   "subject": "mypy",
+   "module": "semanal.py",
+   "line": 2344,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "D",
+   "reason": "Marking an AST node as valid during semantic analysis is a structural fact of how the compiler handles specific syntax."
+  },
+  "py-092": {
+   "subject": "mypy",
+   "module": "semanal.py",
+   "line": 4709,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "D",
+   "reason": "Structural validation of assignment syntax (allowing exactly one starred expression) is a statement of language rules, not a relaxation."
+  },
+  "py-093": {
+   "subject": "mypy",
+   "module": "semanal.py",
+   "line": 5745,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "D",
+   "reason": "A predicate defining valid syntax for the purpose of raising an error is part of the core detection logic, not a relaxation."
+  },
+  "py-094": {
+   "subject": "mypy",
+   "module": "semanal.py",
+   "line": 5956,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "D",
+   "reason": "Marking AST nodes as valid in contexts where the syntax is permitted is a structural property of the semantic analyzer."
+  },
+  "py-095": {
+   "subject": "mypy",
+   "module": "semanal.py",
+   "line": 5962,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "D",
+   "reason": "Marking AST nodes as valid in contexts where the syntax is permitted is a structural property of the semantic analyzer."
+  },
+  "py-096": {
+   "subject": "mypy",
+   "module": "semanal.py",
+   "line": 5968,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "D",
+   "reason": "Marking AST nodes as valid in contexts where the syntax is permitted is a structural property of the semantic analyzer."
+  },
+  "py-097": {
+   "subject": "mypy",
+   "module": "subtypes.py",
+   "line": 1761,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "D",
+   "reason": "Adjusting strictness based on whether type information is implicitly defined is a structural part of the subtyping logic."
+  },
+  "py-098": {
+   "subject": "mypy",
+   "module": "suggestions.py",
+   "line": 782,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "Scoring types for a suggestion engine is a heuristic for a developer tool feature, not a safety-critical decision path."
+  },
+  "py-099": {
+   "subject": "mypy",
+   "module": "suggestions.py",
+   "line": 797,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "Scoring types for a suggestion engine is a heuristic for a developer tool feature, not a safety-critical decision path."
+  },
+  "py-080": {
+   "subject": "mypy",
+   "module": "messages.py",
+   "line": 3196,
+   "lang": "py",
+   "verdict": "UPHELD",
+   "class": "B",
+   "reason": "A principal-directed skip of protocol member checking for listed names lacks an audit trace."
+  },
+  "py-081": {
+   "subject": "mypy",
+   "module": "nodes.py",
+   "line": 347,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "This is a deserialization function for parse errors and is out of scope as a benign parser write."
+  },
+  "py-082": {
+   "subject": "mypy",
+   "module": "options.py",
+   "line": 527,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "D",
+   "reason": "Modifying configuration options is a structural fact about the tool's execution rather than a relaxation of a verdict."
+  },
+  "py-083": {
+   "subject": "mypy",
+   "module": "options.py",
+   "line": 536,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "D",
+   "reason": "Modifying configuration options is a structural fact about the tool's execution rather than a relaxation of a verdict."
+  },
+  "py-084": {
+   "subject": "mypy",
+   "module": "options.py",
+   "line": 540,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "D",
+   "reason": "Modifying configuration options is a structural fact about the tool's execution rather than a relaxation of a verdict."
+  },
+  "py-085": {
+   "subject": "mypy",
+   "module": "plugins/attrs.py",
+   "line": 535,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "D",
+   "reason": "Syntactic detection for configuration inference is a structural fact rather than a relaxation of a safety verdict."
+  },
+  "py-086": {
+   "subject": "mypy",
+   "module": "plugins/common.py",
+   "line": 421,
+   "lang": "py",
+   "verdict": "UPHELD",
+   "class": "B",
+   "reason": "A principal-directed waiver allowing incompatible overrides for specific names lacks a corresponding audit trace."
+  },
+  "py-087": {
+   "subject": "mypy",
+   "module": "renaming.py",
+   "line": 571,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "Variable renaming is an internal structural transformation out of scope for safety-decision verdicts."
+  },
+  "py-088": {
+   "subject": "mypy",
+   "module": "report.py",
+   "line": 138,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "D",
+   "reason": "Skipping reporting for specific file paths is a structural fact regarding the scope of the analysis."
+  },
+  "py-089": {
+   "subject": "mypy",
+   "module": "report.py",
+   "line": 140,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "D",
+   "reason": "Skipping reporting for specific file paths is a structural fact regarding the scope of the analysis."
+  },
+  "py-100": {
+   "subject": "mypy",
+   "module": "tvar_scope.py",
+   "line": 72,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "D",
+   "reason": "This is core symbol-table scoping logic in a type checker, not a relaxation of a safety verdict."
+  },
+  "py-101": {
+   "subject": "mypy",
+   "module": "typeanal.py",
+   "line": 2552,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "D",
+   "reason": "This is a structural check for recursion in type aliases, not a safety-decision path."
+  },
+  "py-102": {
+   "subject": "mypy",
+   "module": "typeops.py",
+   "line": 266,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "D",
+   "reason": "This function checks the internal AST node type for semantic validity, not a security relaxation."
+  },
+  "py-103": {
+   "subject": "mypy",
+   "module": "util.py",
+   "line": 408,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "This is a generic utility for object state manipulation and does not reach a safety-decision path."
+  },
+  "py-104": {
+   "subject": "semgrep",
+   "module": "app/version.py",
+   "line": 289,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "This function controls the display of a UI banner message which is out of scope for safety decisions."
+  },
+  "py-105": {
+   "subject": "semgrep",
+   "module": "app/version.py",
+   "line": 299,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "This function controls the display of a UI banner message which is out of scope for safety decisions."
+  },
+  "py-106": {
+   "subject": "semgrep",
+   "module": "rule_match.py",
+   "line": 478,
+   "lang": "py",
+   "verdict": "UPHELD",
+   "class": "A",
+   "reason": "This heuristic relaxation demotes a blocking verdict based on reachability metadata without a confidence bound or an audit trace."
+  },
+  "py-107": {
+   "subject": "checkov",
+   "module": "azure_pipelines/common/resource_id_utils.py",
+   "line": 19,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "D",
+   "reason": "This is structural code for mapping line numbers to resource objects in an AST, not a relaxation."
+  },
+  "py-108": {
+   "subject": "checkov",
+   "module": "common/bridgecrew/integration_features/features/repo_config_integration.py",
+   "line": 55,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "D",
+   "reason": "This is a structural check for missing configuration entries rather than a relaxation of an existing verdict."
+  },
+  "py-109": {
+   "subject": "checkov",
+   "module": "common/bridgecrew/integration_features/features/suppressions_integration.py",
+   "line": 304,
+   "lang": "py",
+   "verdict": "UPHELD",
+   "class": "B",
+   "reason": "This principal waiver validation lacks an audit trace and does not prevent the relaxation from overriding hard-block categories."
+  },
+  "py-120": {
+   "subject": "checkov",
+   "module": "helm/runner.py",
+   "line": 76,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "D",
+   "reason": "The absence of an optional allowlist configuration is a structural fact of the tool setup, not a relaxation of a safety verdict."
+  },
+  "py-121": {
+   "subject": "checkov",
+   "module": "kubernetes/checks/resource/base_registry.py",
+   "line": 83,
+   "lang": "py",
+   "verdict": "UPHELD",
+   "class": "B",
+   "reason": "An unaudited skip of a safety scan based on an operator-provided denylist violates R14-b."
+  },
+  "py-122": {
+   "subject": "checkov",
+   "module": "kubernetes/checks/resource/base_registry.py",
+   "line": 86,
+   "lang": "py",
+   "verdict": "UPHELD",
+   "class": "B",
+   "reason": "An unaudited skip of a safety scan based on an operator-provided denylist violates R14-b."
+  },
+  "py-123": {
+   "subject": "checkov",
+   "module": "kubernetes/checks/resource/base_registry.py",
+   "line": 89,
+   "lang": "py",
+   "verdict": "UPHELD",
+   "class": "B",
+   "reason": "An unaudited skip of a safety scan based on an operator-provided denylist violates R14-b."
+  },
+  "py-124": {
+   "subject": "checkov",
+   "module": "kustomize/runner.py",
+   "line": 96,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "D",
+   "reason": "The absence of an optional allowlist configuration is a structural fact of the tool setup, not a relaxation of a safety verdict."
+  },
+  "py-125": {
+   "subject": "checkov",
+   "module": "policies_3d/output.py",
+   "line": 197,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "OUT",
+   "reason": "Rendering a violations table is a display/reporting step and therefore out of scope at Step 0."
+  },
+  "py-126": {
+   "subject": "checkov",
+   "module": "sast/engines/files_filter_manager.py",
+   "line": 56,
+   "lang": "py",
+   "verdict": "WITHDRAWN",
+   "class": "D",
+   "reason": "The exclusion of compiled JavaScript files when TypeScript source files are available is a structural input-selection fact."
+  },
+  "py-127": {
+   "subject": "checkov",
+   "module": "sca_package_2/runner.py",
+   "line": 173,
+   "lang": "py",
+   "verdict": "PASS",
+   "class": "B",
+   "reason": "A principal waiver (path exclusion) that is audited via debug logging and shows no flooring violations meets the rubric requirements."
+  },
+  "py-128": {
+   "subject": "checkov",
+   "module": "secrets/parsers/terraform/single_line_parser.py",
+   "line": 23,
+   "lang": "py",
+   "verdict": "UPHELD",
+   "class": "A",
+   "reason": "A heuristic drops secret detections in Terraform data blocks without consulting the strength of the evidence as required by R14-a."
+  },
+  "py-129": {
+   "subject": "checkov",
+   "module": "terraform/checks/resource/aws/AbsSecurityGroupUnrestrictedEgress.py",
+   "line": 87,
+   "lang": "py",
+   "verdict": "UPHELD",
+   "class": "A",
+   "reason": "A heuristic demotes unrestricted egress violations to safe based on attribute presence without consulting evidence strength or checking concurrent unrestricted fields."
+  }
+ },
+ "usage": [
+  {
+   "served": "gemini-3-flash-preview",
+   "usage": {
+    "input_tokens": 10393,
+    "output_tokens": 8817
+   }
+  },
+  {
+   "served": "gemini-3-flash-preview",
+   "usage": {
+    "input_tokens": 7861,
+    "output_tokens": 14901
+   }
+  },
+  {
+   "served": "gemini-3-flash-preview",
+   "usage": {
+    "input_tokens": 11517,
+    "output_tokens": 23033
+   }
+  },
+  {
+   "served": "gemini-3-flash-preview",
+   "usage": {
+    "input_tokens": 9071,
+    "output_tokens": 7843
+   }
+  },
+  {
+   "served": "gemini-3-flash-preview",
+   "usage": {
+    "input_tokens": 15076,
+    "output_tokens": 6697
+   }
+  },
+  {
+   "served": "gemini-3-flash-preview",
+   "usage": {
+    "input_tokens": 9542,
+    "output_tokens": 13529
+   }
+  },
+  {
+   "served": "gemini-3-flash-preview",
+   "usage": {
+    "input_tokens": 25277,
+    "output_tokens": 8644
+   }
+  },
+  {
+   "served": "gemini-3-flash-preview",
+   "usage": {
+    "input_tokens": 21285,
+    "output_tokens": 13346
+   }
+  },
+  {
+   "served": "gemini-3-flash-preview",
+   "usage": {
+    "input_tokens": 10334,
+    "output_tokens": 5432
+   }
+  },
+  {
+   "served": "gemini-3-flash-preview",
+   "usage": {
+    "input_tokens": 8837,
+    "output_tokens": 19394
+   }
+  },
+  {
+   "served": "gemini-3-flash-preview",
+   "usage": {
+    "input_tokens": 7662,
+    "output_tokens": 11657
+   }
+  },
+  {
+   "served": "gemini-3-flash-preview",
+   "usage": {
+    "input_tokens": 10353,
+    "output_tokens": 10430
+   }
+  }
+ ],
+ "missing": []
+}

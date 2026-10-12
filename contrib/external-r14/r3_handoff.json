@@ -1,0 +1,1335 @@
+{
+  "deferred_sites": 72,
+  "modules": 43,
+  "both": 27,
+  "r14_only": 39,
+  "r3_only": 122,
+  "not_expressible": 6,
+  "scan_errors": 0,
+  "agreement_pct": 37.5,
+  "r14_only_by_shape": {
+    "benign-write": 17,
+    "waiver-skip": 7,
+    "narrowing": 15
+  },
+  "modules_detail": [
+    {
+      "subject": "checkov",
+      "module": "github_actions/utils.py",
+      "declared_sentinels": [
+        "True"
+      ],
+      "declared_enum_members": [],
+      "r14_deferred_lines": [
+        80
+      ],
+      "r3_flagged_lines": [
+        80
+      ],
+      "both": [
+        80
+      ],
+      "r14_only": [],
+      "r3_only": [],
+      "not_expressible_to_r3": [],
+      "inexpressible_values": [],
+      "r3_shapes": [
+        "bare_constant"
+      ]
+    },
+    {
+      "subject": "checkov",
+      "module": "main.py",
+      "declared_sentinels": [
+        "False",
+        "True"
+      ],
+      "declared_enum_members": [],
+      "r14_deferred_lines": [
+        450,
+        471
+      ],
+      "r3_flagged_lines": [
+        174,
+        199,
+        213,
+        261,
+        378,
+        412,
+        432,
+        435,
+        441,
+        638,
+        639,
+        722,
+        730,
+        765,
+        849,
+        850
+      ],
+      "both": [],
+      "r14_only": [
+        450,
+        471
+      ],
+      "r3_only": [
+        174,
+        199,
+        213,
+        261,
+        378,
+        412,
+        432,
+        435,
+        441,
+        638,
+        639,
+        722,
+        730,
+        765,
+        849,
+        850
+      ],
+      "not_expressible_to_r3": [],
+      "inexpressible_values": [],
+      "r3_shapes": [
+        "bare_constant",
+        "ctor_kwarg_sentinel"
+      ]
+    },
+    {
+      "subject": "checkov",
+      "module": "secrets/plugins/load_detectors.py",
+      "declared_sentinels": [],
+      "declared_enum_members": [],
+      "r14_deferred_lines": [
+        20
+      ],
+      "r3_flagged_lines": [],
+      "both": [],
+      "r14_only": [],
+      "r3_only": [],
+      "not_expressible_to_r3": [
+        20
+      ],
+      "inexpressible_values": [
+        "empty container"
+      ],
+      "r3_shapes": []
+    },
+    {
+      "subject": "checkov",
+      "module": "terraform/checks/resource/alicloud/AbsSecurityGroupUnrestrictedIngress.py",
+      "declared_sentinels": [
+        "False"
+      ],
+      "declared_enum_members": [],
+      "r14_deferred_lines": [
+        51
+      ],
+      "r3_flagged_lines": [
+        51
+      ],
+      "both": [
+        51
+      ],
+      "r14_only": [],
+      "r3_only": [],
+      "not_expressible_to_r3": [],
+      "inexpressible_values": [],
+      "r3_shapes": [
+        "bare_constant"
+      ]
+    },
+    {
+      "subject": "checkov",
+      "module": "terraform/context_parsers/parsers/provider_context_parser.py",
+      "declared_sentinels": [
+        "False"
+      ],
+      "declared_enum_members": [],
+      "r14_deferred_lines": [
+        54
+      ],
+      "r3_flagged_lines": [
+        54
+      ],
+      "both": [
+        54
+      ],
+      "r14_only": [],
+      "r3_only": [],
+      "not_expressible_to_r3": [],
+      "inexpressible_values": [],
+      "r3_shapes": [
+        "bare_constant"
+      ]
+    },
+    {
+      "subject": "control-arena",
+      "module": "analysis/_metrics.py",
+      "declared_sentinels": [
+        "0"
+      ],
+      "declared_enum_members": [],
+      "r14_deferred_lines": [
+        105
+      ],
+      "r3_flagged_lines": [],
+      "both": [],
+      "r14_only": [
+        105
+      ],
+      "r3_only": [],
+      "not_expressible_to_r3": [],
+      "inexpressible_values": [],
+      "r3_shapes": []
+    },
+    {
+      "subject": "control-arena",
+      "module": "scorers/_utils.py",
+      "declared_sentinels": [
+        "None"
+      ],
+      "declared_enum_members": [],
+      "r14_deferred_lines": [
+        103
+      ],
+      "r3_flagged_lines": [
+        103
+      ],
+      "both": [
+        103
+      ],
+      "r14_only": [],
+      "r3_only": [],
+      "not_expressible_to_r3": [],
+      "inexpressible_values": [],
+      "r3_shapes": [
+        "bare_constant"
+      ]
+    },
+    {
+      "subject": "control-arena",
+      "module": "settings/apps/dataset/validation.py",
+      "declared_sentinels": [
+        "0.0"
+      ],
+      "declared_enum_members": [],
+      "r14_deferred_lines": [
+        131
+      ],
+      "r3_flagged_lines": [
+        102,
+        131,
+        483
+      ],
+      "both": [
+        131
+      ],
+      "r14_only": [],
+      "r3_only": [
+        102,
+        483
+      ],
+      "not_expressible_to_r3": [],
+      "inexpressible_values": [],
+      "r3_shapes": [
+        "bare_constant",
+        "ctor_kwarg_sentinel",
+        "dict_get_default"
+      ]
+    },
+    {
+      "subject": "control-arena",
+      "module": "settings/data_poisoning/scorers.py",
+      "declared_sentinels": [
+        "None"
+      ],
+      "declared_enum_members": [],
+      "r14_deferred_lines": [
+        122,
+        211
+      ],
+      "r3_flagged_lines": [
+        122,
+        211
+      ],
+      "both": [
+        122,
+        211
+      ],
+      "r14_only": [],
+      "r3_only": [],
+      "not_expressible_to_r3": [],
+      "inexpressible_values": [],
+      "r3_shapes": [
+        "bare_constant"
+      ]
+    },
+    {
+      "subject": "control-arena",
+      "module": "settings/vllm/main_tasks/task_generation.py",
+      "declared_sentinels": [
+        "None"
+      ],
+      "declared_enum_members": [],
+      "r14_deferred_lines": [
+        245
+      ],
+      "r3_flagged_lines": [
+        245,
+        361,
+        429
+      ],
+      "both": [
+        245
+      ],
+      "r14_only": [],
+      "r3_only": [
+        361,
+        429
+      ],
+      "not_expressible_to_r3": [],
+      "inexpressible_values": [],
+      "r3_shapes": [
+        "bare_constant",
+        "ctor_kwarg_sentinel"
+      ]
+    },
+    {
+      "subject": "crewai",
+      "module": "skills/registry.py",
+      "declared_sentinels": [
+        "True"
+      ],
+      "declared_enum_members": [],
+      "r14_deferred_lines": [
+        218
+      ],
+      "r3_flagged_lines": [
+        179,
+        218,
+        365
+      ],
+      "both": [
+        218
+      ],
+      "r14_only": [],
+      "r3_only": [
+        179,
+        365
+      ],
+      "not_expressible_to_r3": [],
+      "inexpressible_values": [],
+      "r3_shapes": [
+        "bare_constant",
+        "ctor_kwarg_sentinel"
+      ]
+    },
+    {
+      "subject": "garak",
+      "module": "_plugins.py",
+      "declared_sentinels": [],
+      "declared_enum_members": [],
+      "r14_deferred_lines": [
+        72
+      ],
+      "r3_flagged_lines": [],
+      "both": [],
+      "r14_only": [],
+      "r3_only": [],
+      "not_expressible_to_r3": [
+        72
+      ],
+      "inexpressible_values": [
+        "empty dict"
+      ],
+      "r3_shapes": []
+    },
+    {
+      "subject": "garak",
+      "module": "analyze/calibration.py",
+      "declared_sentinels": [
+        "None"
+      ],
+      "declared_enum_members": [],
+      "r14_deferred_lines": [
+        89
+      ],
+      "r3_flagged_lines": [
+        37,
+        53,
+        63
+      ],
+      "both": [],
+      "r14_only": [
+        89
+      ],
+      "r3_only": [
+        37,
+        53,
+        63
+      ],
+      "not_expressible_to_r3": [],
+      "inexpressible_values": [],
+      "r3_shapes": [
+        "bare_constant"
+      ]
+    },
+    {
+      "subject": "garak",
+      "module": "detectors/agent_breaker.py",
+      "declared_sentinels": [
+        "0.0"
+      ],
+      "declared_enum_members": [],
+      "r14_deferred_lines": [
+        275
+      ],
+      "r3_flagged_lines": [
+        136,
+        275
+      ],
+      "both": [
+        275
+      ],
+      "r14_only": [],
+      "r3_only": [
+        136
+      ],
+      "not_expressible_to_r3": [],
+      "inexpressible_values": [],
+      "r3_shapes": [
+        "bare_constant",
+        "dict_get_default"
+      ]
+    },
+    {
+      "subject": "garak",
+      "module": "detectors/encoding.py",
+      "declared_sentinels": [],
+      "declared_enum_members": [],
+      "r14_deferred_lines": [
+        27,
+        49
+      ],
+      "r3_flagged_lines": [],
+      "both": [],
+      "r14_only": [],
+      "r3_only": [],
+      "not_expressible_to_r3": [
+        27,
+        49
+      ],
+      "inexpressible_values": [
+        "empty container"
+      ],
+      "r3_shapes": []
+    },
+    {
+      "subject": "garak",
+      "module": "detectors/packagehallucination.py",
+      "declared_sentinels": [],
+      "declared_enum_members": [],
+      "r14_deferred_lines": [
+        113
+      ],
+      "r3_flagged_lines": [],
+      "both": [],
+      "r14_only": [],
+      "r3_only": [],
+      "not_expressible_to_r3": [
+        113
+      ],
+      "inexpressible_values": [
+        "empty container"
+      ],
+      "r3_shapes": []
+    },
+    {
+      "subject": "garak",
+      "module": "probes/goat.py",
+      "declared_sentinels": [
+        "None"
+      ],
+      "declared_enum_members": [],
+      "r14_deferred_lines": [
+        763
+      ],
+      "r3_flagged_lines": [
+        763
+      ],
+      "both": [
+        763
+      ],
+      "r14_only": [],
+      "r3_only": [],
+      "not_expressible_to_r3": [],
+      "inexpressible_values": [],
+      "r3_shapes": [
+        "bare_constant"
+      ]
+    },
+    {
+      "subject": "giskard",
+      "module": "scan/integrations/garak/_adapter.py",
+      "declared_sentinels": [
+        "None"
+      ],
+      "declared_enum_members": [],
+      "r14_deferred_lines": [
+        277,
+        281
+      ],
+      "r3_flagged_lines": [
+        277,
+        281,
+        361,
+        366,
+        368,
+        371
+      ],
+      "both": [
+        277,
+        281
+      ],
+      "r14_only": [],
+      "r3_only": [
+        361,
+        366,
+        368,
+        371
+      ],
+      "not_expressible_to_r3": [],
+      "inexpressible_values": [],
+      "r3_shapes": [
+        "bare_constant",
+        "tuple_first_constant"
+      ]
+    },
+    {
+      "subject": "guardrails",
+      "module": "utils/parsing_utils.py",
+      "declared_sentinels": [
+        "True"
+      ],
+      "declared_enum_members": [],
+      "r14_deferred_lines": [
+        137
+      ],
+      "r3_flagged_lines": [
+        137
+      ],
+      "both": [
+        137
+      ],
+      "r14_only": [],
+      "r3_only": [],
+      "not_expressible_to_r3": [],
+      "inexpressible_values": [],
+      "r3_shapes": [
+        "bare_constant"
+      ]
+    },
+    {
+      "subject": "inspect_ai",
+      "module": "_control/cancel.py",
+      "declared_sentinels": [
+        "True"
+      ],
+      "declared_enum_members": [],
+      "r14_deferred_lines": [
+        237,
+        253
+      ],
+      "r3_flagged_lines": [],
+      "both": [],
+      "r14_only": [
+        237,
+        253
+      ],
+      "r3_only": [],
+      "not_expressible_to_r3": [],
+      "inexpressible_values": [],
+      "r3_shapes": []
+    },
+    {
+      "subject": "inspect_ai",
+      "module": "agent/_acp/tui/state.py",
+      "declared_sentinels": [
+        "None"
+      ],
+      "declared_enum_members": [],
+      "r14_deferred_lines": [
+        686
+      ],
+      "r3_flagged_lines": [
+        459,
+        667,
+        686,
+        740,
+        1289,
+        1755,
+        1978,
+        2352,
+        2964
+      ],
+      "both": [
+        686
+      ],
+      "r14_only": [],
+      "r3_only": [
+        459,
+        667,
+        740,
+        1289,
+        1755,
+        1978,
+        2352,
+        2964
+      ],
+      "not_expressible_to_r3": [],
+      "inexpressible_values": [],
+      "r3_shapes": [
+        "bare_constant",
+        "ctor_kwarg_sentinel",
+        "tuple_first_constant"
+      ]
+    },
+    {
+      "subject": "inspect_ai",
+      "module": "agent/_acp/tui/widgets/tool_call.py",
+      "declared_sentinels": [
+        "False"
+      ],
+      "declared_enum_members": [],
+      "r14_deferred_lines": [
+        853
+      ],
+      "r3_flagged_lines": [
+        590,
+        595,
+        794,
+        800,
+        813,
+        821,
+        824,
+        826,
+        853
+      ],
+      "both": [
+        853
+      ],
+      "r14_only": [],
+      "r3_only": [
+        590,
+        595,
+        794,
+        800,
+        813,
+        821,
+        824,
+        826
+      ],
+      "not_expressible_to_r3": [],
+      "inexpressible_values": [],
+      "r3_shapes": [
+        "bare_constant",
+        "ctor_kwarg_sentinel"
+      ]
+    },
+    {
+      "subject": "llama-firewall",
+      "module": "scanners/experimental/piicheck_scanner.py",
+      "declared_sentinels": [
+        "0.0"
+      ],
+      "declared_enum_members": [],
+      "r14_deferred_lines": [
+        90
+      ],
+      "r3_flagged_lines": [],
+      "both": [],
+      "r14_only": [
+        90
+      ],
+      "r3_only": [],
+      "not_expressible_to_r3": [],
+      "inexpressible_values": [],
+      "r3_shapes": []
+    },
+    {
+      "subject": "mypy",
+      "module": "errors.py",
+      "declared_sentinels": [
+        "True"
+      ],
+      "declared_enum_members": [],
+      "r14_deferred_lines": [
+        788,
+        791,
+        793,
+        866,
+        871,
+        1086
+      ],
+      "r3_flagged_lines": [
+        837,
+        859,
+        1007
+      ],
+      "both": [],
+      "r14_only": [
+        788,
+        791,
+        793,
+        866,
+        871,
+        1086
+      ],
+      "r3_only": [
+        837,
+        859,
+        1007
+      ],
+      "not_expressible_to_r3": [],
+      "inexpressible_values": [
+        "check skipped for a listed subject",
+        "rebound to a filtered subset of itself"
+      ],
+      "r3_shapes": [
+        "bare_constant",
+        "ctor_kwarg_sentinel"
+      ]
+    },
+    {
+      "subject": "mypy",
+      "module": "server/update.py",
+      "declared_sentinels": [
+        "None"
+      ],
+      "declared_enum_members": [],
+      "r14_deferred_lines": [
+        263
+      ],
+      "r3_flagged_lines": [
+        1266
+      ],
+      "both": [],
+      "r14_only": [
+        263
+      ],
+      "r3_only": [
+        1266
+      ],
+      "not_expressible_to_r3": [],
+      "inexpressible_values": [],
+      "r3_shapes": [
+        "bare_constant"
+      ]
+    },
+    {
+      "subject": "mypy",
+      "module": "stubtest.py",
+      "declared_sentinels": [
+        "True"
+      ],
+      "declared_enum_members": [],
+      "r14_deferred_lines": [
+        2510,
+        2515
+      ],
+      "r3_flagged_lines": [
+        161,
+        196,
+        197,
+        202,
+        204,
+        206,
+        208,
+        749,
+        804,
+        1025,
+        1140,
+        1601,
+        1631,
+        1734,
+        2156,
+        2443,
+        2452,
+        2474,
+        2478,
+        2490,
+        2546,
+        2555
+      ],
+      "both": [],
+      "r14_only": [
+        2510,
+        2515
+      ],
+      "r3_only": [
+        161,
+        196,
+        197,
+        202,
+        204,
+        206,
+        208,
+        749,
+        804,
+        1025,
+        1140,
+        1601,
+        1631,
+        1734,
+        2156,
+        2443,
+        2452,
+        2474,
+        2478,
+        2490,
+        2546,
+        2555
+      ],
+      "not_expressible_to_r3": [],
+      "inexpressible_values": [
+        "check skipped for a listed subject"
+      ],
+      "r3_shapes": [
+        "ctor_kwarg_sentinel"
+      ]
+    },
+    {
+      "subject": "nemo-guardrails",
+      "module": "_compat/langchain_kwargs.py",
+      "declared_sentinels": [
+        "None"
+      ],
+      "declared_enum_members": [],
+      "r14_deferred_lines": [
+        65
+      ],
+      "r3_flagged_lines": [
+        65
+      ],
+      "both": [
+        65
+      ],
+      "r14_only": [],
+      "r3_only": [],
+      "not_expressible_to_r3": [],
+      "inexpressible_values": [],
+      "r3_shapes": [
+        "bare_constant"
+      ]
+    },
+    {
+      "subject": "nemo-guardrails",
+      "module": "library/content_safety/actions.py",
+      "declared_sentinels": [
+        "None"
+      ],
+      "declared_enum_members": [],
+      "r14_deferred_lines": [
+        248,
+        251
+      ],
+      "r3_flagged_lines": [
+        56,
+        66,
+        147,
+        157,
+        248,
+        251
+      ],
+      "both": [
+        248,
+        251
+      ],
+      "r14_only": [],
+      "r3_only": [
+        56,
+        66,
+        147,
+        157
+      ],
+      "not_expressible_to_r3": [],
+      "inexpressible_values": [],
+      "r3_shapes": [
+        "bare_constant",
+        "dict_get_default"
+      ]
+    },
+    {
+      "subject": "nemo-guardrails",
+      "module": "library/jailbreak_detection/actions.py",
+      "declared_sentinels": [
+        "False"
+      ],
+      "declared_enum_members": [],
+      "r14_deferred_lines": [
+        155,
+        161
+      ],
+      "r3_flagged_lines": [
+        155,
+        161,
+        180
+      ],
+      "both": [
+        155,
+        161
+      ],
+      "r14_only": [],
+      "r3_only": [
+        180
+      ],
+      "not_expressible_to_r3": [],
+      "inexpressible_values": [],
+      "r3_shapes": [
+        "bare_constant"
+      ]
+    },
+    {
+      "subject": "nemo-guardrails",
+      "module": "library/jailbreak_detection/request.py",
+      "declared_sentinels": [
+        "None"
+      ],
+      "declared_enum_members": [],
+      "r14_deferred_lines": [
+        73,
+        98,
+        138,
+        151,
+        154,
+        157
+      ],
+      "r3_flagged_lines": [
+        82,
+        107,
+        147,
+        151,
+        154,
+        157
+      ],
+      "both": [
+        151,
+        154,
+        157
+      ],
+      "r14_only": [
+        73,
+        98,
+        138
+      ],
+      "r3_only": [
+        82,
+        107,
+        147
+      ],
+      "not_expressible_to_r3": [],
+      "inexpressible_values": [],
+      "r3_shapes": [
+        "bare_constant"
+      ]
+    },
+    {
+      "subject": "nemo-guardrails",
+      "module": "telemetry.py",
+      "declared_sentinels": [],
+      "declared_enum_members": [],
+      "r14_deferred_lines": [
+        527
+      ],
+      "r3_flagged_lines": [],
+      "both": [],
+      "r14_only": [],
+      "r3_only": [],
+      "not_expressible_to_r3": [
+        527
+      ],
+      "inexpressible_values": [
+        "empty container"
+      ],
+      "r3_shapes": []
+    },
+    {
+      "subject": "openai-agents",
+      "module": "agent_tool_state.py",
+      "declared_sentinels": [],
+      "declared_enum_members": [],
+      "r14_deferred_lines": [
+        275
+      ],
+      "r3_flagged_lines": [],
+      "both": [],
+      "r14_only": [
+        275
+      ],
+      "r3_only": [],
+      "not_expressible_to_r3": [],
+      "inexpressible_values": [
+        "pop() removes a detection"
+      ],
+      "r3_shapes": []
+    },
+    {
+      "subject": "openai-agents",
+      "module": "mcp/manager.py",
+      "declared_sentinels": [],
+      "declared_enum_members": [],
+      "r14_deferred_lines": [
+        405
+      ],
+      "r3_flagged_lines": [],
+      "both": [],
+      "r14_only": [
+        405
+      ],
+      "r3_only": [],
+      "not_expressible_to_r3": [],
+      "inexpressible_values": [
+        "pop() removes a detection"
+      ],
+      "r3_shapes": []
+    },
+    {
+      "subject": "openai-agents",
+      "module": "mcp/server.py",
+      "declared_sentinels": [],
+      "declared_enum_members": [],
+      "r14_deferred_lines": [
+        1204,
+        1205,
+        1360,
+        1361,
+        1362,
+        1765,
+        2515,
+        2516,
+        2517
+      ],
+      "r3_flagged_lines": [],
+      "both": [],
+      "r14_only": [
+        1204,
+        1205,
+        1360,
+        1361,
+        1362,
+        1765,
+        2515,
+        2516,
+        2517
+      ],
+      "r3_only": [],
+      "not_expressible_to_r3": [],
+      "inexpressible_values": [
+        "clear() removes a detection",
+        "del removes a detection"
+      ],
+      "r3_shapes": []
+    },
+    {
+      "subject": "openai-agents",
+      "module": "run_context.py",
+      "declared_sentinels": [
+        "None"
+      ],
+      "declared_enum_members": [],
+      "r14_deferred_lines": [
+        881
+      ],
+      "r3_flagged_lines": [
+        136,
+        274,
+        282,
+        321,
+        327,
+        332,
+        369,
+        630,
+        674,
+        729,
+        752,
+        757,
+        772,
+        905,
+        1009,
+        1087,
+        1092,
+        1205,
+        1218,
+        1228
+      ],
+      "both": [],
+      "r14_only": [
+        881
+      ],
+      "r3_only": [
+        136,
+        274,
+        282,
+        321,
+        327,
+        332,
+        369,
+        630,
+        674,
+        729,
+        752,
+        757,
+        772,
+        905,
+        1009,
+        1087,
+        1092,
+        1205,
+        1218,
+        1228
+      ],
+      "not_expressible_to_r3": [],
+      "inexpressible_values": [],
+      "r3_shapes": [
+        "bare_constant",
+        "tuple_first_constant"
+      ]
+    },
+    {
+      "subject": "openai-agents",
+      "module": "run_internal/tool_execution.py",
+      "declared_sentinels": [],
+      "declared_enum_members": [],
+      "r14_deferred_lines": [
+        347
+      ],
+      "r3_flagged_lines": [],
+      "both": [],
+      "r14_only": [
+        347
+      ],
+      "r3_only": [],
+      "not_expressible_to_r3": [],
+      "inexpressible_values": [
+        "check skipped for a listed subject"
+      ],
+      "r3_shapes": []
+    },
+    {
+      "subject": "openai-agents",
+      "module": "run_state.py",
+      "declared_sentinels": [],
+      "declared_enum_members": [],
+      "r14_deferred_lines": [
+        2258,
+        3359
+      ],
+      "r3_flagged_lines": [],
+      "both": [],
+      "r14_only": [
+        2258,
+        3359
+      ],
+      "r3_only": [],
+      "not_expressible_to_r3": [],
+      "inexpressible_values": [
+        "check skipped for a listed subject",
+        "clear() removes a detection"
+      ],
+      "r3_shapes": []
+    },
+    {
+      "subject": "openai-agents",
+      "module": "tracing/processors.py",
+      "declared_sentinels": [],
+      "declared_enum_members": [],
+      "r14_deferred_lines": [
+        307
+      ],
+      "r3_flagged_lines": [],
+      "both": [],
+      "r14_only": [
+        307
+      ],
+      "r3_only": [],
+      "not_expressible_to_r3": [],
+      "inexpressible_values": [
+        "pop() removes a detection"
+      ],
+      "r3_shapes": []
+    },
+    {
+      "subject": "petri",
+      "module": "target/_context.py",
+      "declared_sentinels": [
+        "None"
+      ],
+      "declared_enum_members": [],
+      "r14_deferred_lines": [
+        388
+      ],
+      "r3_flagged_lines": [
+        388
+      ],
+      "both": [
+        388
+      ],
+      "r14_only": [],
+      "r3_only": [],
+      "not_expressible_to_r3": [],
+      "inexpressible_values": [],
+      "r3_shapes": [
+        "bare_constant"
+      ]
+    },
+    {
+      "subject": "pylint",
+      "module": "checkers/typecheck.py",
+      "declared_sentinels": [],
+      "declared_enum_members": [],
+      "r14_deferred_lines": [
+        1209
+      ],
+      "r3_flagged_lines": [],
+      "both": [],
+      "r14_only": [
+        1209
+      ],
+      "r3_only": [],
+      "not_expressible_to_r3": [],
+      "inexpressible_values": [
+        "check skipped for a listed subject"
+      ],
+      "r3_shapes": []
+    },
+    {
+      "subject": "semgrep",
+      "module": "app/version.py",
+      "declared_sentinels": [
+        "None"
+      ],
+      "declared_enum_members": [],
+      "r14_deferred_lines": [
+        264
+      ],
+      "r3_flagged_lines": [
+        100,
+        111,
+        136,
+        147,
+        165,
+        179,
+        184,
+        264
+      ],
+      "both": [
+        264
+      ],
+      "r14_only": [],
+      "r3_only": [
+        100,
+        111,
+        136,
+        147,
+        165,
+        179,
+        184
+      ],
+      "not_expressible_to_r3": [],
+      "inexpressible_values": [],
+      "r3_shapes": [
+        "bare_constant"
+      ]
+    },
+    {
+      "subject": "semgrep",
+      "module": "commands/ci.py",
+      "declared_sentinels": [
+        "0"
+      ],
+      "declared_enum_members": [],
+      "r14_deferred_lines": [
+        1099,
+        1237,
+        1238
+      ],
+      "r3_flagged_lines": [
+        190,
+        548
+      ],
+      "both": [],
+      "r14_only": [
+        1099,
+        1237,
+        1238
+      ],
+      "r3_only": [
+        190,
+        548
+      ],
+      "not_expressible_to_r3": [],
+      "inexpressible_values": [
+        "rebound to a filtered subset of itself"
+      ],
+      "r3_shapes": [
+        "ctor_kwarg_sentinel"
+      ]
+    },
+    {
+      "subject": "trulens",
+      "module": "core/otel/instrument.py",
+      "declared_sentinels": [
+        "True"
+      ],
+      "declared_enum_members": [],
+      "r14_deferred_lines": [
+        409
+      ],
+      "r3_flagged_lines": [
+        365,
+        409,
+        620,
+        770,
+        775,
+        780,
+        786,
+        792,
+        793,
+        796,
+        799,
+        803,
+        824,
+        866
+      ],
+      "both": [
+        409
+      ],
+      "r14_only": [],
+      "r3_only": [
+        365,
+        620,
+        770,
+        775,
+        780,
+        786,
+        792,
+        793,
+        796,
+        799,
+        803,
+        824,
+        866
+      ],
+      "not_expressible_to_r3": [],
+      "inexpressible_values": [],
+      "r3_shapes": [
+        "bare_constant",
+        "ctor_kwarg_sentinel",
+        "dict_get_default"
+      ]
+    }
+  ]
+}

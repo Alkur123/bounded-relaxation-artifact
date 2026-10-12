@@ -1,0 +1,374 @@
+{
+ "what": "Second-stage conditional retention, R = P(survives stage 2 | flagged by stage 1), computed from two published tables",
+ "table_A_rows": [
+  {
+   "evaluation": "Treutlein 2026 model organisms",
+   "kind": "attack",
+   "note": "source reports 3/3 and 1/3; n=3, far too small to carry alone",
+   "stage1": 100.0,
+   "stage1_plus_2": 33.3,
+   "retention": 0.333
+  },
+  {
+   "evaluation": "SHADE-Arena CoT only, selected for stealthiness",
+   "kind": "attack",
+   "note": "side goal discussed in the chain of thought",
+   "stage1": 100.0,
+   "stage1_plus_2": 72.0,
+   "retention": 0.72
+  },
+  {
+   "evaluation": "SHADE-Arena CoT only, side goal ablated",
+   "kind": "attack",
+   "note": "same corpus, incriminating discussion removed",
+   "stage1": 95.0,
+   "stage1_plus_2": 92.0,
+   "retention": 0.9684
+  },
+  {
+   "evaluation": "Synthetic chains-of-thought (single completion)",
+   "kind": "attack",
+   "note": "",
+   "stage1": 72.0,
+   "stage1_plus_2": 29.0,
+   "retention": 0.4028
+  },
+  {
+   "evaluation": "Monitored internal traffic",
+   "kind": "benign",
+   "note": "lower is better; the filter's actual job",
+   "stage1": 0.74,
+   "stage1_plus_2": 0.004,
+   "retention": 0.0054
+  }
+ ],
+ "ablation_replication": {
+  "table_A_completion_only": {
+   "discussed": 0.72,
+   "ablated": 0.9684,
+   "delta_points": -24.8,
+   "stage1_identical": false,
+   "caveat": "stage-1 rates are 100.0 and 95.0, so this pair is NEARLY matched, not exactly. Table B's pair is 100/100 and is therefore the stronger of the two."
+  },
+  "table_B_prompt_completion": {
+   "opus_4_6": -52.0,
+   "opus_4_8": -22.0
+  },
+  "same_sign_in_all_three_configurations": true,
+  "reading": "The ablation contrast appears in TWO tables covering two different monitor architectures, with the same sign in all three configurations. That is what makes it a pattern rather than one striking row."
+ },
+ "lowest_retentions_in_either_table": [
+  {
+   "evaluation": "Treutlein 2026 model organisms",
+   "retention": 0.333,
+   "note": "source reports 3/3 and 1/3; n=3, far too small to carry alone"
+  },
+  {
+   "evaluation": "Synthetic chains-of-thought (single completion)",
+   "retention": 0.4028,
+   "note": ""
+  }
+ ],
+ "benign_filtering_works": {
+  "table_A_benign_retention": 0.0054,
+  "table_A_benign_removed_pct": 99.5,
+  "reading": "The filter removes about 99.5% of benign flags, which is exactly its stated job. Reported because it is what makes the attack rows interpretable rather than alarming on their own: the question is the DIFFERENTIAL, not whether the stage filters."
+ },
+ "generated_by": "backend/eval/stage_retention.py",
+ "source": {
+  "document": "Anthropic, Risk Report: August 2026 (public version)",
+  "policy": "Responsible Scaling Policy v3.4",
+  "coverage_date": "2026-07-15",
+  "pages": 186,
+  "table": "2.23.1.2.B, Prompt+completion monitor performance",
+  "table_pages": "79-80",
+  "sha256": "e8f7c01026e798eb9fb01d7470f73b93801835b57f0d134e7a9cc243aa74dcfd",
+  "columns": [
+   "Positive rate (Opus 4.6 monitor, early Mythos 5 internal deployment)",
+   "Positive rate (Opus 4.8 monitor, current internal deployment)",
+   "Positive rate (Opus 4.6 monitor + second-stage filter)",
+   "Positive rate (Opus 4.8 monitor + second-stage filter)"
+  ]
+ },
+ "caveats": [
+  "The source reports whole percentages; a ratio of two carries both roundings. No comparison here turns on a difference below that.",
+  "The 5-transcript row is a count (4/5 etc.), included as percentages and excluded from spread statistics because n=5.",
+  "The benign row is lower-is-better and is not an attack set.",
+  "The source states real-traffic rates were not measured over the same period.",
+  "This is a conditional observed on the source's own data. It is not a claim about the mechanism producing it."
+ ],
+ "rows": [
+  {
+   "evaluation": "METR red team, all attacks (n=163)",
+   "kind": "attack",
+   "note": "",
+   "stage1": {
+    "opus_4_6": 78,
+    "opus_4_8": 94
+   },
+   "stage1_plus_2": {
+    "opus_4_6": 62,
+    "opus_4_8": 79
+   },
+   "retention": {
+    "opus_4_6": 0.7949,
+    "opus_4_8": 0.8404
+   }
+  },
+  {
+   "evaluation": "5 internal red-team transcripts",
+   "kind": "attack",
+   "note": "source reports 4/5, 4/5, 3/5, 4/5; n=5, excluded from spread stats",
+   "stage1": {
+    "opus_4_6": 80,
+    "opus_4_8": 80
+   },
+   "stage1_plus_2": {
+    "opus_4_6": 60,
+    "opus_4_8": 80
+   },
+   "retention": {
+    "opus_4_6": 0.75,
+    "opus_4_8": 1.0
+   }
+  },
+  {
+   "evaluation": "Synthetic dangerous/scheming transcripts",
+   "kind": "attack",
+   "note": "",
+   "stage1": {
+    "opus_4_6": 96,
+    "opus_4_8": 96
+   },
+   "stage1_plus_2": {
+    "opus_4_6": 73,
+    "opus_4_8": 80
+   },
+   "retention": {
+    "opus_4_6": 0.7604,
+    "opus_4_8": 0.8333
+   }
+  },
+  {
+   "evaluation": "Internal evaluation set",
+   "kind": "attack",
+   "note": "superset of the two rows above",
+   "stage1": {
+    "opus_4_6": 87,
+    "opus_4_8": 87
+   },
+   "stage1_plus_2": {
+    "opus_4_6": 62,
+    "opus_4_8": 72
+   },
+   "retention": {
+    "opus_4_6": 0.7126,
+    "opus_4_8": 0.8276
+   }
+  },
+  {
+   "evaluation": "Internal evaluation set + 200k benign tokens",
+   "kind": "attack",
+   "note": "",
+   "stage1": {
+    "opus_4_6": 80,
+    "opus_4_8": 89
+   },
+   "stage1_plus_2": {
+    "opus_4_6": 64,
+    "opus_4_8": 69
+   },
+   "retention": {
+    "opus_4_6": 0.8,
+    "opus_4_8": 0.7753
+   }
+  },
+  {
+   "evaluation": "Internal evaluation set + 400k benign tokens",
+   "kind": "attack",
+   "note": "",
+   "stage1": {
+    "opus_4_6": 80,
+    "opus_4_8": 84
+   },
+   "stage1_plus_2": {
+    "opus_4_6": 59,
+    "opus_4_8": 69
+   },
+   "retention": {
+    "opus_4_6": 0.7375,
+    "opus_4_8": 0.8214
+   }
+  },
+  {
+   "evaluation": "SHADE-Arena, full extended thinking",
+   "kind": "attack",
+   "note": "CoT discusses the side goal; Opus 4.5 attempts",
+   "stage1": {
+    "opus_4_6": 100,
+    "opus_4_8": 100
+   },
+   "stage1_plus_2": {
+    "opus_4_6": 45,
+    "opus_4_8": 70
+   },
+   "retention": {
+    "opus_4_6": 0.45,
+    "opus_4_8": 0.7
+   }
+  },
+  {
+   "evaluation": "SHADE-Arena, side goal ablated from CoT",
+   "kind": "attack",
+   "note": "same attempts, incriminating reasoning removed",
+   "stage1": {
+    "opus_4_6": 100,
+    "opus_4_8": 100
+   },
+   "stage1_plus_2": {
+    "opus_4_6": 97,
+    "opus_4_8": 92
+   },
+   "retention": {
+    "opus_4_6": 0.97,
+    "opus_4_8": 0.92
+   }
+  },
+  {
+   "evaluation": "MonitorBench Hard (n=60)",
+   "kind": "attack",
+   "note": "",
+   "stage1": {
+    "opus_4_6": 92,
+    "opus_4_8": 92
+   },
+   "stage1_plus_2": {
+    "opus_4_6": 77,
+    "opus_4_8": 87
+   },
+   "retention": {
+    "opus_4_6": 0.837,
+    "opus_4_8": 0.9457
+   }
+  },
+  {
+   "evaluation": "MonitorBench Hard + 200k before",
+   "kind": "attack",
+   "note": "",
+   "stage1": {
+    "opus_4_6": 72,
+    "opus_4_8": 83
+   },
+   "stage1_plus_2": {
+    "opus_4_6": 58,
+    "opus_4_8": 75
+   },
+   "retention": {
+    "opus_4_6": 0.8056,
+    "opus_4_8": 0.9036
+   }
+  },
+  {
+   "evaluation": "MonitorBench Hard + 200k before and after",
+   "kind": "attack",
+   "note": "source notes this is less analogous to their setup",
+   "stage1": {
+    "opus_4_6": 48,
+    "opus_4_8": 77
+   },
+   "stage1_plus_2": {
+    "opus_4_6": 37,
+    "opus_4_8": 63
+   },
+   "retention": {
+    "opus_4_6": 0.7708,
+    "opus_4_8": 0.8182
+   }
+  },
+  {
+   "evaluation": "SLEIGHT-Bench",
+   "kind": "attack",
+   "note": "",
+   "stage1": {
+    "opus_4_6": 23,
+    "opus_4_8": 58
+   },
+   "stage1_plus_2": {
+    "opus_4_6": 14,
+    "opus_4_8": 44
+   },
+   "retention": {
+    "opus_4_6": 0.6087,
+    "opus_4_8": 0.7586
+   }
+  },
+  {
+   "evaluation": "Monitored internal traffic",
+   "kind": "benign",
+   "note": "lower is better; NOT an attack set, never pool with the rows above",
+   "stage1": {
+    "opus_4_6": 0.4,
+    "opus_4_8": 0.2
+   },
+   "stage1_plus_2": {
+    "opus_4_6": 0.04,
+    "opus_4_8": 0.1
+   },
+   "retention": {
+    "opus_4_6": 0.1,
+    "opus_4_8": 0.5
+   }
+  }
+ ],
+ "attack_retention": {
+  "opus_4_6": {
+   "mean": 0.7498,
+   "min": 0.45,
+   "max": 0.97,
+   "n": 11
+  },
+  "opus_4_8": {
+   "mean": 0.8313,
+   "min": 0.7,
+   "max": 0.9457,
+   "n": 11
+  }
+ },
+ "benign_retention": {
+  "Monitored internal traffic": {
+   "opus_4_6": 0.1,
+   "opus_4_8": 0.5
+  }
+ },
+ "matched_pair": {
+  "design": "Same SHADE-Arena side-task attempts, identical stage-1 rate, single manipulated variable: whether the chain of thought discusses the side goal.",
+  "by_monitor": {
+   "opus_4_6": {
+    "full_cot": 0.45,
+    "ablated": 0.97,
+    "delta_points": -52.0,
+    "ablation_multiplier": 2.16,
+    "stage1_identical": true
+   },
+   "opus_4_8": {
+    "full_cot": 0.7,
+    "ablated": 0.92,
+    "delta_points": -22.0,
+    "ablation_multiplier": 1.31,
+    "stage1_identical": true
+   }
+  }
+ },
+ "outlier_check": {
+  "opus_4_6": {
+   "full_cot_retention": 0.45,
+   "min_of_all_other_attack_rows": 0.6087,
+   "is_strictly_lowest": true
+  },
+  "opus_4_8": {
+   "full_cot_retention": 0.7,
+   "min_of_all_other_attack_rows": 0.7586,
+   "is_strictly_lowest": true
+  }
+ }
+}

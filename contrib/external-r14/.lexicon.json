@@ -1,0 +1,1 @@
+{"hard_block_declaration": "(?<![A-Za-z0-9])(?:hard_?block\\w*|never_?allow\\w*|always_?block\\w*|unreleasable|prohibited|forbidden|non_?overridable|non_?negotiable|critical_?categor\\w*|blocklist_?always)(?![A-Za-z0-9])", "category_token": "^[A-Za-z][A-Za-z0-9 _.:/-]*$"}
