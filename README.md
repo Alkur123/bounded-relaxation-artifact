@@ -57,6 +57,10 @@ finish. Every change to the plan is recorded, dated, in
 the calls it governs. No subject is imported or executed
 except the functions the reachability harnesses name.
 
+## Operating conditions
+
+How this audit was run, judged against the AI Evaluator Forum's AEF-1 standard for independent evaluations, is in [AEF1_CHECKLIST.md](AEF1_CHECKLIST.md). It does not meet every requirement. In particular, a single evaluator cannot recuse themselves, and the checklist says so. The author's competing interest and disclosure practice are in [CONFLICTS_AND_DISCLOSURE_POLICY.md](CONFLICTS_AND_DISCLOSURE_POLICY.md).
+
 ## Licence
 
 MIT. The subjects are third-party code and are not redistributed here; the
