@@ -1,8 +1,19 @@
 # Bounded Relaxation: replication package
 
 Artifact for *Bounded Relaxation: Certifying That a False-Positive Filter
-Consults the Evidence It Overrides* (A Jaswanth, 2026; manuscript in
-preparation for *Automated Software Engineering*).
+Consults the Evidence It Overrides* (Jaswanth Alkur, 2026; manuscript).
+
+**In plain terms.** Safety tools for AI systems often contain a stage that
+quietly weakens a safety decision: an allowlist, an override table, a
+suppression rule. This audit scanned 39 open-source AI-safety tools (28 Python,
+11 TypeScript; 18,767 files), including UK AISI ControlArena and Inspect AI,
+NVIDIA NeMo Guardrails, Microsoft PyRIT, Meta LlamaFirewall and the OpenAI
+Agents SDK, for such stages, and checked whether each one looks at how strong
+the evidence it overrides is and records what it did. Five findings were
+upheld, each with an executable reproduction, and each was reported privately
+through the project's own channel (NVIDIA through PSIRT). retire.js shipped a
+fix in 5.6.0. The rubric and every pre-registration were committed before the
+results they govern.
 
 A **relaxation** is a stage that takes a verdict and weakens it: an allowlist,
 an override table, a suppression directive, an exemption. **R14** is a static
@@ -48,14 +59,15 @@ python summarize.py && python summarize_ts.py     # every reported count
 No API key is needed for anything except `independent_adjudicator.py`
 (OpenAI, Gemini or Groq), whose recorded outputs are included.
 
-**Status, 12 October 2026.** The second adjudication is in progress: `gpt-5`
-reached 250 of 331 sites before its credit ran out and Gemini 120 before its
-free-tier quota did (both outputs included); a complete run by
-`qwen3.8-27b` and the lexicon sensitivity results will be added when they
-finish. Every change to the plan is recorded, dated, in
+**Status, 18 November 2026.** The second adjudication is complete: `gpt-5`
+adjudicated all 331 sites and is the headline second rater; Gemini (120 sites)
+and Qwen `qwen3.8-27b` (135 sites) stopped on free-tier quotas and are reported
+as partial raters with their coverage stated. The lexicon leave-one-term-out
+sensitivity results are in `contrib/external-r14/lexicon_sensitivity.json`.
+Every change to the plan is recorded, dated, in
 `contrib/external-r14/PREREGISTRATION_independent_adjudication.md`, each before
-the calls it governs. No subject is imported or executed
-except the functions the reachability harnesses name.
+the calls it governs. No subject is imported or executed except the functions
+the reachability harnesses name.
 
 ## Operating conditions
 
