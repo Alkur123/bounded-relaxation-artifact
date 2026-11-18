@@ -10,8 +10,8 @@ suppression rule. This audit scanned 39 open-source AI-safety tools (28 Python,
 NVIDIA NeMo Guardrails, Microsoft PyRIT, Meta LlamaFirewall and the OpenAI
 Agents SDK, for such stages, and checked whether each one looks at how strong
 the evidence it overrides is and records what it did. Five findings were
-upheld, each with an executable reproduction, and each was reported privately
-through the project's own channel (NVIDIA through PSIRT). retire.js shipped a
+upheld, each with an executable reproduction, and each was reported through
+the channel the project asks for (NVIDIA through PSIRT). retire.js shipped a
 fix in 5.6.0. The rubric and every pre-registration were committed before the
 results they govern.
 
